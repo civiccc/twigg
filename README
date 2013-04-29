@@ -1,2 +1,13 @@
+Quant collects statistics for a set of git repositories. It assumes that
+all the repositories are in one directory and up-to-date.
+
+# ./bin/commit-stats
+
 A script to show how many commits each person has made in a given
 timespan and in what repositories.
+
+# The Web App
+
+The web app shows the same information as ./bin/commit-stats. To run it,
+copy config.yml.example to config.yml and set `repositories_directory`
+to the directory that contains all the repositories you want to analyze.

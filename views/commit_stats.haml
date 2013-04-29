@@ -1,0 +1,14 @@
+!!!
+%html
+  %head
+    %title Commit Stats Over Past #{@days_ago} Days
+  %body
+    %h1 Commit Stats Over Past #{@days_ago} Days
+    %p #{@commit_stats.commits.count} commits
+    %table
+      %tbody
+        - @commit_stats.people_by_most_commits.each do |person|
+          %tr
+            %td= person.commit_count
+            %td= person.name
+            %td= person.scorecard
