@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+require 'bundler'
+Bundler.require
+require File.expand_path('../../lib/quant',  __FILE__)
+
+if ARGV.count != 2
+  puts "USAGE: #{__FILE__} <repos dir> <number of days>"
+  exit(-1)
+end
+
+dir, days_ago = ARGV[0], ARGV[1].to_i
+since = Time.now - days_ago.to_i * 24 * 60 * 60
+
+commit_stats = Quant::CommitStats.new(Dir[File.join(dir, '*')], since)
+commit_stats.people_by_most_commits.each do |person|
+  puts "%4d %-24s %s" % [person.commit_count, person.name, person.scorecard]
+end
+
+puts '----'
+puts "%4d" % commit_stats.commits.count
