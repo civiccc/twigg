@@ -10,9 +10,7 @@ config = YAML.load(File.read(config_file))
 set :repositories_directory, config['repositories_directory']
 
 get '/' do
-  repositories = Dir[File.join(settings.repositories_directory, '*')]
   @days_ago = params.fetch('days_ago', 14).to_i
-  since = Time.now - @days_ago*24*60*60
-  @commit_stats = Quant::CommitStats.new(repositories, since)
+  @commit_stats = Quant::CommitStats.new(settings.repositories_directory, @days_ago)
   haml :commit_stats
 end

@@ -10,9 +10,8 @@ if ARGV.count != 2
 end
 
 dir, days_ago = ARGV[0], ARGV[1].to_i
-since = Time.now - days_ago.to_i * 24 * 60 * 60
 
-commit_stats = Quant::CommitStats.new(Dir[File.join(dir, '*')], since)
+commit_stats = Quant::CommitStats.new(dir, days_ago)
 commit_stats.people_by_most_commits.each do |person|
   puts "%4d %-24s %s" % [person.commit_count, person.name, person.scorecard]
 end

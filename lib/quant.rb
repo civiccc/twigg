@@ -46,11 +46,13 @@ module Quant
   class CommitStats
     attr_reader :commits
 
-    def initialize(repo_paths, since)
+    def initialize(repositories_directory, days_ago)
+      since = Time.now - days_ago * 24 * 60 * 60
+
       @commits = []
       @people_by_name = Hash.new{ |h, k| h[k] = Person.new(k) }
 
-      repo_paths.each do |repo_path|
+      Dir[File.join(repositories_directory, '*')].each do |repo_path|
         begin
           repo = Rugged::Repository.new(repo_path)
           walker = Rugged::Walker.new(repo)
