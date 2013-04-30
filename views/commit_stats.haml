@@ -10,5 +10,5 @@
         - @commit_stats.people_by_most_commits.each do |person|
           %tr
             %td= person.commit_count
-            %td= person.name
+            %td  <a href='#{name_to_slug(person.name)}'>#{person.name}</a>
             %td= person.scorecard

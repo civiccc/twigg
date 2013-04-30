@@ -79,5 +79,9 @@ module Quant
     def people_by_most_commits
       @people_by_name.values.sort_by(&:commit_count).reverse
     end
+
+    def get_person(name)
+      @people_by_name[name] if @people_by_name.has_key?(name)
+    end
   end
 end
