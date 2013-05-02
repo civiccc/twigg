@@ -17,18 +17,24 @@ helpers do
   def slug_to_name(slug)
     slug.tr('.', ' ')
   end
+
+  def breakdown(commit_set)
+    commit_set.count_by_repo.map do |data|
+      "#{data[:repo_name]}:#{data[:count]}"
+    end.join(', ')
+  end
 end
 
 get '/' do
   @days_ago = params.fetch('days_ago', 14).to_i
-  @commit_stats = Quant::CommitStats.new(settings.repositories_directory, @days_ago)
+  @commit_set = Quant::Gatherer.gather(settings.repositories_directory, @days_ago)
   haml :commit_stats
 end
 
 get '/:slug' do
   @days_ago = 90
-  commit_stats = Quant::CommitStats.new(settings.repositories_directory, @days_ago)
-  @person = commit_stats.get_person(slug_to_name(params[:slug]))
-  halt(404) if @person.nil?
+  master_set = Quant::Gatherer.gather(settings.repositories_directory, @days_ago)
+  @author = slug_to_name(params[:slug])
+  @commit_set = master_set.select_author(@author)
   haml :profile
 end

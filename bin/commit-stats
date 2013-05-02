@@ -11,10 +11,14 @@ end
 
 dir, days_ago = ARGV[0], ARGV[1].to_i
 
-commit_stats = Quant::CommitStats.new(dir, days_ago)
-commit_stats.people_by_most_commits.each do |person|
-  puts "%4d %-24s %s" % [person.commit_count, person.name, person.scorecard]
+master_set = Quant::Gatherer.gather(dir, days_ago)
+master_set.top_authors.each do |top_author_data|
+  author     = top_author_data[:author]
+  commit_set = top_author_data[:commit_set]
+  breakdown = commit_set.count_by_repo.
+    map{|data| "#{data[:repo_name]}:#{data[:count]}"}.join(', ')
+  puts "%4d %-24s %s" % [commit_set.count, author, breakdown]
 end
 
 puts '----'
-puts "%4d" % commit_stats.commits.count
+puts "%4d" % master_set.count

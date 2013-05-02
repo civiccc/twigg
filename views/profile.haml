@@ -1,11 +1,11 @@
 !!!
 %html
   %head
-    %title= @person.name
+    %title= @author
   %body
     %nav
       %a(href="/") Home
-    %h1= @person.name
+    %h1= @author
     %h2 Past #{@days_ago} Days
-    %p Total commits: #{@person.commit_count}
-    %p= @person.scorecard
+    %p Total commits: #{@commit_set.count}
+    %p= breakdown(@commit_set)

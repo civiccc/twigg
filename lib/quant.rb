@@ -18,70 +18,68 @@ module Quant
     end
   end
 
-  class Person
-    attr_reader :name
-
-    def initialize(name)
-      @name = name
-      @commits = []
+  class CommitSet
+    def initialize(commits = nil)
+      @commits = commits ? commits.dup : []
     end
 
-    def commit_count
-      @commits.size
+    def count
+      @commits.count
     end
 
     def add_commit(commit)
       @commits << commit
     end
 
-    def scorecard
+    def count_by_repo
       counts = Hash.new(0)
       @commits.each { |commit| counts[commit.repo_name] += 1 }
       counts.sort_by { |repo_name, count| -count }.
-        map { |repo_name, count| "#{repo_name}:#{count}" }.
-        join(', ')
+        map { |repo_name, count| { repo_name: repo_name, count: count } }
+    end
+
+    def select_author(author)
+      commits_for_author = @commits.select do |commit|
+        commit.author_names.include?(author)
+      end
+      self.class.new(commits_for_author)
+    end
+
+    def top_authors
+      author_to_commit_set = Hash.new{ |h, k| h[k] = self.class.new }
+      @commits.each do |commit|
+        commit.author_names.each do |author_name|
+          author_to_commit_set[author_name].add_commit(commit)
+        end
+      end
+
+      author_to_commit_set.
+        sort_by { |author, commit_set| -commit_set.count }.
+        map { |author, commit_set| { author: author, commit_set: commit_set } }
     end
   end
 
-  class CommitStats
-    attr_reader :commits
-
-    def initialize(repositories_directory, days_ago)
+  module Gatherer
+    def self.gather(repositories_directory, days_ago)
       since = Time.now - days_ago * 24 * 60 * 60
 
-      @commits = []
-      @people_by_name = Hash.new{ |h, k| h[k] = Person.new(k) }
-
+      commit_set = CommitSet.new
       Dir[File.join(repositories_directory, '*')].each do |repo_path|
         begin
           repo = Rugged::Repository.new(repo_path)
           walker = Rugged::Walker.new(repo)
           walker.sorting(Rugged::SORT_DATE)
           walker.push(repo.head.target)
-          walker.each do |commit|
-            break if commit.time < since.to_i
-            @commits << Commit.new(repo, commit)
+          walker.each do |rugged_commit|
+            break if rugged_commit.time < since.to_i
+            commit_set.add_commit(Commit.new(repo, rugged_commit))
           end
         rescue StandardError => e
           $stderr.puts repo_path
           $stderr.puts e.message
         end
       end
-
-      @commits.each do |commit|
-        next if commit.author_email !~ /@causes\.com$/
-        commit.author_names.each do |author_name|
-          @people_by_name[author_name].add_commit(commit)
-        end
-      end
-    end
-
-    def people_by_most_commits
-      @people_by_name.values.sort_by(&:commit_count).reverse
-    end
-
-    def get_person(name)
-      @people_by_name[name] if @people_by_name.has_key?(name)
+      commit_set
     end
   end
 end
