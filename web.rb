@@ -4,6 +4,7 @@ require File.expand_path('../lib/quant',  __FILE__)
 require 'sinatra'
 require 'haml'
 require 'yaml'
+require 'json'
 
 config_file = File.expand_path('../config.yml',  __FILE__)
 config = YAML.load(File.read(config_file))
@@ -36,5 +37,8 @@ get '/:slug' do
   master_set = Quant::Gatherer.gather(settings.repositories_directory, @days_ago)
   @author = slug_to_name(params[:slug])
   @commit_set = master_set.select_author(@author)
+  @nvd3_data = @commit_set.count_by_day(@days_ago).map do |object|
+    {x: object[:date].to_s, y: object[:count]}
+  end
   haml :profile
 end

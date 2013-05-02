@@ -16,6 +16,10 @@ module Quant
     def author_names
       @commit.author[:name].split(/\+|&|,|\band\b/).map(&:strip)
     end
+
+    def date
+      Time.at(@commit.time).to_date
+    end
   end
 
   class CommitSet
@@ -25,6 +29,15 @@ module Quant
 
     def count
       @commits.count
+    end
+
+    def count_by_day(days_ago)
+      start_date = Date.today - days_ago
+      end_date = Date.today
+      date_to_commits = @commits.group_by { |commit| commit.date }
+      (start_date..end_date).map do |date|
+        { date: date, count: date_to_commits.fetch(date, []).count }
+      end
     end
 
     def add_commit(commit)

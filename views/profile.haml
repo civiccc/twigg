@@ -2,6 +2,10 @@
 %html
   %head
     %title= @author
+    :css
+      #chart svg {
+        height: 200px;
+      }
   %body
     %nav
       %a(href="/") Home
@@ -9,3 +13,10 @@
     %h2 Past #{@days_ago} Days
     %p Total commits: #{@commit_set.count}
     %p= breakdown(@commit_set)
+    #chart
+      %svg
+    %script{ type: 'text/javascript', src: 'd3.v3.js' }
+    %script{ type: 'text/javascript', src: 'nv.d3.min.js' }
+    %script{ type: 'text/javascript', src: 'quant.js' }
+    :javascript
+      Quant.Profile.loadCommitsPerDay('#chart svg', #{@nvd3_data.to_json})
