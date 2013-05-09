@@ -1,4 +1,4 @@
-Quant collects statistics for a set of git repositories. It assumes that
+Twig collects statistics for a set of git repositories. It assumes that
 all the repositories are in one directory and up-to-date.
 
 # ./bin/commit-stats
@@ -11,3 +11,11 @@ timespan and in what repositories.
 The web app shows the same information as ./bin/commit-stats. To run it,
 copy config.yml.example to config.yml and set `repositories_directory`
 to the directory that contains all the repositories you want to analyze.
+
+# Why "Twig"
+
+According to Merriam-Webster:
+
+  twig (transitive verb)
+  1 : notice, observe
+  2 : to understand the meaning of : comprehend

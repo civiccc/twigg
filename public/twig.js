@@ -1,5 +1,5 @@
-Quant = {};
-Quant.Profile = (function() {
+Twig = {};
+Twig.Profile = (function() {
   var loadCommitsPerDay = function(selector, data) {
     var chart = nv.models.multiBarChart()
       .stacked(true)

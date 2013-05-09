@@ -1,4 +1,4 @@
-module Quant
+module Twig
   class Commit
     def initialize(repo, commit)
       @repo = repo

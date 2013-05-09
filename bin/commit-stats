@@ -2,7 +2,7 @@
 
 require 'bundler'
 Bundler.require
-require File.expand_path('../../lib/quant',  __FILE__)
+require File.expand_path('../../lib/twig',  __FILE__)
 
 if ARGV.count != 2
   puts "USAGE: #{__FILE__} <repos dir> <number of days>"
@@ -11,7 +11,7 @@ end
 
 dir, days_ago = ARGV[0], ARGV[1].to_i
 
-master_set = Quant::Gatherer.gather(dir, days_ago)
+master_set = Twig::Gatherer.gather(dir, days_ago)
 master_set.top_authors.each do |top_author_data|
   author     = top_author_data[:author]
   commit_set = top_author_data[:commit_set]

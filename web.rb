@@ -1,6 +1,6 @@
 require 'bundler'
 Bundler.require
-require File.expand_path('../lib/quant',  __FILE__)
+require File.expand_path('../lib/twig',  __FILE__)
 require 'sinatra'
 require 'haml'
 require 'yaml'
@@ -28,17 +28,17 @@ end
 
 get '/' do
   @days_ago = params.fetch('days_ago', 14).to_i
-  @commit_set = Quant::Gatherer.gather(settings.repositories_directory, @days_ago)
+  @commit_set = Twig::Gatherer.gather(settings.repositories_directory, @days_ago)
   haml :commit_stats
 end
 
 get '/:slug' do
   @days_ago = 90
-  master_set = Quant::Gatherer.gather(settings.repositories_directory, @days_ago)
+  master_set = Twig::Gatherer.gather(settings.repositories_directory, @days_ago)
   @author = slug_to_name(params[:slug])
   @commit_set = master_set.select_author(@author)
   @nvd3_data = @commit_set.count_by_day(@days_ago).map do |object|
-    {x: object[:date].to_s, y: object[:count]}
+    { x: object[:date].to_s, y: object[:count] }
   end
   haml :profile
 end
