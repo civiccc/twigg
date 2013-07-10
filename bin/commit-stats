@@ -16,9 +16,9 @@ master_set.top_authors.each do |top_author_data|
   author     = top_author_data[:author]
   commit_set = top_author_data[:commit_set]
   breakdown = commit_set.count_by_repo.
-    map{|data| "#{data[:repo_name]}:#{data[:count]}"}.join(', ')
-  puts "%4d %-24s %s" % [commit_set.count, author, breakdown]
+    map { |data| "#{data[:repo_name]}:#{data[:count]}" }.join(', ')
+  puts '%4d %-24s %s' % [commit_set.count, author, breakdown]
 end
 
 puts '----'
-puts "%4d" % master_set.count
+puts '%4d' % master_set.count
