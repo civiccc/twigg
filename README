@@ -6,6 +6,10 @@ all the repositories are in one directory and up-to-date.
 A script to show how many commits each person has made in a given
 timespan and in what repositories.
 
+Usage:
+
+    bin/commit-stats <repos dir> <number of days>
+
 # The Web App
 
 The web app shows the same information as ./bin/commit-stats. To run it,
@@ -19,3 +23,12 @@ According to Merriam-Webster:
   twig (transitive verb)
   1 : notice, observe
   2 : to understand the meaning of : comprehend
+
+# Requirements
+
+Twig requires Ruby 1.9 or above.
+
+Twig is often used with, but does not require, Rubygems. If you wish to use
+Rubygems with Twig you may need to:
+
+    export RUBYOPT=rubygems
