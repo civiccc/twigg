@@ -84,7 +84,7 @@ module Twig
           walker.sorting(Rugged::SORT_DATE)
           walker.push(repo.head.target)
           walker.each do |rugged_commit|
-            break if rugged_commit.time < since.to_i
+            break if rugged_commit.time < since
             commit_set.add_commit(Commit.new(repo, rugged_commit))
           end
         rescue StandardError => e
