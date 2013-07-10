@@ -4,7 +4,7 @@ require 'bundler'
 Bundler.require
 require File.expand_path('../../lib/twig',  __FILE__)
 
-if ARGV.count != 2
+if ARGV.count != 2 || ARGV.include?('-h') || ARGV.include?('--help')
   puts "USAGE: #{__FILE__} <repos dir> <number of days>"
   exit(-1)
 end
