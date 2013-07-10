@@ -8,7 +8,7 @@ timespan and in what repositories.
 
 Usage:
 
-    bin/commit-stats <repos dir> <number of days>
+    bin/commit-stats [--verbose|-v] repos dir> <number of days>
 
 # The Web App
 

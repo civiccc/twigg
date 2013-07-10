@@ -4,8 +4,12 @@ require 'bundler'
 Bundler.require
 require File.expand_path('../../lib/twig',  __FILE__)
 
+if ARGV.delete('-v') || ARGV.delete('--verbose')
+  verbose = true
+end
+
 if ARGV.count != 2 || ARGV.include?('-h') || ARGV.include?('--help')
-  puts "USAGE: #{__FILE__} <repos dir> <number of days>"
+  puts "USAGE: #{__FILE__} [--verbose|-v] <repos dir> <number of days>"
   exit(-1)
 end
 
@@ -18,6 +22,17 @@ master_set.top_authors.each do |top_author_data|
   breakdown = commit_set.count_by_repo.
     map { |data| "#{data[:repo_name]}:#{data[:count]}" }.join(', ')
   puts '%4d %-24s %s' % [commit_set.count, author, breakdown]
+
+  if verbose
+    puts
+    commit_set.commits.each do |commit|
+     stat = commit.stat
+     puts '    %+5d, %+5d %-40s [%s]' % [
+        stat[:additions], -stat[:deletions], commit.subject, commit.repo_name
+     ]
+    end
+    puts
+  end
 end
 
 puts '----'

@@ -20,9 +20,28 @@ module Twig
     def date
       Time.at(@commit.time).to_date
     end
+
+    def subject
+      message.lines.first.chomp
+    end
+
+    def message
+      @commit.message
+    end
+
+    def stat
+      return unless first_parent = @commit.parents.first
+      @commit.diff(first_parent.oid).patches.inject(Hash.new(0)) do |memo, patch|
+        memo[:additions] += patch.additions
+        memo[:deletions] += patch.deletions
+        memo
+      end
+    end
   end
 
   class CommitSet
+    attr_reader :commits
+
     def initialize(commits = nil)
       @commits = commits ? commits.dup : []
     end
