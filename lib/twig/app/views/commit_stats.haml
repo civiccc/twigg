@@ -7,5 +7,6 @@
     - @commit_set.top_authors.each do |object|
       %tr
         %td= object[:commit_set].count
-        %td  <a href='#{name_to_slug(object[:author])}'>#{object[:author]}</a>
+        %td
+          %a{ href: name_to_slug(object[:author]) }= object[:author]
         %td= breakdown(object[:commit_set])
