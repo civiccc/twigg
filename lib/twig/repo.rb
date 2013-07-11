@@ -2,14 +2,27 @@ require 'date'
 require 'pathname'
 
 module Twig
+  # Abstraction around a Git repository on disk.
   class Repo
     class InvalidRepoError < RuntimeError; end
 
+    # Given `path` to a Git repository on disk sets up a `Repo` instance.
+    #
+    # Raises an {InvalidRepoError} if `path` does not point to the top level of
+    # an existent Git repo.
     def initialize(path)
       @path = Pathname.new(path)
       raise InvalidRepoError unless valid?
     end
 
+    # Returns an array of {Commit} objects reachable from the HEAD of the repo.
+    #
+    # There are a number of options that correspond to the options of the same
+    # name to `git log`:
+    #
+    #   - `since:`: only return commits made since this Time
+    #   - `all:` : return reachable commits from all branches, not just HEAD
+    #
     def commits(options = {})
       args = []
       args << '--all' if options[:all]
@@ -18,6 +31,9 @@ module Twig
       @commits[options] ||= parse_log(log(*args))
     end
 
+    # Returns the name of the repo.
+    #
+    # The name is inferred from the final component of the repo path.
     def name
       @path.basename.to_s
     end
