@@ -2,6 +2,7 @@
 %html
   %head
     %title Commit Stats Over Past #{@days_ago} Days
+    %link{ rel: 'shortcut icon', href: '/favicon.png' }
   %body
     %h1 Commit Stats Over Past #{@days_ago} Days
     %p #{@commit_set.count} commits
