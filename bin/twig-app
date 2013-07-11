@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require 'bundler'
+Bundler.require
+
+$: << File.expand_path('../lib', File.dirname(__FILE__))
+require 'twig'
+require 'twig/app'
+
+Twig::App.run!

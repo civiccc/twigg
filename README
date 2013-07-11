@@ -16,6 +16,10 @@ The web app shows the same information as ./bin/commit-stats. To run it,
 copy config.yml.example to config.yml and set `repositories_directory`
 to the directory that contains all the repositories you want to analyze.
 
+Usage:
+
+    bin/twig-app
+
 # Why "Twig"
 
 According to Merriam-Webster:
