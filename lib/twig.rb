@@ -1,43 +1,6 @@
 module Twig
-  class Commit
-    def initialize(repo, commit)
-      @repo = repo
-      @commit = commit
-    end
-
-    def repo_name
-      @repo.workdir.split('/').last
-    end
-
-    def author_email
-      @commit.author[:email]
-    end
-
-    def author_names
-      @commit.author[:name].split(/\+|&|,|\band\b/).map(&:strip)
-    end
-
-    def date
-      Time.at(@commit.time).to_date
-    end
-
-    def subject
-      message.lines.first.chomp
-    end
-
-    def message
-      @commit.message
-    end
-
-    def stat
-      return unless first_parent = @commit.parents.first
-      @commit.diff(first_parent.oid).patches.inject(Hash.new(0)) do |memo, patch|
-        memo[:additions] += patch.additions
-        memo[:deletions] += patch.deletions
-        memo
-      end
-    end
-  end
+  autoload :Commit, 'twig/commit'
+  autoload :Repo,   'twig/repo'
 
   class CommitSet
     attr_reader :commits
@@ -65,7 +28,7 @@ module Twig
 
     def count_by_repo
       counts = Hash.new(0)
-      @commits.each { |commit| counts[commit.repo_name] += 1 }
+      @commits.each { |commit| counts[commit.repo.name] += 1 }
       counts.sort_by { |repo_name, count| -count }.
         map { |repo_name, count| { repo_name: repo_name, count: count } }
     end
@@ -97,18 +60,8 @@ module Twig
 
       commit_set = CommitSet.new
       Dir[File.join(repositories_directory, '*')].each do |repo_path|
-        begin
-          repo = Rugged::Repository.new(repo_path)
-          walker = Rugged::Walker.new(repo)
-          walker.sorting(Rugged::SORT_DATE)
-          walker.push(repo.head.target)
-          walker.each do |rugged_commit|
-            break if rugged_commit.time < since
-            commit_set.add_commit(Commit.new(repo, rugged_commit))
-          end
-        rescue StandardError => e
-          $stderr.puts repo_path
-          $stderr.puts e.message
+        Repo.new(repo_path).commits(since: since).each do |commit|
+          commit_set.add_commit(commit)
         end
       end
       commit_set

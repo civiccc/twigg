@@ -1,6 +1,9 @@
 require 'bundler'
 Bundler.require
-require File.expand_path('../lib/twig',  __FILE__)
+
+$: << File.expand_path('lib', File.dirname(__FILE__))
+require 'twig'
+
 require 'sinatra'
 require 'haml'
 require 'yaml'

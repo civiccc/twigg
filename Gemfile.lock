@@ -6,7 +6,6 @@ GEM
     rack (1.5.2)
     rack-protection (1.5.0)
       rack
-    rugged (0.19.0)
     sinatra (1.4.3)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -18,5 +17,4 @@ PLATFORMS
 
 DEPENDENCIES
   haml
-  rugged
   sinatra

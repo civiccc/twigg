@@ -2,7 +2,9 @@
 
 require 'bundler'
 Bundler.require
-require File.expand_path('../../lib/twig',  __FILE__)
+
+$: << File.expand_path('../lib', File.dirname(__FILE__))
+require 'twig'
 
 if ARGV.delete('-v') || ARGV.delete('--verbose')
   verbose = true
@@ -28,7 +30,7 @@ master_set.top_authors.each do |top_author_data|
     commit_set.commits.each do |commit|
      stat = commit.stat
      puts '    %+5d, %+5d %-40s [%s]' % [
-        stat[:additions], -stat[:deletions], commit.subject, commit.repo_name
+        stat[:additions], -stat[:deletions], commit.subject, commit.repo.name
      ]
     end
     puts
