@@ -22,7 +22,9 @@ module Twig
     def git(command, *args)
       Dir.chdir @path do
         # send both stderr and stdout to stdout
-        `git #{command} #{args.join(' ')} 2>&1`.chomp
+        IO.popen(['git', command, *args, err: [:child, :out]]) do |io|
+          io.read
+        end
       end
     end
 
