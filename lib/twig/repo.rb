@@ -19,7 +19,7 @@ module Twig
     end
 
     def name
-      @path.to_s.split('/').last
+      @path.basename.to_s
     end
 
   private
