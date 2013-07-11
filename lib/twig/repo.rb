@@ -40,27 +40,35 @@ module Twig
 
   private
 
+    STDERR_TO_STDOUT = [err: [:child, :out]]
+
+    def git_dir
+      @git_dir ||= begin
+        # first try repo "foo" (bare repo), then "foo/.git" (non-bare repo)
+        [@path, @path + '.git'].map(&:to_s).find do |path|
+          Process.wait(
+            IO.popen({ 'GIT_DIR' => path },
+                     %w[git rev-parse --git-dir] + STDERR_TO_STDOUT).pid
+          )
+          $?.success?
+        end
+      end
+    end
+
     # Check to see if this is a valid repo:
     #
     #   - the repo path should exist
     #   - the path should point to the top level of the repo
     #   - the check should work for both bare and non-bare repos
     #
-    def valid?
-      # Of the various options to `git rev-parse`, `--show-prefix` gives us the
-      # simplest way to fulfil these conditions.
-      prefix = git('rev-parse', '--show-prefix').chomp
-      $?.success? && prefix == ''
-    rescue Errno::ENOENT
-      false
-    end
+    # Delegates to `#git_dir`
+    alias :valid? :git_dir
 
     def git(command, *args)
-      Dir.chdir @path do
-        # send both stderr and stdout to stdout
-        IO.popen(['git', command, *args, err: [:child, :out]]) do |io|
-          io.read
-        end
+      # send both stderr and stdout to stdout
+      IO.popen([{ 'GIT_DIR' => git_dir },
+                'git', command, *args, *STDERR_TO_STDOUT], 'r') do |io|
+        io.read
       end
     end
 
