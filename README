@@ -1,24 +1,24 @@
-Twig collects statistics for a set of git repositories. It assumes that
+Twig collects statistics for a set of Git repositories. It assumes that
 all the repositories are in one directory and up-to-date.
 
-# ./bin/commit-stats
+# twig-stats (command-line tool)
 
 A script to show how many commits each person has made in a given
 timespan and in what repositories.
 
 Usage:
 
-    bin/commit-stats [--verbose|-v] repos dir> <number of days>
+    twig-stats [--verbose|-v] repos dir> <number of days>
 
-# The Web App
+# twig-app (web app)
 
-The web app shows the same information as ./bin/commit-stats. To run it,
-copy config.yml.example to config.yml and set `repositories_directory`
+The web app shows the same information as `twig-stats`. To run it,
+copy `config.yml.example` to `config.yml` and set `repositories_directory`
 to the directory that contains all the repositories you want to analyze.
 
 Usage:
 
-    bin/twig-app
+    twig-app
 
 # Why "Twig"
 
