@@ -28,10 +28,12 @@ master_set.top_authors.each do |top_author_data|
   if verbose
     puts
     commit_set.commits.each do |commit|
-     stat = commit.stat
-     puts '    %+5d, %+5d %-40s [%s]' % [
-        stat[:additions], -stat[:deletions], commit.subject, commit.repo.name
-     ]
+      puts '    %5s, %5s %s [%s]' % [
+        "+#{commit.stat[:additions]}",
+        "-#{commit.stat[:deletions]}",
+        commit.subject,
+        commit.repo.name,
+      ]
     end
     puts
   end
