@@ -5,8 +5,12 @@ module Twig
 
       commit_set = CommitSet.new
       Dir[File.join(repositories_directory, '*')].each do |repo_path|
-        Repo.new(repo_path).commits(all: true, since: since).each do |commit|
-          commit_set.add_commit(commit)
+        begin
+          Repo.new(repo_path).commits(all: true, since: since).each do |commit|
+            commit_set.add_commit(commit)
+          end
+        rescue Repo::InvalidRepoError
+          # most likely an empty or non-Git directory
         end
       end
       commit_set

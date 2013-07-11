@@ -1,9 +1,13 @@
 require 'date'
+require 'pathname'
 
 module Twig
   class Repo
+    class InvalidRepoError < RuntimeError; end
+
     def initialize(path)
-      @path = path
+      @path = Pathname.new(path)
+      raise InvalidRepoError unless valid?
     end
 
     def commits(options = {})
@@ -15,10 +19,25 @@ module Twig
     end
 
     def name
-      @path.split('/').last
+      @path.to_s.split('/').last
     end
 
   private
+
+    # Check to see if this is a valid repo:
+    #
+    #   - the repo path should exist
+    #   - the path should point to the top level of the repo
+    #   - the check should work for both bare and non-bare repos
+    #
+    def valid?
+      # Of the various options to `git rev-parse`, `--show-prefix` gives us the
+      # simplest way to fulfil these conditions.
+      prefix = git('rev-parse', '--show-prefix').chomp
+      $?.success? && prefix == ''
+    rescue Errno::ENOENT
+      false
+    end
 
     def git(command, *args)
       Dir.chdir @path do
