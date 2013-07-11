@@ -1,0 +1,9 @@
+!!!
+%html
+  %head
+    %title= yield_content :title
+    %link{ rel: 'shortcut icon', href: '/favicon.png' }
+    %link{ rel: 'stylesheet', href: '/application.css' }
+  %body
+    %h1= yield_content :title
+    = yield

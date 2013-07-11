@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'sinatra/content_for'
 require 'haml'
 require 'yaml'
 require 'json'
@@ -16,6 +17,8 @@ module Twig
     set :public, File.expand_path('app/public', File.dirname(__FILE__))
     set :repositories_directory, config['repositories_directory']
     set :views, File.expand_path('app/views', File.dirname(__FILE__))
+
+    helpers Sinatra::ContentFor
 
     helpers do
       def name_to_slug(name)

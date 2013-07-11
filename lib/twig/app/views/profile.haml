@@ -1,23 +1,15 @@
-!!!
-%html
-  %head
-    %title= @author
-    :css
-      #chart svg {
-        height: 200px;
-      }
-    %link{ rel: 'shortcut icon', href: '/favicon.png' }
-  %body
-    %nav
-      %a(href="/") Home
-    %h1= @author
-    %h2 Past #{@days_ago} Days
-    %p Total commits: #{@commit_set.count}
-    %p= breakdown(@commit_set)
-    #chart
-      %svg
-    %script{ type: 'text/javascript', src: 'd3.v3.js' }
-    %script{ type: 'text/javascript', src: 'nv.d3.min.js' }
-    %script{ type: 'text/javascript', src: 'twig.js' }
-    :javascript
-      Twig.Profile.loadCommitsPerDay('#chart svg', #{@nvd3_data.to_json})
+- content_for :title do
+  = @author
+
+%nav
+  %a(href="/") Home
+%h2 Past #{@days_ago} Days
+%p Total commits: #{@commit_set.count}
+%p= breakdown(@commit_set)
+#chart
+  %svg
+%script{ type: 'text/javascript', src: 'd3.v3.js' }
+%script{ type: 'text/javascript', src: 'nv.d3.min.js' }
+%script{ type: 'text/javascript', src: 'twig.js' }
+:javascript
+  Twig.Profile.loadCommitsPerDay('#chart svg', #{@nvd3_data.to_json})
