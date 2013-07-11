@@ -7,7 +7,7 @@ require 'yaml'
 require 'json'
 
 config_file = File.expand_path('../config.yml',  __FILE__)
-config = YAML.load(File.read(config_file))
+config = YAML.load_file(config_file)
 set :repositories_directory, config['repositories_directory']
 
 helpers do
