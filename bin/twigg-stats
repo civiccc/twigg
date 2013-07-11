@@ -4,7 +4,7 @@ require 'bundler'
 Bundler.require
 
 $: << File.expand_path('../lib', File.dirname(__FILE__))
-require 'twig'
+require 'twigg'
 
 if ARGV.delete('-v') || ARGV.delete('--verbose')
   verbose = true
@@ -17,7 +17,7 @@ end
 
 dir, days_ago = ARGV[0], ARGV[1].to_i
 
-master_set = Twig::Gatherer.gather(dir, days_ago)
+master_set = Twigg::Gatherer.gather(dir, days_ago)
 master_set.top_authors.each do |top_author_data|
   author     = top_author_data[:author]
   commit_set = top_author_data[:commit_set]

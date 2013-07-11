@@ -4,7 +4,7 @@ require 'bundler'
 Bundler.require
 
 $: << File.expand_path('../lib', File.dirname(__FILE__))
-require 'twig'
-require 'twig/app'
+require 'twigg'
+require 'twigg/app'
 
-Twig::App.run!
+Twigg::App.run!

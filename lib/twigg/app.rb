@@ -4,7 +4,7 @@ require 'haml'
 require 'yaml'
 require 'json'
 
-module Twig
+module Twigg
   class App < Sinatra::Base
     def self.config
       @config ||= begin

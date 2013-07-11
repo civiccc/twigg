@@ -1,7 +1,7 @@
 require 'date'
 require 'pathname'
 
-module Twig
+module Twigg
   # Abstraction around a Git repository on disk.
   class Repo
     class InvalidRepoError < RuntimeError; end

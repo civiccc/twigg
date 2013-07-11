@@ -1,26 +1,26 @@
-Twig collects statistics for a set of Git repositories. It assumes that
+Twigg collects statistics for a set of Git repositories. It assumes that
 all the repositories are in one directory and up-to-date.
 
-# twig-stats (command-line tool)
+# twigg-stats (command-line tool)
 
 A script to show how many commits each person has made in a given
 timespan and in what repositories.
 
 Usage:
 
-    twig-stats [--verbose|-v] repos dir> <number of days>
+    twigg-stats [--verbose|-v] repos dir> <number of days>
 
-# twig-app (web app)
+# twigg-app (web app)
 
-The web app shows the same information as `twig-stats`. To run it,
+The web app shows the same information as `twigg-stats`. To run it,
 copy `config.yml.example` to `config.yml` and set `repositories_directory`
 to the directory that contains all the repositories you want to analyze.
 
 Usage:
 
-    twig-app
+    twigg-app
 
-# Why "Twig"
+# Why "Twigg"
 
 According to Merriam-Webster:
 
@@ -28,11 +28,14 @@ According to Merriam-Webster:
   1 : notice, observe
   2 : to understand the meaning of : comprehend
 
+Originally, the gem was to be called "twig", but there is a pre-existing project
+with that name, so we chose "twigg".
+
 # Requirements
 
-Twig requires Ruby 1.9 or above.
+Twigg requires Ruby 1.9 or above.
 
-Twig is often used with, but does not require, Rubygems. If you wish to use
-Rubygems with Twig you may need to:
+Twigg is often used with, but does not require, Rubygems. If you wish to use
+Rubygems with Twigg you may need to:
 
     export RUBYOPT=rubygems

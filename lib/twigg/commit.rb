@@ -1,4 +1,4 @@
-module Twig
+module Twigg
   class Commit
     attr_reader :repo, :subject, :author, :date, :stat
 

@@ -1,4 +1,4 @@
-module Twig
+module Twigg
   module Gatherer
     def self.gather(repositories_directory, days_ago)
       since = Time.now - days_ago * 24 * 60 * 60

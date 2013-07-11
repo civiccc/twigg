@@ -1,4 +1,4 @@
-module Twig
+module Twigg
   class CommitSet
     attr_reader :commits
 
