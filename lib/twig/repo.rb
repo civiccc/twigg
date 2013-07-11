@@ -10,7 +10,8 @@ module Twig
       args = []
       args << '--all' if options[:all]
       args << "--since=#{options[:since].to_i}" if options[:since]
-      parse_log(log(*args))
+      @commits ||= {}
+      @commits[options] ||= parse_log(log(*args))
     end
 
     def name
