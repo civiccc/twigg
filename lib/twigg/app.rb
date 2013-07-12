@@ -14,7 +14,7 @@ module Twigg
     end
 
     set :bind, config['bind']
-    set :public, File.expand_path('app/public', File.dirname(__FILE__))
+    set :public_dir, File.expand_path('app/public', File.dirname(__FILE__))
     set :repositories_directory, config['repositories_directory']
     set :views, File.expand_path('app/views', File.dirname(__FILE__))
 
