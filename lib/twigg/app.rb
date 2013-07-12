@@ -1,8 +1,8 @@
+require 'haml'
+require 'json'
 require 'sinatra'
 require 'sinatra/content_for'
-require 'haml'
 require 'yaml'
-require 'json'
 
 module Twigg
   class App < Sinatra::Base
