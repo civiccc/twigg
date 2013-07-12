@@ -24,9 +24,10 @@ Usage:
 
 According to Merriam-Webster:
 
-  twig (transitive verb)
-  1 : notice, observe
-  2 : to understand the meaning of : comprehend
+> twig (transitive verb)<br>
+> <br>
+> 1. notice, observe<br>
+> 2. to understand the meaning of : comprehend
 
 Originally, the gem was to be called "twig", but there is a pre-existing project
 with that name, so we chose "twigg".
