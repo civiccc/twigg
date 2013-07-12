@@ -25,6 +25,10 @@ module Twigg
         name.tr(' ', '.')
       end
 
+      def name_to_id(name)
+        name.tr(' .@', '-').downcase
+      end
+
       def slug_to_name(slug)
         slug.tr('.', ' ')
       end
