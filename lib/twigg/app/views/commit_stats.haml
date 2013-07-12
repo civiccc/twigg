@@ -20,7 +20,7 @@
           %button.btn.btn-mini{ type: 'button',
             data: { toggle: 'modal', target: '#' + name_to_id(object[:author]) + '-details' }}
             Details
-          .modal.hide.fade{ id: name_to_id(object[:author]) + '-details' }
+          .modal.hide.fade{ id: name_to_id(object[:author]) + '-details', tabindex: '-1' }
             .modal-header
               %button(type='button' class='close' data-dismiss='modal' aria-hidden='true')
                 &times;
