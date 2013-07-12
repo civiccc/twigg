@@ -31,7 +31,7 @@ module Twigg
 
       def breakdown(commit_set)
         commit_set.count_by_repo.map do |data|
-          "#{data[:repo_name]}:#{data[:count]}"
+          "<i>#{data[:repo_name]}:</i> <b>#{data[:count]}</b>"
         end.join(', ')
       end
     end
