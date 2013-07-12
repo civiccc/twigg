@@ -20,6 +20,11 @@ Usage:
 
     twigg-app
 
+For development, you can use Shotgun to get auto-reloading behavior on every
+request:
+
+    bundle exec shotgun -o 0.0.0.0 config.ru
+
 # Why "Twigg"
 
 According to Merriam-Webster:
