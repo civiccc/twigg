@@ -1,11 +1,20 @@
 - content_for :title do
   = @author
 
-%nav
-  %a(href="/") Home
+%ul.breadcrumb
+  %li
+    %a(href="/") Home
+    %span.divider /
+  %li.active= @author
 %h2 Past #{@days_ago} Days
-%p Total commits: #{@commit_set.count}
-%p= breakdown(@commit_set)
+%table.table.table-striped.table-hover.table-bordered
+  %tbody
+    %tr
+      %th Total commits
+      %td= @commit_set.count
+    %tr
+      %th Breakdown by project
+      %td= breakdown(@commit_set)
 #chart
   %svg
 %script{ type: 'text/javascript', src: 'd3.v3.js' }
