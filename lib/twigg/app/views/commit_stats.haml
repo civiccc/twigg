@@ -33,7 +33,7 @@
                       %td +#{commit.stat[:additions]}
                       %td -#{commit.stat[:deletions]}
                       %td
-                        %code= commit.subject
+                        %code= h(commit.subject)
                       %td [#{commit.repo.name}]
             .modal-footer
               %a(href='#' class='btn' data-dismiss='modal') Close

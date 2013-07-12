@@ -21,6 +21,10 @@ module Twigg
     helpers Sinatra::ContentFor
 
     helpers do
+      def h(text)
+        Rack::Utils.escape_html(text)
+      end
+
       def name_to_slug(name)
         name.tr(' ', '.')
       end
