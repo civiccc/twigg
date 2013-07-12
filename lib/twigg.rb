@@ -4,4 +4,5 @@ module Twigg
   autoload :CommitSet, 'twigg/commit_set'
   autoload :Gatherer,  'twigg/gatherer'
   autoload :Repo,      'twigg/repo'
+  autoload :VERSION,   'twigg/version'
 end
