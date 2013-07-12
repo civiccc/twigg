@@ -1,7 +1,7 @@
 module Twigg
   module Gatherer
-    def self.gather(repositories_directory, days_ago)
-      since = Time.now - days_ago * 24 * 60 * 60
+    def self.gather(repositories_directory, days)
+      since = Time.now - days * 24 * 60 * 60
 
       commit_set = CommitSet.new
       Dir[File.join(repositories_directory, '*')].each do |repo_path|

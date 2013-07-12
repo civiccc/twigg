@@ -15,9 +15,9 @@ if ARGV.count != 2 || ARGV.include?('-h') || ARGV.include?('--help')
   exit(-1)
 end
 
-dir, days_ago = ARGV[0], ARGV[1].to_i
+dir, days = ARGV[0], ARGV[1].to_i
 
-master_set = Twigg::Gatherer.gather(dir, days_ago)
+master_set = Twigg::Gatherer.gather(dir, days)
 master_set.top_authors.each do |top_author_data|
   author     = top_author_data[:author]
   commit_set = top_author_data[:commit_set]

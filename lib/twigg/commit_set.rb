@@ -10,8 +10,8 @@ module Twigg
       @commits.count
     end
 
-    def count_by_day(days_ago)
-      start_date = Date.today - days_ago
+    def count_by_day(days)
+      start_date = Date.today - days
       end_date = Date.today
       date_to_commits = @commits.group_by { |commit| commit.date }
       (start_date..end_date).map do |date|

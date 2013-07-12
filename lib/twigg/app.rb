@@ -45,17 +45,17 @@ module Twigg
     end
 
     get '/' do
-      @days_ago = params.fetch('days_ago', 14).to_i
-      @commit_set = Gatherer.gather(settings.repositories_directory, @days_ago)
+      @days = params.fetch('days', 14).to_i
+      @commit_set = Gatherer.gather(settings.repositories_directory, @days)
       haml :commit_stats
     end
 
     get '/:slug' do
-      @days_ago = 90
-      master_set = Gatherer.gather(settings.repositories_directory, @days_ago)
+      @days= params.fetch('days', 14).to_i
+      master_set = Gatherer.gather(settings.repositories_directory, @days)
       @author = slug_to_name(params[:slug])
       @commit_set = master_set.select_author(@author)
-      @nvd3_data = @commit_set.count_by_day(@days_ago).map do |object|
+      @nvd3_data = @commit_set.count_by_day(@days).map do |object|
         { x: object[:date].to_s, y: object[:count] }
       end
       haml :profile
