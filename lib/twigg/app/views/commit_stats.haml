@@ -1,8 +1,13 @@
 - content_for :title do
   Commit Stats Over Past #{@days_ago} Days
 
-%p #{@commit_set.count} commits
-%table
+%h2 #{@commit_set.count} commits
+%table.table.table-striped.table-hover.table-bordered
+  %thead
+    %tr
+      %th Total commits
+      %th Author
+      %th Breakdown by project
   %tbody
     - @commit_set.top_authors.each do |object|
       %tr
