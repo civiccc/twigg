@@ -18,22 +18,32 @@ module Twigg
 
     private
 
+      # Convenience method.
+      def number_with_delimiter(integer)
+        Util.number_with_delimiter(integer)
+      end
+
       def run
         additions, deletions = 0, 0
         master_set = Twigg::Gatherer.gather(@repos_directory, @days)
         master_set.top_authors.each do |top_author_data|
           author     = top_author_data[:author]
           commit_set = top_author_data[:commit_set]
-          breakdown = commit_set.count_by_repo.
-            map { |data| "#{data[:repo_name]}:#{data[:count]}" }.join(', ')
-          puts '%4d %-24s %s' % [commit_set.count, author, breakdown]
+          breakdown = commit_set.count_by_repo.map do |data|
+            "#{data[:repo_name]}: #{number_with_delimiter data[:count]}"
+          end.join(', ')
+          puts '%5s %-24s %s' % [
+            number_with_delimiter(commit_set.count),
+            author,
+            breakdown,
+          ]
 
           if @verbose
             puts
             commit_set.commits.each do |commit|
               puts '    %5s, %5s %s [%s]' % [
-                "+#{commit.stat[:additions]}",
-                "-#{commit.stat[:deletions]}",
+                "+#{number_with_delimiter commit.stat[:additions]}",
+                "-#{number_with_delimiter commit.stat[:deletions]}",
                 commit.subject,
                 commit.repo.name,
               ]
@@ -47,14 +57,14 @@ module Twigg
 
         if @verbose
           puts '-----------------'
-          puts '%4d %5s, %5s' % [
-            master_set.count,
-            "+#{additions}",
-            "-#{deletions}",
+          puts '%4s %5s, %5s' % [
+            number_with_delimiter(master_set.count),
+            "+#{number_with_delimiter additions}",
+            "-#{number_with_delimiter deletions}",
           ]
         else
           puts '----'
-          puts '%4d' % master_set.count
+          puts '%4s' % number_with_delimiter(master_set.count)
         end
       end
     end

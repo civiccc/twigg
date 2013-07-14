@@ -19,6 +19,7 @@ module Twigg
     set :views, File.expand_path('app/views', File.dirname(__FILE__))
 
     helpers Sinatra::ContentFor
+    helpers Twigg::Util
 
     helpers do
       def h(text)
@@ -39,7 +40,8 @@ module Twigg
 
       def breakdown(commit_set)
         commit_set.count_by_repo.map do |data|
-          "<i>#{data[:repo_name]}:</i> <b>#{data[:count]}</b>"
+          "<i>#{data[:repo_name]}:</i> " +
+            "<b>#{number_with_delimiter data[:count]}</b>"
         end.join(', ')
       end
     end
