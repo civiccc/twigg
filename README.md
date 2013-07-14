@@ -1,26 +1,34 @@
 Twigg collects statistics for a set of Git repositories. It assumes that
 all the repositories are in one directory and up-to-date.
 
-# twigg-stats (command-line tool)
+# `twigg stats` (command-line tool)
 
-A script to show how many commits each person has made in a given
+Shows how many commits each person has made in a given
 timespan and in what repositories.
 
 Usage:
 
-    twigg-stats [--verbose|-v] repos dir> <number of days>
+    twigg stats [--verbose|-v] <repos dir> <number of days>
 
-# twigg-app (web app)
+# `twigg app` (web app)
 
-The web app shows the same information as `twigg-stats`. To run it,
+The web app shows the same information as `twigg stats`. To run it,
 copy `config.yml.example` to `config.yml` and set `repositories_directory`
 to the directory that contains all the repositories you want to analyze.
 
 Usage:
 
-    twigg-app
+    twigg app
 
-For development, you can use Shotgun to get auto-reloading behavior on every
+# Development
+
+Use Bundler when manually running or testing `twigg` subcommands from a local
+clone of the Twigg Git repo:
+
+    bundle exec bin/twigg stats <repos dir> <number of days>
+    bundle exec bin/twigg app
+
+For the web app, you can use Shotgun to get auto-reloading behavior on every
 request:
 
     bundle exec shotgun -o 0.0.0.0 config.ru
@@ -40,8 +48,3 @@ with that name, so we chose "twigg".
 # Requirements
 
 Twigg requires Ruby 1.9 or above.
-
-Twigg is often used with, but does not require, Rubygems. If you wish to use
-Rubygems with Twigg you may need to:
-
-    export RUBYOPT=rubygems
