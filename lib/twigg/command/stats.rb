@@ -11,7 +11,7 @@ module Twigg
           die
         end
 
-        @dir, @days = args[0], args[1].to_i
+        @repos_directory, @days = args[0], args[1].to_i
 
         run
       end
@@ -20,7 +20,7 @@ module Twigg
 
       def run
         additions, deletions = 0, 0
-        master_set = Twigg::Gatherer.gather(@dir, @days)
+        master_set = Twigg::Gatherer.gather(@repos_directory, @days)
         master_set.top_authors.each do |top_author_data|
           author     = top_author_data[:author]
           commit_set = top_author_data[:commit_set]
