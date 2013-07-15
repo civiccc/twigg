@@ -6,16 +6,9 @@ require 'yaml'
 
 module Twigg
   class App < Sinatra::Base
-    def self.config
-      @config ||= begin
-        config = File.expand_path('../../config.yml',  File.dirname(__FILE__))
-        YAML.load_file(config)
-      end
-    end
-
-    set :bind, config['bind']
+    set :bind, Config.bind if Config.bind
     set :public_dir, File.expand_path('app/public', File.dirname(__FILE__))
-    set :repositories_directory, config['repositories_directory']
+    set :repositories_directory, Config.repositories_directory
     set :views, File.expand_path('app/views', File.dirname(__FILE__))
 
     helpers Sinatra::ContentFor

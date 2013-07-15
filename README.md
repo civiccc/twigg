@@ -13,12 +13,13 @@ Usage:
 # `twigg app` (web app)
 
 The web app shows the same information as `twigg stats`. To run it,
-copy `config.yml.example` to `config.yml` and set `repositories_directory`
-to the directory that contains all the repositories you want to analyze.
+copy `twiggrc.yml.example` to `~/.twiggrc` and set `repositories_directory` to
+the directory that contains all the repositories you want to analyze.
 
 Usage:
 
-    twigg app
+    twigg app # assumes `~/.twiggrc` at default location
+    TWIGGRC=config.yml twigg app # custom location for configuration file
 
 # Development
 
@@ -27,11 +28,13 @@ clone of the Twigg Git repo:
 
     bundle exec bin/twigg stats <repos dir> <number of days>
     bundle exec bin/twigg app
+    TWIGGRC=custom bundle exec bin/twigg app # custom config location
 
 For the web app, you can use Shotgun to get auto-reloading behavior on every
 request:
 
-    bundle exec shotgun -o 0.0.0.0 config.ru
+    bundle exec shotgun -o 0.0.0.0 config.ru # with default config at ~/.twiggrc
+    TWIGGRC=custom bundle exec shotgun -p 0.0.0.0 config.ru # with custom config
 
 # Why "Twigg"
 
