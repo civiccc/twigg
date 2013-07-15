@@ -6,12 +6,13 @@ module Twigg
           @verbose = true
         end
 
-        if args.size != 2 || args.include?('-h') || args.include?('--help')
+        if args.size > 2 || args.include?('-h') || args.include?('--help')
           Help.new('stats')
           die
         end
 
-        @repos_directory, @days = args[0], args[1].to_i
+        @repositories_directory = args[0] || Config.repositories_directory
+        @days                   = args[1] || Config.default_days
 
         run
       end
@@ -25,7 +26,7 @@ module Twigg
 
       def run
         additions, deletions = 0, 0
-        master_set = Twigg::Gatherer.gather(@repos_directory, @days)
+        master_set = Twigg::Gatherer.gather(@repositories_directory, @days)
         master_set.top_authors.each do |top_author_data|
           author     = top_author_data[:author]
           commit_set = top_author_data[:commit_set]
