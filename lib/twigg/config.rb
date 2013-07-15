@@ -8,6 +8,7 @@ module Twigg
   # Example use:
   #
   #   Config.bind                   # the bind address for the Twigg web app
+  #                                 # [default: 0.0.0.0]
   #   Config.repositories_directory # where to find repositories
   #
   class Config
