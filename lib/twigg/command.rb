@@ -9,6 +9,10 @@ module Twigg
     def initialize(subcommand, *args)
       usage unless SUBCOMMANDS.include?(subcommand)
 
+      if args.delete('-d') || args.delete('--debug')
+        @debug = true
+      end
+
       if args.delete('-v') || args.delete('--verbose')
         @verbose = true
       end
@@ -24,6 +28,12 @@ module Twigg
 
     def run
       send(@subcommand, *@args)
+    rescue => e
+      raise if @debug
+
+      STDERR.puts "error: #{e.message}",
+        '[run with -d or --debug flag to see full stack trace]'
+      exit 1
     end
 
   private
