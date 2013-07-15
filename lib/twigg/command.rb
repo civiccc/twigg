@@ -8,6 +8,16 @@ module Twigg
 
     def initialize(subcommand, *args)
       usage unless SUBCOMMANDS.include?(subcommand)
+
+      if args.delete('-v') || args.delete('--verbose')
+        @verbose = true
+      end
+
+      if args.include?('-h') || args.include?('--help')
+        Help.new(subcommand)
+        die
+      end
+
       @subcommand = subcommand
       @args       = args
     end

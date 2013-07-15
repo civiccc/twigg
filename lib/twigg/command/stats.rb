@@ -2,11 +2,7 @@ module Twigg
   class Command
     class Stats < Command
       def initialize(*args)
-        if args.delete('-v') || args.delete('--verbose')
-          @verbose = true
-        end
-
-        if args.size > 2 || args.include?('-h') || args.include?('--help')
+        if args.size > 2
           Help.new('stats')
           die
         end
