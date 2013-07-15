@@ -9,13 +9,8 @@ module Twigg
     def initialize(subcommand, *args)
       usage unless SUBCOMMANDS.include?(subcommand)
 
-      if args.delete('-d') || args.delete('--debug')
-        @debug = true
-      end
-
-      if args.delete('-v') || args.delete('--verbose')
-        @verbose = true
-      end
+      @debug   = true if args.delete('-d') || args.delete('--debug')
+      @verbose = true if args.delete('-v') || args.delete('--verbose')
 
       if args.include?('-h') || args.include?('--help')
         Help.new(subcommand)
