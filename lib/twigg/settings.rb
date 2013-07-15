@@ -14,9 +14,18 @@ module Twigg
   # We override `#bind` so that we can supply a reasonable default when the
   # configuration file has no value set.
   class Settings < OpenStruct
-    def bind
-      self.[](__method__) || '0.0.0.0'
+    class << self
+      # DSL method which creates a reader for the setting `name`. If the
+      # configuration file does not contain a value for the setting, return
+      # `options[:default]` from the `options` hash.
+      def setting(name, options = {})
+        define_method name do
+          self.[](name) || options[:default]
+        end
+      end
     end
+
+    setting :bind, default: '0.0.0.0'
 
     def repositories_directory
       @repositories_directory ||= self.[](__method__).tap do |dir|
