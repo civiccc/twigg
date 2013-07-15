@@ -20,7 +20,9 @@ module Twigg
       # `options[:default]` from the `options` hash.
       def setting(name, options = {})
         define_method name do
-          self.[](name) || options[:default]
+          value = instance_variable_get("@#{name}")
+          return value if value
+          instance_variable_set("@#{name}", self.[](name) || options[:default])
         end
       end
     end
