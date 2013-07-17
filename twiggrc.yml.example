@@ -1,3 +1,6 @@
 bind: '0.0.0.0'
 default_days: 7
+gerrit_user: jimmy
+gerrit_port: 29418
+gerrit_host: gerrit.example.com
 repositories_directory: /home/jimmy/repos

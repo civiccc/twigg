@@ -1,10 +1,11 @@
 module Twigg
   class Command
     # Subcommands, in the order they should appear in the help output.
-    SUBCOMMANDS = %w[help app stats]
+    SUBCOMMANDS = %w[help app stats gerrit]
 
-    autoload :Help,  'twigg/command/help'
-    autoload :Stats, 'twigg/command/stats'
+    autoload :Gerrit, 'twigg/command/gerrit'
+    autoload :Help,   'twigg/command/help'
+    autoload :Stats,  'twigg/command/stats'
 
     def initialize(subcommand, *args)
       usage unless SUBCOMMANDS.include?(subcommand)
@@ -36,6 +37,10 @@ module Twigg
     def app(*args)
       ignore args
       App.run!
+    end
+
+    def gerrit(*args)
+      Gerrit.new(*args)
     end
 
     def help(topic = nil, *args)

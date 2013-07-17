@@ -36,6 +36,9 @@ module Twigg
 
     setting :bind,         default: '0.0.0.0'
     setting :default_days, default: 7
+    setting :gerrit_host,  default: 'localhost'
+    setting :gerrit_port,  default: 29418
+    setting :gerrit_user,  default: ENV['USER']
 
     setting :repositories_directory do |name, value|
       raise ArgumentError, "#{name} not set" unless value

@@ -1,3 +1,5 @@
+require 'yaml'
+
 module Twigg
   # The Config class mediates all access to the Twigg config file.
   #
@@ -9,6 +11,12 @@ module Twigg
   #
   #   Config.bind                   # the bind address for the Twigg web app
   #                                 # [default: 0.0.0.0]
+  #   Config.gerrit.host            # the (optional) Gerrit hostname
+  #                                 # [default: localhost]
+  #   Config.gerrit.port            # the (optional) Gerrit port
+  #                                 # [default: 29418]
+  #   Config.gerrit.user            # the (optional) Gerrit username
+  #                                 # [default: $USER environment variable]
   #   Config.repositories_directory # where to find repositories
   #
   class Config
