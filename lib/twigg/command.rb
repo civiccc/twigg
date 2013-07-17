@@ -26,7 +26,7 @@ module Twigg
     rescue => e
       raise if @debug
 
-      STDERR.puts "error: #{e.message}",
+      stderr "error: #{e.message}",
         '[run with -d or --debug flag to see full stack trace]'
       exit 1
     end
@@ -47,8 +47,8 @@ module Twigg
       Stats.new(*args)
     end
 
-    def stderr(msg)
-      STDERR.puts(msg)
+    def stderr(*msgs)
+      STDERR.puts(*msgs)
     end
 
     def warn(msg)
