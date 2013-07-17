@@ -41,7 +41,7 @@ module Twigg
     end
 
     def die(msg = nil)
-      stderr(msg) if msg
+      stderr("error: #{msg}") if msg
       exit 1
     end
 
