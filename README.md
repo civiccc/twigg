@@ -50,4 +50,4 @@ with that name, so we chose "twigg".
 
 # Requirements
 
-Twigg requires Ruby 1.9 or above.
+Twigg requires Ruby 2.0 or above.
