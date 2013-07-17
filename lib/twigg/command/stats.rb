@@ -8,7 +8,7 @@ module Twigg
         end
 
         @repositories_directory = args[0] || Config.repositories_directory
-        @days                   = args[1] || Config.default_days
+        @days                   = (args[1] || Config.default_days).to_i
 
         run
       end
