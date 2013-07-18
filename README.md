@@ -36,6 +36,10 @@ request:
     bundle exec shotgun -o 0.0.0.0 config.ru # with default config at ~/.twiggrc
     TWIGGRC=custom bundle exec shotgun -p 0.0.0.0 config.ru # with custom config
 
+To interact with Twigg in a REPL:
+
+    TWIGGRC=custom bundle exec irb -r twigg
+
 # Why "Twigg"
 
 According to Merriam-Webster:
