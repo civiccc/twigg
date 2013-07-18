@@ -6,7 +6,7 @@ require 'yaml'
 
 module Twigg
   class App < Sinatra::Base
-    set :bind, Config.bind if Config.bind
+    set :bind, Config.app.bind
     set :public_dir, File.expand_path('app/public', File.dirname(__FILE__))
     set :repositories_directory, Config.repositories_directory
     set :views, File.expand_path('app/views', File.dirname(__FILE__))

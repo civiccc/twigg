@@ -73,8 +73,8 @@ module Twigg
       def address(project = nil, with_port: true, with_protocol: true)
         [].tap do |address|
           address << 'ssh://' if with_protocol
-          address << "#{Config.gerrit_user}@#{Config.gerrit_host}"
-          address << ":#{Config.gerrit_port}" if with_port
+          address << "#{Config.gerrit.user}@#{Config.gerrit.host}"
+          address << ":#{Config.gerrit.port}" if with_port
           address << "/#{project}.git" if project
         end.join
       end
@@ -82,7 +82,7 @@ module Twigg
       # Returns the list of all projects hosted within a Gerrit instance.
       def projects
         @projects ||= begin
-          port         = Config.gerrit_port.to_s
+          port         = Config.gerrit.port.to_s
           user_at_host = address(with_port: false, with_protocol: false)
           command      = ['ssh', '-p', port, user_at_host, 'gerrit', 'ls-projects']
 
