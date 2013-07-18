@@ -67,14 +67,14 @@ module Twigg
       #
       #   address('foo')
       #   => ssh://jimmy@gerrit.example.com:29418/foo.git
-      #   address(with_port: false, with_protocol: false)
+      #   address(port: false, protocol: false)
       #   => jimmy@gerrit.example.com
       #
-      def address(project = nil, with_port: true, with_protocol: true)
+      def address(project = nil, port: true, protocol: true)
         [].tap do |address|
-          address << 'ssh://' if with_protocol
+          address << 'ssh://' if protocol
           address << "#{Config.gerrit.user}@#{Config.gerrit.host}"
-          address << ":#{Config.gerrit.port}" if with_port
+          address << ":#{Config.gerrit.port}" if port
           address << "/#{project}.git" if project
         end.join
       end
@@ -83,7 +83,7 @@ module Twigg
       def projects
         @projects ||= begin
           port         = Config.gerrit.port.to_s
-          user_at_host = address(with_port: false, with_protocol: false)
+          user_at_host = address(port: false, protocol: false)
           command      = ['ssh', '-p', port, user_at_host, 'gerrit', 'ls-projects']
 
           # Don't bother redirecting stderr; let it slip through to the user,
