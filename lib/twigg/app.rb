@@ -39,16 +39,14 @@ module Twigg
       end
     end
 
-    STANDARD_DAY_INTERVAL = 14
-
     get '/' do
-      @days = params.fetch('days', STANDARD_DAY_INTERVAL).to_i
+      @days = params.fetch('days', Config.default_days).to_i
       @commit_set = Gatherer.gather(settings.repositories_directory, @days)
       haml :commit_stats
     end
 
     get '/:slug' do
-      @days= params.fetch('days', STANDARD_DAY_INTERVAL).to_i
+      @days= params.fetch('days', Config.default_days).to_i
       master_set = Gatherer.gather(settings.repositories_directory, @days)
       @author = slug_to_name(params[:slug])
       @commit_set = master_set.select_author(@author)
