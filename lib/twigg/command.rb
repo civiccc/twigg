@@ -16,12 +16,10 @@ module Twigg
           exit
         end
 
-        debug = true if args.include?('-d') || args.include?('--debug')
-
         begin
           send(subcommand, *args)
         rescue => e
-          raise if debug
+          raise if args.include?('-d') || args.include?('--debug')
 
           stderr "error: #{e.message}",
             '[run with -d or --debug flag to see full stack trace]'
