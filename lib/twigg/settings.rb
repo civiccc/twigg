@@ -108,7 +108,7 @@ module Twigg
       return unless overrides
 
       overrides.each do |name, options|
-        if options.values.any? { |value| value.respond_to?(:keys) }
+        if namespace?(options)
           nested = instance.[](name)
           unless nested.is_a?(OpenStruct)
             instance.[]=(name, nested = OpenStruct.new)
@@ -124,6 +124,12 @@ module Twigg
           end
         end
       end
+    end
+
+    # Returns true if `hash` is multi-level, and therefore respresents a
+    # namespace.
+    def namespace?(hash)
+      hash.values.any? { |value| value.respond_to?(:keys) }
     end
   end
 end
