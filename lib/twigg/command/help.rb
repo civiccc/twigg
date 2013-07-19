@@ -74,7 +74,6 @@ module Twigg
           Usage: #{$0} <subcommand> [options] <arguments...>
                  #{$0} help
         DOC
-        die
       end
     end
   end

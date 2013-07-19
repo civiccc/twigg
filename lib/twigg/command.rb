@@ -12,7 +12,8 @@ module Twigg
         Help.new('usage').run! unless SUBCOMMANDS.include?(subcommand)
 
         if args.include?('-h') || args.include?('--help')
-          Help.new(subcommand).run!
+          Help.new(subcommand).run
+          exit
         end
 
         debug = true if args.include?('-d') || args.include?('--debug')
