@@ -28,10 +28,11 @@ module Twigg
       #
       # Note: nesting namespaces is not supported.
       def namespace(scope, &block)
-        @namespace = scope
+        @namespaces ||= []
+        @namespaces.push scope
         yield
       ensure
-        @namespace = nil
+        @namespaces.pop
       end
 
       # DSL method which is used to create a reader for the setting `name`. If
@@ -49,12 +50,12 @@ module Twigg
       def setting(name, options = {}, &block)
         options.merge!(block: block)
         @overrides ||= {}
-        if @namespace
-          @overrides[@namespace] ||= {}
-          @overrides[@namespace][name] = options
-        else
-          @overrides[name] = options
+
+        overrides = @namespaces.inject(@overrides) do |overrides, namespace|
+          overrides[namespace] ||= {}
         end
+
+        overrides[name] = options
       end
     end
 
