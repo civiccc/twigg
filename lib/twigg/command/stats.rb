@@ -2,22 +2,11 @@ module Twigg
   class Command
     class Stats < Command
       def initialize(*args)
-        if args.size > 2
-          Help.new('stats')
-          die
-        end
+        super
+        Help.new('stats').run! if @args.size > 2
 
-        @repositories_directory = args[0] || Config.repositories_directory
-        @days                   = (args[1] || Config.default_days).to_i
-
-        run
-      end
-
-    private
-
-      # Convenience method.
-      def number_with_delimiter(integer)
-        Util.number_with_delimiter(integer)
+        @repositories_directory = @args[0] || Config.repositories_directory
+        @days                   = (@args[1] || Config.default_days).to_i
       end
 
       def run
@@ -63,6 +52,13 @@ module Twigg
           puts '----'
           puts '%4s' % number_with_delimiter(master_set.count)
         end
+      end
+
+    private
+
+      # Convenience method.
+      def number_with_delimiter(integer)
+        Util.number_with_delimiter(integer)
       end
     end
   end

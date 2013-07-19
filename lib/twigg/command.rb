@@ -9,10 +9,10 @@ module Twigg
 
     class << self
       def run(subcommand, *args)
-        Help.new('usage').die unless SUBCOMMANDS.include?(subcommand)
+        Help.new('usage').run! unless SUBCOMMANDS.include?(subcommand)
 
         if args.include?('-h') || args.include?('--help')
-          Help.new(subcommand).die
+          Help.new(subcommand).run!
         end
 
         debug = true if args.include?('-d') || args.include?('--debug')
@@ -53,16 +53,16 @@ module Twigg
       end
 
       def gerrit(*args)
-        Gerrit.new(*args)
+        Gerrit.new(*args).run
       end
 
       def help(topic = nil, *args)
         ignore args
-        Help.new(topic)
+        Help.new(topic).run
       end
 
       def stats(*args)
-        Stats.new(*args)
+        Stats.new(*args).run
       end
     end
 
@@ -73,6 +73,18 @@ module Twigg
       @debug   = true if args.delete('-d') || args.delete('--debug')
       @verbose = true if args.delete('-v') || args.delete('--verbose')
       @args    = args
+    end
+
+    # Run and then die.
+    def run!
+      run
+      die
+    end
+
+    # Abstract implementation of a "run" method; subclasses are expected to
+    # override this method.
+    def run
+      raise NotImplementedError
     end
 
   private

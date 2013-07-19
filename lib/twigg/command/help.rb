@@ -4,8 +4,13 @@ module Twigg
       HELP_TOPICS = SUBCOMMANDS + %w[commands usage]
 
       def initialize(topic)
-        if HELP_TOPICS.include?(topic)
-          send(topic)
+        super
+        @topic = topic
+      end
+
+      def run
+        if HELP_TOPICS.include?(@topic)
+          send(@topic)
         else
           HELP_TOPICS.each { |topic| send(topic) }
         end

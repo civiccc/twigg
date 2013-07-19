@@ -4,17 +4,10 @@ module Twigg
     # repos and keep them up-to-date.
     class Gerrit < Command
       def initialize(*args)
-        if args.size > 1
-          Help.new('gerrit')
-          die
-        end
-
-        @repositories_directory = args.first || Config.repositories_directory
-
-        run
+        super
+        Help.new('gerrit').run! if @args.size > 1
+        @repositories_directory = @args.first || Config.repositories_directory
       end
-
-    private
 
       def run
         Dir.chdir @repositories_directory do
@@ -36,6 +29,8 @@ module Twigg
           puts
         end
       end
+
+    private
 
       # Convenience method for running a Git command that is expected to succeed
       # (raises an error if a non-zero exit code is produced).
