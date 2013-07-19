@@ -8,14 +8,13 @@ module Twigg
     autoload :Stats,  'twigg/command/stats'
 
     def initialize(subcommand, *args)
-      usage unless SUBCOMMANDS.include?(subcommand)
+      Help.new('usage').die unless SUBCOMMANDS.include?(subcommand)
 
       @debug   = true if args.delete('-d') || args.delete('--debug')
       @verbose = true if args.delete('-v') || args.delete('--verbose')
 
       if args.include?('-h') || args.include?('--help')
-        Help.new(subcommand)
-        die
+        Help.new(subcommand).die
       end
 
       @subcommand = subcommand
@@ -29,6 +28,11 @@ module Twigg
 
       stderr "error: #{e.message}",
         '[run with -d or --debug flag to see full stack trace]'
+      exit 1
+    end
+
+    def die(msg = nil)
+      stderr("error: #{msg}") if msg
       exit 1
     end
 
@@ -60,11 +64,6 @@ module Twigg
       stderr "warning: #{msg}"
     end
 
-    def die(msg = nil)
-      stderr("error: #{msg}") if msg
-      exit 1
-    end
-
     def ignore(args)
       warn "unsupported extra arguments #{args.inspect} ignored" if args.any?
     end
@@ -72,14 +71,6 @@ module Twigg
     def strip_heredoc(doc)
       indent = doc.scan(/^[ \t]*(?=\S)/).map(&:size).min || 0
       doc.gsub(/^[ \t]{#{indent}}/, '')
-    end
-
-    def usage
-      stderr strip_heredoc(<<-DOC)
-        Usage: #{$0} <subcommand> [options] <arguments...>
-               #{$0} help
-      DOC
-      die
     end
   end
 end

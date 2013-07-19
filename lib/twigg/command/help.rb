@@ -1,7 +1,7 @@
 module Twigg
   class Command
     class Help < Command
-      HELP_TOPICS = SUBCOMMANDS + ['commands']
+      HELP_TOPICS = SUBCOMMANDS + %w[commands usage]
 
       def initialize(topic)
         if HELP_TOPICS.include?(topic)
@@ -62,6 +62,14 @@ module Twigg
             #{$0} stats [--verbose|-v] <repos dir> <number of days>
 
         DOC
+      end
+
+      def usage
+        stderr strip_heredoc(<<-DOC)
+          Usage: #{$0} <subcommand> [options] <arguments...>
+                 #{$0} help
+        DOC
+        die
       end
     end
   end
