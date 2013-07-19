@@ -25,7 +25,7 @@ module Twigg
 
           stderr "error: #{e.message}",
             '[run with -d or --debug flag to see full stack trace]'
-          exit 1
+          die
         end
       end
 
