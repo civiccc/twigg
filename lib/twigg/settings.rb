@@ -108,15 +108,16 @@ module Twigg
       return unless overrides
 
       overrides.each do |name, options|
-        if _namespace = options.delete(:_namespace)
+        if options.delete(:_namespace)
           nested = instance.[](name)
           unless nested.is_a?(OpenStruct)
             instance.[]=(name, nested = OpenStruct.new)
           end
-          override_methods!(nested, options, _namespace)
+          override_methods!(nested, options, name)
         else
           instance.define_singleton_method name do
-            return value if value = instance_variable_get("@#{namespace}__#{name}")
+            value = instance_variable_get("@#{namespace}__#{name}")
+            return value if value
             value = instance.[](name) || options[:default]
             options[:block].call(name, value) if options[:block]
             instance_variable_set("@#{namespace}__#{name}", value)
