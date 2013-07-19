@@ -8,7 +8,6 @@ module Twigg
   class App < Sinatra::Base
     set :bind, Config.app.bind
     set :public_dir, File.expand_path('app/public', File.dirname(__FILE__))
-    set :repositories_directory, Config.repositories_directory
     set :views, File.expand_path('app/views', File.dirname(__FILE__))
 
     helpers Sinatra::ContentFor
@@ -41,13 +40,13 @@ module Twigg
 
     get '/' do
       @days = params.fetch('days', Config.default_days).to_i
-      @commit_set = Gatherer.gather(settings.repositories_directory, @days)
+      @commit_set = Gatherer.gather(Config.repositories_directory, @days)
       haml :commit_stats
     end
 
     get '/:slug' do
       @days= params.fetch('days', Config.default_days).to_i
-      master_set = Gatherer.gather(settings.repositories_directory, @days)
+      master_set = Gatherer.gather(Config.repositories_directory, @days)
       @author = slug_to_name(params[:slug])
       @commit_set = master_set.select_author(@author)
       @nvd3_data = @commit_set.count_by_day(@days).map do |object|
