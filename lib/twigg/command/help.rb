@@ -3,9 +3,10 @@ module Twigg
     class Help < Command
       HELP_TOPICS = SUBCOMMANDS + %w[commands usage]
 
-      def initialize(topic)
+      def initialize(*args)
         super
-        @topic = topic
+        @topic = @args.shift
+        ignore @args
       end
 
       def run

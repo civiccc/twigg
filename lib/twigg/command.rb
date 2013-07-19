@@ -12,7 +12,7 @@ module Twigg
         Help.new('usage').run! unless SUBCOMMANDS.include?(subcommand)
 
         if args.include?('-h') || args.include?('--help')
-          Help.new(subcommand).run
+          Help.new(*args).run
           exit
         end
 
@@ -55,9 +55,8 @@ module Twigg
         Gerrit.new(*args).run
       end
 
-      def help(topic = nil, *args)
-        ignore args
-        Help.new(topic).run
+      def help(*args)
+        Help.new(*args).run
       end
 
       def stats(*args)
@@ -66,7 +65,7 @@ module Twigg
     end
 
     extend Forwardable
-    def_delegators 'self.class', :die, :stderr
+    def_delegators 'self.class', :die, :ignore, :stderr
 
     def initialize(*args)
       @debug   = true if args.delete('-d') || args.delete('--debug')
