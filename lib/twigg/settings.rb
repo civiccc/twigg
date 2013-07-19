@@ -50,8 +50,7 @@ module Twigg
         options.merge!(block: block)
         @overrides ||= {}
         if @namespace
-          # note: we can never have a setting named "_namespace"
-          @overrides[@namespace] ||= { _namespace: true }
+          @overrides[@namespace] ||= {}
           @overrides[@namespace][name] = options
         else
           @overrides[name] = options
@@ -108,7 +107,7 @@ module Twigg
       return unless overrides
 
       overrides.each do |name, options|
-        if options.delete(:_namespace)
+        if options.values.any? { |value| value.respond_to?(:keys) }
           nested = instance.[](name)
           unless nested.is_a?(OpenStruct)
             instance.[]=(name, nested = OpenStruct.new)
