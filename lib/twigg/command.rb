@@ -7,66 +7,75 @@ module Twigg
     autoload :Help,   'twigg/command/help'
     autoload :Stats,  'twigg/command/stats'
 
-    def initialize(subcommand, *args)
-      Help.new('usage').die unless SUBCOMMANDS.include?(subcommand)
+    class << self
+      def run(subcommand, *args)
+        Help.new('usage').die unless SUBCOMMANDS.include?(subcommand)
 
-      @debug   = true if args.delete('-d') || args.delete('--debug')
-      @verbose = true if args.delete('-v') || args.delete('--verbose')
+        if args.include?('-h') || args.include?('--help')
+          Help.new(subcommand).die
+        end
 
-      if args.include?('-h') || args.include?('--help')
-        Help.new(subcommand).die
+        debug = true if args.include?('-d') || args.include?('--debug')
+
+        begin
+          send(subcommand, *args)
+        rescue => e
+          raise if debug
+
+          stderr "error: #{e.message}",
+            '[run with -d or --debug flag to see full stack trace]'
+          exit 1
+        end
       end
 
-      @subcommand = subcommand
-      @args       = args
+      def stderr(*msgs)
+        STDERR.puts(*msgs)
+      end
+
+      def die(msg = nil)
+        stderr("error: #{msg}") if msg
+        exit 1
+      end
+
+    private
+
+      def warn(msg)
+        stderr "warning: #{msg}"
+      end
+
+      def ignore(args)
+        warn "unsupported extra arguments #{args.inspect} ignored" if args.any?
+      end
+
+      def app(*args)
+        ignore args
+        App.run!
+      end
+
+      def gerrit(*args)
+        Gerrit.new(*args)
+      end
+
+      def help(topic = nil, *args)
+        ignore args
+        Help.new(topic)
+      end
+
+      def stats(*args)
+        Stats.new(*args)
+      end
     end
 
-    def run
-      send(@subcommand, *@args)
-    rescue => e
-      raise if @debug
+    extend Forwardable
+    def_delegators 'self.class', :die, :stderr
 
-      stderr "error: #{e.message}",
-        '[run with -d or --debug flag to see full stack trace]'
-      exit 1
-    end
-
-    def die(msg = nil)
-      stderr("error: #{msg}") if msg
-      exit 1
+    def initialize(*args)
+      @debug   = true if args.delete('-d') || args.delete('--debug')
+      @verbose = true if args.delete('-v') || args.delete('--verbose')
+      @args    = args
     end
 
   private
-
-    def app(*args)
-      ignore args
-      App.run!
-    end
-
-    def gerrit(*args)
-      Gerrit.new(*args)
-    end
-
-    def help(topic = nil, *args)
-      ignore args
-      Help.new(topic)
-    end
-
-    def stats(*args)
-      Stats.new(*args)
-    end
-
-    def stderr(*msgs)
-      STDERR.puts(*msgs)
-    end
-
-    def warn(msg)
-      stderr "warning: #{msg}"
-    end
-
-    def ignore(args)
-      warn "unsupported extra arguments #{args.inspect} ignored" if args.any?
-    end
 
     def strip_heredoc(doc)
       indent = doc.scan(/^[ \t]*(?=\S)/).map(&:size).min || 0

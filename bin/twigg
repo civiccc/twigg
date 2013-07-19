@@ -2,4 +2,4 @@
 
 require 'twigg'
 
-Twigg::Command.new(ARGV.shift, *ARGV).run
+Twigg::Command.run(ARGV.shift, *ARGV)
