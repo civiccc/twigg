@@ -3,34 +3,58 @@ module Twigg
     # The "gerrit" subcommand can be used to conveniently initialize a set of
     # repos and keep them up-to-date.
     class Gerrit < Command
+      SUB_SUBCOMMANDS = %w[clone update]
+
       def initialize(*args)
         super
-        Help.new('gerrit').run! if @args.size > 1
-        @repositories_directory = @args.first || Config.repositories_directory
+        @sub_subcommand = @args.first
+
+        Help.new('gerrit').run! unless (1..2).cover?(@args.size) &&
+          SUB_SUBCOMMANDS.include?(@sub_subcommand)
+
+        @repositories_directory = @args[1] || Config.repositories_directory
       end
 
       def run
+        send @sub_subcommand
+      end
+
+    private
+
+      def for_each_repo(&block)
         Dir.chdir @repositories_directory do
           projects.each do |project|
             print @verbose ? "#{project}: " : '.'
-
-            if File.directory?(project)
-              Dir.chdir project do
-                print 'pulling...' if @verbose
-                pull
-              end
-            else
-              print 'cloning...' if @verbose
-              clone(project)
-            end
+            block.call(project)
             puts ' done' if @verbose
-
           end
           puts
         end
       end
 
-    private
+      def clone
+        for_each_repo do |project|
+          if File.directory?(project)
+            print 'skipping (already present);' if @verbose
+          else
+            print 'cloning...' if @verbose
+            git_clone(project)
+          end
+        end
+      end
+
+      def update
+        for_each_repo do |project|
+          if File.directory?(project)
+            Dir.chdir project do
+              print 'pulling...' if @verbose
+              git_pull
+            end
+          else
+            print 'skipping (not present);' if @verbose
+          end
+        end
+      end
 
       # Convenience method for running a Git command that is expected to succeed
       # (raises an error if a non-zero exit code is produced).
@@ -40,7 +64,7 @@ module Twigg
       end
 
       # Runs `git clone` to obtain the specified `project`.
-      def clone(project)
+      def git_clone(project)
         git 'clone', '--quiet', address(project)
       end
 
@@ -49,7 +73,7 @@ module Twigg
       #
       # We do this as two commands rather than a `git pull` because the latter
       # is much fussier about tracking information being in place.
-      def pull
+      def git_pull
         git 'fetch', '--quiet'
         git 'merge', '--ff-only', '--quiet', 'FETCH_HEAD'
       rescue => e

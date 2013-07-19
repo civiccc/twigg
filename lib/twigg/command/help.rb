@@ -44,7 +44,8 @@ module Twigg
         stderr strip_heredoc(<<-DOC)
           Gerrit:
 
-            #{$0} gerrit [repos dir] # clone and update repos in repos dir
+            #{$0} gerrit clone [repos dir]  # clone repos into repos dir
+            #{$0} gerrit update [repos dir] # update repos in repos dir
 
         DOC
       end

@@ -26,6 +26,9 @@ Usage:
 This subcommand clones a set of projects from a Gerrit instance, or updates an
 existing set of clones.
 
+    twigg gerrit clone
+    twigg gerrit update
+
 # Development
 
 Use Bundler when manually running or testing `twigg` subcommands from a local
