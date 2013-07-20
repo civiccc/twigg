@@ -19,6 +19,6 @@
   %svg
 %script(src='/vendor/d3.v3.js')
 %script(src='/vendor/nv.d3.min.js')
-%script(src='/twigg.js')
+%script(src='/application.js')
 :javascript
   Twigg.Profile.loadCommitsPerDay('#chart svg', #{@nvd3_data.to_json})
