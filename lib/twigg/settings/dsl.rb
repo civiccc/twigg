@@ -82,24 +82,53 @@ module Twigg
 
           overrides.each do |name, options|
             if namespace?(options)
-              nested = instance.[](name)
-              unless nested.is_a?(OpenStruct)
-                instance.[]=(name, nested = OpenStruct.new)
-              end
-              override_methods!(nested, options, name)
+              process_namespace(instance, namespace, name, options) # recurses
             else
-              instance.define_singleton_method name do
-                value = instance_variable_get("@#{namespace}__#{name}")
-                return value if value
-                if options[:required] &&
-                  !instance.each_pair.to_a.map(&:first).include?(name)
-                  raise ArgumentError, "#{name} not set"
-                end
-                value = instance.[](name) || options[:default]
-                options[:block].call(name, value) if options[:block]
-                instance_variable_set("@#{namespace}__#{name}", value)
-              end
+              define_getter(instance, namespace, name, options)
             end
+          end
+        end
+
+        # Sets up the given `namespace` on `instance`, if not already set up,
+        # and (recursively) calls {#override_methods!} to set up `name`.
+        def process_namespace(instance, namespace, name, options)
+          nested = instance.[](name)
+
+          unless nested.is_a?(OpenStruct)
+            instance.[]=(name, nested = OpenStruct.new)
+          end
+
+          override_methods!(nested, options, name)
+        end
+
+        # Defines a getter on the `instance` for setting `name` within
+        # `namespace`.
+        #
+        # The getter:
+        #
+        #   - memoizes its result
+        #   - raises an ArgumentError if the option is required by not
+        #     configured
+        #   - supplies a default value if the option is not configured and a
+        #     default setting is available
+        #   - optionally calls a supplied block to perform validation of the
+        #     configured value
+        #
+        def define_getter(instance, namespace, name, options)
+          instance.define_singleton_method name do
+            value = instance_variable_get("@#{namespace}__#{name}")
+            return value if value
+
+            if options[:required] &&
+              !instance.each_pair.to_a.map(&:first).include?(name)
+              raise ArgumentError, "#{name} not set"
+            end
+
+            value = instance.[](name) || options[:default]
+
+            options[:block].call(name, value) if options[:block]
+
+            instance_variable_set("@#{namespace}__#{name}", value)
           end
         end
 
