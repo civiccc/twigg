@@ -82,8 +82,11 @@ module Twigg
 
       def usage
         stderr strip_heredoc(<<-DOC)
-          Usage: #{$0} <subcommand> [options] <arguments...>
-                 #{$0} help
+          Usage:
+
+            #{$0} <subcommand> [options] <arguments...>
+            #{$0} help
+
         DOC
       end
     end
