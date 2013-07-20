@@ -26,9 +26,11 @@ module Twigg
         stderr strip_heredoc(<<-DOC)
           Commands:
 
-            #{$0} app               # run the Twigg web app
-            #{$0} help              # this help information
-            #{$0} stats             # show statistics about repos
+            #{$0} app    # run the Twigg web app
+            #{$0} gerrit # clone/update repos from Gerrit
+            #{$0} init   # generate a .twiggrc file
+            #{$0} help   # this help information
+            #{$0} stats  # show statistics about repos
 
         DOC
       end
