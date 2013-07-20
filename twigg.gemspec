@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/causes/twig'
   spec.license       = 'MIT'
 
-  spec.files         = Dir['bin/*', 'lib/**/*']
+  spec.files         = Dir['bin/*', 'lib/**/*', 'public/**/*', 'views/*']
   spec.executables   = ['twigg']
   spec.require_paths = ['lib']
 
