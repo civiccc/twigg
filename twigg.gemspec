@@ -4,19 +4,26 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'twigg'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'twigg'
-  spec.version       = Twigg::VERSION
-  spec.authors       = ['Causes Engineering']
-  spec.email         = ['eng@causes.com']
-  spec.summary       = 'Statistics for Git repositories'
-  spec.description   = <<-EOS.strip.gsub(/\s+/, ' ')
+  spec.name        = 'twigg'
+  spec.version     = Twigg::VERSION
+  spec.authors     = ['Causes Engineering']
+  spec.email       = ['eng@causes.com']
+  spec.summary     = 'Statistics for Git repositories'
+  spec.description = <<-EOS.strip.gsub(/\s+/, ' ')
     Twigg provides stats for activity in Git repositories. It includes
     command-line and web-based interfaces.
   EOS
-  spec.homepage      = 'https://github.com/causes/twig'
-  spec.license       = 'MIT'
+  spec.homepage    = 'https://github.com/causes/twig'
+  spec.license     = 'MIT'
 
-  spec.files         = Dir['bin/*', 'lib/**/*', 'public/**/*', 'views/*']
+  spec.files = Dir[
+    'bin/*',
+    'lib/**/*',
+    'public/**/*',
+    'templates/*',
+    'views/*',
+  ]
+
   spec.executables   = ['twigg']
   spec.require_paths = ['lib']
 
