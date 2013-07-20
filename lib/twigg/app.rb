@@ -6,9 +6,9 @@ require 'yaml'
 
 module Twigg
   class App < Sinatra::Base
-    set :bind, Config.app.bind
-    set :public_dir, File.expand_path('app/public', File.dirname(__FILE__))
-    set :views, File.expand_path('app/views', File.dirname(__FILE__))
+    set :bind,       Config.app.bind
+    set :public_dir, File.expand_path('app/public', __dir__)
+    set :views,      File.expand_path('app/views', __dir__)
 
     helpers Sinatra::ContentFor
     helpers Twigg::Util
