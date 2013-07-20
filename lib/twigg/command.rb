@@ -1,9 +1,10 @@
 module Twigg
   class Command
     # Subcommands, in the order they should appear in the help output.
-    SUBCOMMANDS = %w[help app stats gerrit]
+    SUBCOMMANDS = %w[help init app stats gerrit]
 
     autoload :Gerrit, 'twigg/command/gerrit'
+    autoload :Init,   'twigg/command/init'
     autoload :Help,   'twigg/command/help'
     autoload :Stats,  'twigg/command/stats'
 
@@ -57,6 +58,10 @@ module Twigg
 
       def help(*args)
         Help.new(*args).run
+      end
+
+      def init(*args)
+        Init.new(*args).run
       end
 
       def stats(*args)

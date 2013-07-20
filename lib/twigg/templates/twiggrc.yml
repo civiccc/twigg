@@ -1,0 +1,16 @@
+# Sample .twiggrc file (YAML format)
+#
+# To use, place in a standard location (eg. `~/.twiggrc`) or explicitly
+# instruct Twigg to use the file via the TWIGGRC environment variable.
+#
+---
+default_days: 7
+repositories_directory: /home/jimmy/repos
+
+app:
+  bind: '0.0.0.0'
+
+gerrit:
+  user: jimmy
+  port: 29418
+  host: gerrit.example.com

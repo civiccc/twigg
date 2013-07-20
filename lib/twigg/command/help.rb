@@ -62,6 +62,15 @@ module Twigg
         DOC
       end
 
+      def init
+        stderr strip_heredoc(<<-DOC)
+          Init:
+
+            #{$0} init # emit a sample .twiggrc file to standard out
+
+        DOC
+      end
+
       def stats
         stderr strip_heredoc(<<-DOC)
           Stats:

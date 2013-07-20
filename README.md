@@ -33,6 +33,13 @@ existing set of clones.
     twigg gerrit [--verbose|-v] clone
     twigg gerrit [--verbose|-v] update
 
+### `twigg init`
+
+Emits a sample `.twiggrc` configuration file to standard out, which you can
+redirect into a file; for example, to place the sample file at `~/.twiggrc`:
+
+    twigg init > ~/.twiggrc
+
 ### Options common to all commands
 
 All Twigg commands can take a `--verbose` or `-v` flag to increase their
