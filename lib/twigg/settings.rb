@@ -19,8 +19,8 @@ module Twigg
   # module, leaving only the DSL declarations here.
   class Settings < OpenStruct
     autoload :DSL, 'twigg/settings/dsl'
-    extend DSL::ClassMethods
-    include DSL::InstanceMethods
+    extend   DSL::ClassMethods
+    include  DSL::InstanceMethods
 
     namespace :app do
       setting :bind, default: '0.0.0.0'
@@ -34,8 +34,7 @@ module Twigg
       setting :user, default: ENV['USER']
     end
 
-    setting :repositories_directory do |name, value|
-      raise ArgumentError, "#{name} not set" unless value
+    setting :repositories_directory, required: true do |name, value|
       raise ArgumentError, "#{name} not a directory" unless File.directory?(value)
     end
   end

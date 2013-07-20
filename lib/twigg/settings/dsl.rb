@@ -91,6 +91,10 @@ module Twigg
               instance.define_singleton_method name do
                 value = instance_variable_get("@#{namespace}__#{name}")
                 return value if value
+                if options[:required] &&
+                  !instance.each_pair.to_a.map(&:first).include?(name)
+                  raise ArgumentError, "#{name} not set"
+                end
                 value = instance.[](name) || options[:default]
                 options[:block].call(name, value) if options[:block]
                 instance_variable_set("@#{namespace}__#{name}", value)
