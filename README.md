@@ -16,9 +16,10 @@ Usage:
 
 ### `twigg app` (web app)
 
-The web app shows the same information as `twigg stats`. To run it, copy
-`twiggrc.yml.example` to `~/.twiggrc` and set `repositories_directory` to the
-directory that contains all the repositories you want to analyze.
+The web app shows the same information as `twigg stats`. To run it, configure
+`~/.twiggrc` to specify the `repositories_directory` containing all the
+repositories you want to analyze (`twigg init` can be used to produce the
+`~/.twiggrc` file).
 
 Usage:
 
