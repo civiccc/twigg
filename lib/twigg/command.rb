@@ -10,6 +10,9 @@ module Twigg
     autoload :Help,    'twigg/command/help'
     autoload :Stats,   'twigg/command/stats'
 
+    extend Console
+    include Console
+
     class << self
       def run(subcommand, *args)
         Help.new('usage').run! unless SUBCOMMANDS.include?(subcommand)
@@ -28,24 +31,6 @@ module Twigg
             '[run with -d or --debug flag to see full stack trace]'
           die
         end
-      end
-
-      def stderr(*msgs)
-        STDERR.puts(*msgs)
-      end
-
-      def die(msg = nil)
-        stderr("error: #{msg}") if msg
-        exit 1
-      end
-
-      def warn(msg)
-        stderr "warning: #{msg}"
-      end
-
-      def strip_heredoc(doc)
-        indent = doc.scan(/^[ \t]*(?=\S)/).map(&:size).min || 0
-        doc.gsub(/^[ \t]{#{indent}}/, '')
       end
 
     private
@@ -81,7 +66,7 @@ module Twigg
     end
 
     extend Forwardable
-    def_delegators 'self.class', :die, :ignore, :stderr, :strip_heredoc
+    def_delegators 'self.class', :ignore
 
     def initialize(*args)
       @debug   = true if args.delete('-d') || args.delete('--debug')

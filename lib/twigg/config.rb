@@ -20,6 +20,8 @@ module Twigg
   #   Config.repositories_directory # where to find repositories
   #
   class Config
+    include Console
+
     class << self
       # For convenience, forward all messages to the underlying {Config}
       # instance. This allows us to write things like `Config.bind` instead of
@@ -49,8 +51,8 @@ module Twigg
     def config_from_file(path)
       YAML.load_file(path).tap do |contents|
         if File.world_readable?(path)
-          Command.warn "#{path} is world-readable"
-          Command.stderr Command.strip_heredoc(<<-DOC)
+          warn "#{path} is world-readable"
+          stderr strip_heredoc(<<-DOC)
 
             The Twigg config file may contain sensitive information, such as
             access credentials for external services.
