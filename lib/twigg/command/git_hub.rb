@@ -26,13 +26,11 @@ module Twigg
           ca_file          = File.expand_path('github.pem', files_dir)
           http.ca_file     = ca_file
           http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-          path             = ORG_REPOS_ENDPOINT % Config.github.organization
-          query            = nil
+          uri              = ORG_REPOS_ENDPOINT % Config.github.organization
           headers          = { 'Authorization' => "token #{Config.github.token}" }
 
           [].tap do |names|
             loop do # paginate through project list
-              uri              = [path, query].compact.join('?')
               request          = Net::HTTP::Get.new(uri, headers)
               response         = http.request(request)
               raise "Bad response #{response.inspect}" unless response.is_a?(Net::HTTPOK)
@@ -45,7 +43,7 @@ module Twigg
                 end
 
                 if link
-                  query = URI(link.split(';').first.gsub(/\A<|>\z/, '')).query
+                  uri = URI(link.split(';').first.gsub(/\A<|>\z/, ''))
                   next
                 end
               end
