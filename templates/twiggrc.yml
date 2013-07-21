@@ -14,3 +14,7 @@ gerrit:
   user: jimmy
   port: 29418
   host: gerrit.example.com
+
+github:
+  organization: causes
+  token: 0da57c4304855867e97dd4419d7d070543c5c092

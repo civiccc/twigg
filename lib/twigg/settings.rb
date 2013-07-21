@@ -34,6 +34,11 @@ module Twigg
       setting :user, default: ENV['USER']
     end
 
+    namespace :github do
+      setting :organization, required: true
+      setting :token, required: true
+    end
+
     setting :repositories_directory, required: true do |name, value|
       raise ArgumentError, "#{name} not a directory" unless File.directory?(value)
     end

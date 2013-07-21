@@ -33,6 +33,14 @@ existing set of clones.
     twigg gerrit [--verbose|-v] clone
     twigg gerrit [--verbose|-v] update
 
+### `twigg github`
+
+This subcommand clones a set of projects from a GitHub, or updates an existing
+set of clones.
+
+    twigg github [--verbose|-v] clone
+    twigg github [--verbose|-v] update
+
 ### `twigg init`
 
 Emits a sample `.twiggrc` configuration file to standard out, which you can

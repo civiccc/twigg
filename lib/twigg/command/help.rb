@@ -34,6 +34,7 @@ module Twigg
 
             #{$0} app    # run the Twigg web app
             #{$0} gerrit # clone/update repos from Gerrit
+            #{$0} github # clone/update repos from GitHub
             #{$0} init   # generate a .twiggrc file
             #{$0} help   # this help information
             #{$0} stats  # show statistics about repos
@@ -47,6 +48,16 @@ module Twigg
 
             #{$0} gerrit clone [repos dir]  # clone repos into repos dir
             #{$0} gerrit update [repos dir] # update repos in repos dir
+
+        DOC
+      end
+
+      def github
+        stderr strip_heredoc(<<-DOC)
+          GitHub:
+
+            #{$0} github clone [repos dir]  # clone repos into repos dir
+            #{$0} github update [repos dir] # update repos in repos dir
 
         DOC
       end
