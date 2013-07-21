@@ -54,6 +54,10 @@ All Twigg commands can take a `--verbose` or `-v` flag to increase their
 verbosity, or a `--debug` or `-d` flag to show debugging information in the
 event of an error.
 
+All Twigg commands will attempt to read configuration from `~/.twiggrc`, if
+present. The path to the configuration file can also be set via the `TWIGGRC`
+variable in the environment.
+
 ## Development
 
 Use Bundler when manually running or testing `twigg` subcommands from a local
