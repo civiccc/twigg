@@ -79,11 +79,11 @@ module Twigg
     def parse_log(string)
       [].tap do |commits|
         tokens = string.scan %r{
-          ^commit\s+([a-f0-9]{40})$ |                  # digest
-          ^author\s+(.+)\s+<.+>\s\d+\s[+-]\d{4}$ |     # author (name)
-          ^committer\s+.+\s+<.+>\s(\d+)\s[+-]\d{4}$ |  # committer (date)
-          ^[ ]{4}(.+?)$ |                              # subject + message
-          ^(\d+)\t(\d+)\t.+$                           # num stats (per file)
+          ^commit\s+([a-f0-9]{40})$ |                   # digest
+          ^author\s+(.+)\s+<.+>\s\d+\s[+-]\d{4,6}$ |    # author (name)
+          ^committer\s+.+\s+<.+>\s(\d+)\s[+-]\d{4,6}$ | # committer (date)
+          ^[ ]{4}(.+?)$ |                               # subject + message
+          ^(\d+)\t(\d+)\t.+$                            # num stats (per file)
         }x
 
         while token = tokens.shift
