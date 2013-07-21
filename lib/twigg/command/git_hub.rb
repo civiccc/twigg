@@ -22,9 +22,7 @@ module Twigg
         @projects ||= begin
           http             = Net::HTTP.new(API_HOST, API_PORT)
           http.use_ssl     = true
-          files_dir        = File.join(__dir__, '..', '..', '..', 'files')
-          ca_file          = File.expand_path('github.pem', files_dir)
-          http.ca_file     = ca_file
+          http.ca_file     = (Twigg.root + 'files' + 'github.pem').to_s
           http.verify_mode = OpenSSL::SSL::VERIFY_PEER
           uri              = ORG_REPOS_ENDPOINT % Config.github.organization
           headers          = { 'Authorization' => "token #{Config.github.token}" }

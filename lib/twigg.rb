@@ -1,3 +1,5 @@
+require 'pathname'
+
 module Twigg
   autoload :App,       'twigg/app'
   autoload :Command,   'twigg/command'
@@ -9,4 +11,11 @@ module Twigg
   autoload :Settings,  'twigg/settings'
   autoload :Util,      'twigg/util'
   autoload :VERSION,   'twigg/version'
+
+  # Returns a Pathname instance corresponding to the root directory of the gem
+  # (ie. the directory containing the `files`, `lib`, `public`, `templates` and
+  # `views` directories).
+  def self.root
+    Pathname.new(__dir__) + '..'
+  end
 end

@@ -7,8 +7,7 @@ module Twigg
       end
 
       def run
-        path = File.expand_path('twiggrc.yml',
-                                File.join(__dir__, '..', '..', '..', 'templates'))
+        path = Twigg.root + 'templates' + 'twiggrc.yml'
         IO.copy_stream(path, STDOUT)
       end
     end
