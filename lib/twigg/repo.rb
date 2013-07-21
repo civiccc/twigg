@@ -90,7 +90,7 @@ module Twigg
           commit  = token[0]
           author  = tokens.shift[1]
           date    = Time.at(tokens.shift[2].to_i).to_date
-          subject = tokens.shift[3]
+          subject = tokens.first[3] || '' # will be blank if --allow-empty
           tokens.shift while tokens.first && tokens.first[3] # commit message body, drop
 
           stat = Hash.new(0)
