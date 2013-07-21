@@ -28,28 +28,39 @@ module Twigg
           headers          = { 'Authorization' => "token #{Config.github.token}" }
 
           [].tap do |names|
-            loop do # paginate through project list
-              request          = Net::HTTP::Get.new(uri, headers)
-              response         = http.request(request)
+            begin # loop: page through project list
+              request  = Net::HTTP::Get.new(uri, headers)
+              response = http.request(request)
               raise "Bad response #{response.inspect}" unless response.is_a?(Net::HTTPOK)
               names.concat JSON[response.body].map { |repo| repo['name'] }
-
-              if link = response['Link']
-                link = link.split(',').find do |link|
-                  rel = link.split(';').last
-                  rel && rel =~ /rel="next"/
-                end
-
-                if link
-                  uri = URI(link.split(';').first.gsub(/\A<|>\z/, ''))
-                  next
-                end
-              end
-
-              break
-            end
+              uri = parse_link(response['Link'])
+            end until uri.nil?
           end
         end
+      end
+
+      # Parse the next page's URI out of a Link header, which will be of the
+      # form:
+      #
+      #     <https://api.github.com/organizations/1234/repos?page=2>; rel="next",
+      #     <https://api.github.com/organizations/1234/repos?page=N>; rel="last"
+      #
+      # (Linebreak included for readability; in the real headers there are no
+      # linebreaks.)
+      #
+      # We split on "," to get a list of links, find the first link labeled as
+      # `rel="next'`, and then extract the URI from inside the corresponding
+      # angle brackets.
+      #
+      # Returns a `URI` object on success, and `nil` if no suitable link was
+      # present.
+      def parse_link(header)
+        link = header.split(',').find do |link|
+          rel = link.split(';').last
+          rel && rel =~ /rel="next"/
+        end
+
+        URI(link.split(';').first.gsub(/\A<|>\z/, '')) if link
       end
     end
   end
