@@ -8,6 +8,10 @@ module Twigg
 
       private
 
+        def namespaces
+          @namespaces ||= []
+        end
+
         # DSL method for declaring settings underneath a namespace.
         #
         # Example:
@@ -17,11 +21,10 @@ module Twigg
         #   end
         #
         def namespace(scope, &block)
-          @namespaces ||= []
-          @namespaces.push scope
+          namespaces.push scope
           yield
         ensure
-          @namespaces.pop
+          namespaces.pop
         end
 
         # DSL method which is used to create a reader for the setting `name`. If
@@ -40,7 +43,7 @@ module Twigg
           options.merge!(block: block)
           @overrides ||= {}
 
-          overrides = @namespaces.inject(@overrides) do |overrides, namespace|
+          overrides = namespaces.inject(@overrides) do |overrides, namespace|
             overrides[namespace] ||= {}
           end
 
