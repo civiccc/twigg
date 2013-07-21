@@ -39,11 +39,16 @@ module Twigg
         exit 1
       end
 
-    private
-
       def warn(msg)
         stderr "warning: #{msg}"
       end
+
+      def strip_heredoc(doc)
+        indent = doc.scan(/^[ \t]*(?=\S)/).map(&:size).min || 0
+        doc.gsub(/^[ \t]{#{indent}}/, '')
+      end
+
+    private
 
       def ignore(args)
         warn "unsupported extra arguments #{args.inspect} ignored" if args.any?
@@ -76,7 +81,7 @@ module Twigg
     end
 
     extend Forwardable
-    def_delegators 'self.class', :die, :ignore, :stderr
+    def_delegators 'self.class', :die, :ignore, :stderr, :strip_heredoc
 
     def initialize(*args)
       @debug   = true if args.delete('-d') || args.delete('--debug')
@@ -94,13 +99,6 @@ module Twigg
     # override this method.
     def run
       raise NotImplementedError
-    end
-
-  private
-
-    def strip_heredoc(doc)
-      indent = doc.scan(/^[ \t]*(?=\S)/).map(&:size).min || 0
-      doc.gsub(/^[ \t]{#{indent}}/, '')
     end
   end
 end

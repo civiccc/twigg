@@ -47,7 +47,21 @@ module Twigg
     end
 
     def config_from_file(path)
-      YAML.load_file(path)
+      YAML.load_file(path).tap do |contents|
+        if File.world_readable?(path)
+          Command.warn "#{path} is world-readable"
+          Command.stderr Command.strip_heredoc(<<-DOC)
+
+            The Twigg config file may contain sensitive information, such as
+            access credentials for external services.
+
+            Suggested action: tighten the filesystem permissions with:
+
+                chmod 600 #{path}
+
+          DOC
+        end
+      end
     end
 
     def config_from_env
