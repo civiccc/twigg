@@ -1,3 +1,4 @@
+require 'shellwords'
 require 'yaml'
 
 module Twigg
@@ -59,7 +60,7 @@ module Twigg
 
             Suggested action: tighten the filesystem permissions with:
 
-                chmod 600 #{path}
+                chmod 600 #{Shellwords.escape path}
 
           DOC
         end
