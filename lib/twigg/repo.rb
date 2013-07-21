@@ -80,7 +80,7 @@ module Twigg
       [].tap do |commits|
         tokens = string.scan %r{
           ^commit\s+([a-f0-9]{40})$ |                   # digest
-          ^author\s+(.+)\s+<.+>\s\d+\s[+-]\d{4,6}$ |    # author (name)
+          ^author\s+(.*?)\s+<(.+)>\s\d+\s[+-]\d{4,6}$ | # author (name, email)
           ^committer\s+.+\s+<.+>\s(\d+)\s[+-]\d{4,6}$ | # committer (date)
           ^[ ]{4}(.+?)$ |                               # subject + message
           ^(\d+)\t(\d+)\t.+$                            # num stats (per file)
@@ -88,15 +88,16 @@ module Twigg
 
         while token = tokens.shift
           commit  = token[0]
-          author  = tokens.shift[1]
-          date    = Time.at(tokens.shift[2].to_i).to_date
-          subject = tokens.first[3] || '' # will be blank if --allow-empty
-          tokens.shift while tokens.first && tokens.first[3] # commit message body, drop
+          author  = tokens.shift
+          author  = author[1].size > 0 ? author[1] : author[2] # name -> email
+          date    = Time.at(tokens.shift[3].to_i).to_date
+          subject = tokens.first[4] || '' # will be blank if --allow-empty
+          tokens.shift while tokens.first && tokens.first[4] # commit message body, drop
 
           stat = Hash.new(0)
-          while tokens.first && tokens.first[4] && token = tokens.shift
-            stat[:additions] += token[4].to_i
-            stat[:deletions] += token[5].to_i
+          while tokens.first && tokens.first[5] && token = tokens.shift
+            stat[:additions] += token[5].to_i
+            stat[:deletions] += token[6].to_i
           end
 
           commits << Commit.new(repo:    self,
