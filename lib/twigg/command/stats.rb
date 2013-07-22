@@ -15,13 +15,10 @@ module Twigg
         master_set.top_authors.each do |top_author_data|
           author     = top_author_data[:author]
           commit_set = top_author_data[:commit_set]
-          breakdown = commit_set.count_by_repo.map do |data|
-            "#{data[:repo].name}: #{number_with_delimiter data[:count]}"
-          end.join(', ')
           puts '%5s %-24s %s' % [
             number_with_delimiter(commit_set.count),
             author,
-            breakdown,
+            Util.breakdown(commit_set, html: false),
           ]
 
           author_additions, author_deletions = 0, 0

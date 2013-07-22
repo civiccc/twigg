@@ -29,17 +29,6 @@ module Twigg
       def slug_to_name(slug)
         slug.tr('.', ' ')
       end
-
-      def breakdown(commit_set)
-        commit_set.count_by_repo.map do |data|
-          if link = data[:repo].link
-            name = %{<a href="#{link}">#{data[:repo].name}</a>}
-          else
-            name = data[:repo].name
-          end
-          "<i>#{name}:</i> <b>#{number_with_delimiter data[:count]}</b>"
-        end.join(', ')
-      end
     end
 
     get '/' do
