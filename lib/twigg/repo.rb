@@ -91,9 +91,10 @@ module Twigg
           author  = tokens.shift
           author  = author[1].size > 0 ? author[1] : author[2] # name -> email
           date    = Time.at(tokens.shift[3].to_i).to_date
-          subject = tokens.first[4] || '' # will be blank if --allow-empty
-          tokens.shift while tokens.first && tokens.first[4] # commit message body, drop
+          subject = tokens.first && tokens.first[4] || ''      # --allow-empty-message
+          tokens.shift while tokens.first && tokens.first[4]   # commit message body, drop
 
+          # stats can be blank if --allow-empty or a merge commit
           stat = Hash.new(0)
           while tokens.first && tokens.first[5] && token = tokens.shift
             stat[:additions] += token[5].to_i
