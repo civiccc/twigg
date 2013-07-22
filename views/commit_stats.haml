@@ -39,10 +39,9 @@
                           - else
                             = h(commit.subject)
                       %td
-                        = surround '[', ']' do
-                          - if commit.repo.link
-                            %a{ href: commit.repo.link }= commit.repo.name
-                          - else
-                            = commit.repo.name
+                        - if commit.repo.link
+                          %a{ href: commit.repo.link }= commit.repo.name
+                        - else
+                          = commit.repo.name
             .modal-footer
               %a(href='#' class='btn' data-dismiss='modal') Close
