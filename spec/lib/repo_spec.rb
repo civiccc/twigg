@@ -1,6 +1,43 @@
 require 'spec_helper'
+require 'tmpdir'
 
 describe Twigg::Repo do
+  describe '#initialize' do
+    subject { described_class.new(repo) }
+
+    context 'with a valid repo' do
+      let(:repo) { scratch_repo }
+
+      it 'returns a working instance' do
+        subject.should be_a(Twigg::Repo)
+      end
+    end
+
+    context 'with an invalid "repo"' do
+      let(:repo) { Dir.mktmpdir }
+
+      it 'complains' do
+        expect { subject }.to raise_error(Twigg::Repo::InvalidRepoError)
+      end
+    end
+
+    context 'with a non-directory path' do
+      let(:repo) { File.expand_path(__FILE__) }
+
+      it 'complains' do
+        expect { subject }.to raise_error(Twigg::Repo::InvalidRepoError)
+      end
+    end
+
+    context 'with a non-existent path' do
+      let(:repo) { File.join(Dir.mktmpdir, 'non-existent') }
+
+      it 'complains' do
+        expect { subject }.to raise_error(Twigg::Repo::InvalidRepoError)
+      end
+    end
+  end
+
   describe '#commits' do
     subject { described_class.new(repo).commits }
 
