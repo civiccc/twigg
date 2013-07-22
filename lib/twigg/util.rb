@@ -1,6 +1,6 @@
 module Twigg
   module Util
-    extend self
+  private
 
     def number_with_delimiter(integer)
       # Regex based on one in `ActiveSupport::NumberHelper#number_to_delimited`;

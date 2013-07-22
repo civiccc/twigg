@@ -1,6 +1,8 @@
 module Twigg
   class Command
     class Stats < Command
+      include Util
+
       def initialize(*args)
         super
         Help.new('stats').run! if @args.size > 2
@@ -18,7 +20,7 @@ module Twigg
           puts '%5s %-24s %s' % [
             number_with_delimiter(commit_set.count),
             author,
-            Util.breakdown(commit_set, html: false),
+            breakdown(commit_set, html: false),
           ]
 
           author_additions, author_deletions = 0, 0
@@ -58,13 +60,6 @@ module Twigg
           puts '----'
           puts '%4s' % number_with_delimiter(master_set.count)
         end
-      end
-
-    private
-
-      # Convenience method.
-      def number_with_delimiter(integer)
-        Util.number_with_delimiter(integer)
       end
     end
   end
