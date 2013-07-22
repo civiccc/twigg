@@ -25,9 +25,9 @@ module Twigg
 
     def count_by_repo
       counts = Hash.new(0)
-      @commits.each { |commit| counts[commit.repo.name] += 1 }
-      counts.sort_by { |repo_name, count| -count }.
-        map { |repo_name, count| { repo_name: repo_name, count: count } }
+      @commits.each { |commit| counts[commit.repo] += 1 }
+      counts.sort_by { |repo, count| -count }.
+        map { |repo, count| { repo: repo, count: count } }
     end
 
     def select_author(author)

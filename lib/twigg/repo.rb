@@ -38,6 +38,12 @@ module Twigg
       @path.basename.to_s
     end
 
+    def link
+      if Config.github.organization
+        "https://github.com/#{Config.github.organization}/#{name}"
+      end
+    end
+
   private
 
     STDERR_TO_STDOUT = [err: [:child, :out]]

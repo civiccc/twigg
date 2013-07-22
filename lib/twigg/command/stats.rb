@@ -16,7 +16,7 @@ module Twigg
           author     = top_author_data[:author]
           commit_set = top_author_data[:commit_set]
           breakdown = commit_set.count_by_repo.map do |data|
-            "#{data[:repo_name]}: #{number_with_delimiter data[:count]}"
+            "#{data[:repo].name}: #{number_with_delimiter data[:count]}"
           end.join(', ')
           puts '%5s %-24s %s' % [
             number_with_delimiter(commit_set.count),
