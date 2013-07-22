@@ -33,7 +33,11 @@
                       %td +#{number_with_delimiter commit.stat[:additions]}
                       %td -#{number_with_delimiter commit.stat[:deletions]}
                       %td
-                        %code= h(commit.subject)
+                        %code
+                          - if commit.link
+                            %a{ href: commit.link, title: commit.commit }= h(commit.subject)
+                          - else
+                            = h(commit.subject)
                       %td [#{commit.repo.name}]
             .modal-footer
               %a(href='#' class='btn' data-dismiss='modal') Close
