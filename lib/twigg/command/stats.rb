@@ -10,7 +10,7 @@ module Twigg
       end
 
       def run
-        additions, deletions = 0, 0
+        global_additions, global_deletions = 0, 0
         master_set = Twigg::Gatherer.gather(@repositories_directory, @days)
         master_set.top_authors.each do |top_author_data|
           author     = top_author_data[:author]
@@ -24,6 +24,7 @@ module Twigg
             breakdown,
           ]
 
+          author_additions, author_deletions = 0, 0
           if @verbose
             puts
             commit_set.commits.each do |commit|
@@ -34,19 +35,27 @@ module Twigg
                 commit.repo.name,
               ]
 
-              additions += commit.stat[:additions]
-              deletions += commit.stat[:deletions]
+              author_additions += commit.stat[:additions]
+              author_deletions += commit.stat[:deletions]
             end
+
+            puts '-----------------'
+            puts '    %5s, %5s' % [
+              "+#{number_with_delimiter author_additions}",
+              "-#{number_with_delimiter author_deletions}",
+            ]
             puts
           end
+          global_additions += author_additions
+          global_deletions += author_deletions
         end
 
         if @verbose
-          puts '-----------------'
+          puts '================='
           puts '%4s %5s, %5s' % [
             number_with_delimiter(master_set.count),
-            "+#{number_with_delimiter additions}",
-            "-#{number_with_delimiter deletions}",
+            "+#{number_with_delimiter global_additions}",
+            "-#{number_with_delimiter global_deletions}",
           ]
         else
           puts '----'
