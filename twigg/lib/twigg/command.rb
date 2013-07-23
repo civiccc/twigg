@@ -27,8 +27,8 @@ module Twigg
         rescue => e
           raise if args.include?('-d') || args.include?('--debug')
 
-          stderr "error: #{e.message}",
-            '[run with -d or --debug flag to see full stack trace]'
+          error e.message
+          stderr '[run with -d or --debug flag to see full stack trace]'
           die
         end
       end

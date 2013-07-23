@@ -13,8 +13,13 @@ module Twigg
     # Exit with an exit code of 1, printing the optional `msg`, prefixed with
     # "error: ", to standard error if present
     def die(msg = nil)
-      stderr("error: #{msg}") if msg
+      error(msg) if msg
       exit 1
+    end
+
+    # Print `msg` to the standard error, prefixed with "error: "
+    def error(msg)
+      stderr("error: #{msg}")
     end
 
     # Print `msg` to the standard error, prefixed with "warning: "
