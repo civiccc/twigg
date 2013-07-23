@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description = <<-EOS.strip.gsub(/\s+/, ' ')
     Twigg provides stats for activity in Git repositories.
   EOS
-  spec.homepage    = 'https://github.com/causes/twig'
+  spec.homepage    = 'https://github.com/causes/twigg'
   spec.license     = 'MIT'
 
   spec.files = Dir[
