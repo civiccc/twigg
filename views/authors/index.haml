@@ -14,7 +14,7 @@
       %tr
         %td= number_with_delimiter(object[:commit_set].count)
         %td
-          %a{ href: name_to_slug(object[:author]) }= object[:author]
+          %a{ href: author_path(object[:author]) }= object[:author]
         %td= breakdown(object[:commit_set])
         %td
           %button.btn.btn-mini{ type: 'button',

@@ -18,8 +18,8 @@ module Twigg
         Rack::Utils.escape_html(text)
       end
 
-      def name_to_slug(name)
-        name.tr(' ', '.')
+      def author_path(author)
+        '/authors/' + author.tr(' ', '.')
       end
 
       def name_to_id(name)
@@ -32,12 +32,16 @@ module Twigg
     end
 
     get '/' do
-      @days = params.fetch('days', Config.default_days).to_i
-      @commit_set = Gatherer.gather(Config.repositories_directory, @days)
-      haml :commit_stats
+      redirect to('/authors')
     end
 
-    get '/:slug' do
+    get '/authors' do
+      @days = params.fetch('days', Config.default_days).to_i
+      @commit_set = Gatherer.gather(Config.repositories_directory, @days)
+      haml :'authors/index'
+    end
+
+    get '/authors/:slug' do
       @days= params.fetch('days', Config.default_days).to_i
       master_set = Gatherer.gather(Config.repositories_directory, @days)
       @author = slug_to_name(params[:slug])
@@ -45,7 +49,7 @@ module Twigg
       @nvd3_data = @commit_set.count_by_day(@days).map do |object|
         { x: object[:date].to_s, y: object[:count] }
       end
-      haml :profile
+      haml :'authors/show'
     end
   end
 end
