@@ -41,7 +41,10 @@ module Twigg
 
       def app(*args)
         ignore args
+        require 'twigg-app'
         App.run!
+      rescue LoadError => e
+        die "#{e}: try `gem install twigg-app`"
       end
 
       def gerrit(*args)

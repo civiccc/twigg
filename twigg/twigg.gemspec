@@ -10,8 +10,7 @@ Gem::Specification.new do |spec|
   spec.email       = ['eng@causes.com']
   spec.summary     = 'Statistics for Git repositories'
   spec.description = <<-EOS.strip.gsub(/\s+/, ' ')
-    Twigg provides stats for activity in Git repositories. It includes
-    command-line and web-based interfaces.
+    Twigg provides stats for activity in Git repositories.
   EOS
   spec.homepage    = 'https://github.com/causes/twig'
   spec.license     = 'MIT'
@@ -20,9 +19,6 @@ Gem::Specification.new do |spec|
     'bin/*',
     'files/*',
     'lib/**/*',
-    'public/**/*',
-    'templates/*',
-    'views/*',
   ]
 
   spec.executables   = ['twigg']
@@ -32,10 +28,6 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler', '~> 1.3'
   spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'shotgun'
   spec.add_development_dependency 'rr'
   spec.add_development_dependency 'rspec'
-
-  spec.add_dependency 'haml', '~> 4.0.3'
-  spec.add_dependency 'sinatra-contrib', '~> 1.4.0'
 end

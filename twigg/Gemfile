@@ -1,3 +1,7 @@
 source 'https://rubygems.org'
 
 gemspec
+
+group :development do
+  gem 'twigg-app', path: File.join(File.dirname(__FILE__), '..', 'twigg-app')
+end

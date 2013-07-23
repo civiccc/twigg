@@ -19,7 +19,8 @@ Usage:
 The web app shows the same information as `twigg stats`. To run it, configure
 `~/.twiggrc` to specify the `repositories_directory` containing all the
 repositories you want to analyze (`twigg init` can be used to produce the
-`~/.twiggrc` file).
+`~/.twiggrc` file) and ensure the twigg-app gem is installed (`gem install
+twigg-app`).
 
 Usage:
 
@@ -64,6 +65,7 @@ variable in the environment.
 Use Bundler when manually running or testing `twigg` subcommands from a local
 clone of the Twigg Git repo:
 
+    cd $(git rev-parse --show-cdup)/twigg
     bundle exec bin/twigg stats <repos dir> <number of days>
     bundle exec bin/twigg app
     TWIGGRC=custom bundle exec bin/twigg app # custom config location
@@ -71,11 +73,14 @@ clone of the Twigg Git repo:
 For the web app, you can use Shotgun to get auto-reloading behavior on every
 request:
 
+    cd $(git rev-parse --show-cdup)/twigg-app
     bundle exec shotgun -o 0.0.0.0 config.ru # with default config at ~/.twiggrc
     TWIGGRC=custom bundle exec shotgun -p 0.0.0.0 config.ru # with custom config
 
 To interact with Twigg in a REPL:
 
+
+    cd $(git rev-parse --show-cdup)/twigg
     TWIGGRC=custom bundle exec irb -r twigg
 
 ## Why "Twigg"
