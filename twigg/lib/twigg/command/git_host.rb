@@ -3,14 +3,12 @@ module Twigg
     # This is an abstract superclass the holds code common to the "gerrit" and
     # "github" subcommands.
     class GitHost < Command
-      SUB_SUBCOMMANDS = %w[clone update]
-
       def initialize(*args)
         super
         @sub_subcommand = @args.first
 
         unless (1..2).cover?(@args.size) &&
-          SUB_SUBCOMMANDS.include?(@sub_subcommand)
+          sub_subcommands.include?(@sub_subcommand)
           # eg. "Twigg::Command::{Gerrit,GitHub}" -> "gerrit/github"
           Help.new(self.class.to_s.split('::').last.downcase).run!
         end
@@ -23,6 +21,10 @@ module Twigg
       end
 
     private
+
+      def sub_subcommands
+        %w[clone update]
+      end
 
       def for_each_repo(&block)
         Dir.chdir @repositories_directory do
