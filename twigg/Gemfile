@@ -3,5 +3,8 @@ source 'https://rubygems.org'
 gemspec
 
 group :development do
-  gem 'twigg-app', path: File.join(File.dirname(__FILE__), '..', 'twigg-app')
+  base = File.join(File.dirname(__FILE__), '..')
+
+  gem 'twigg-app',    path: File.join(base, 'twigg-app')
+  gem 'twigg-gerrit', path: File.join(base, 'twigg-gerrit')
 end

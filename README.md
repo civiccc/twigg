@@ -35,6 +35,9 @@ existing set of clones.
     twigg gerrit [--verbose|-v] clone
     twigg gerrit [--verbose|-v] update
 
+In order to use the `gerrit` subcommand the twigg-gerrit gem must be installed
+(`gem install twigg-gerrit`).
+
 ### `twigg github`
 
 This subcommand clones a set of projects from a GitHub, or updates an existing

@@ -11,6 +11,12 @@ PATH
       sinatra-contrib (~> 1.4.0)
       twigg
 
+PATH
+  remote: ../twigg-gerrit
+  specs:
+    twigg-gerrit (0.0.1)
+      twigg
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -57,3 +63,4 @@ DEPENDENCIES
   rspec
   twigg!
   twigg-app!
+  twigg-gerrit!

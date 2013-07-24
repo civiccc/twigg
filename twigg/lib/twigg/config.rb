@@ -1,3 +1,4 @@
+require 'forwardable'
 require 'shellwords'
 require 'yaml'
 

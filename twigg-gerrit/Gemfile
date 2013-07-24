@@ -1,0 +1,7 @@
+source 'https://rubygems.org'
+
+gemspec
+
+group :development do
+  gem 'twigg', path: File.join(File.dirname(__FILE__), '..', 'twigg')
+end

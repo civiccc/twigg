@@ -1,9 +1,10 @@
+require 'forwardable'
+
 module Twigg
   class Command
     # Subcommands, in the order they should appear in the help output.
     SUBCOMMANDS = %w[help init app stats gerrit github]
 
-    autoload :Gerrit,  'twigg/command/gerrit'
     autoload :GitHost, 'twigg/command/git_host'
     autoload :GitHub,  'twigg/command/git_hub'
     autoload :Init,    'twigg/command/init'
@@ -39,16 +40,20 @@ module Twigg
         warn "unsupported extra arguments #{args.inspect} ignored" if args.any?
       end
 
+      def with_dependency(gem, &block)
+        require gem
+        yield
+      rescue LoadError => e
+        die "#{e}: try `gem install #{gem}`"
+      end
+
       def app(*args)
         ignore args
-        require 'twigg-app'
-        App.run!
-      rescue LoadError => e
-        die "#{e}: try `gem install twigg-app`"
+        with_dependency('twigg-app') { App.run! }
       end
 
       def gerrit(*args)
-        Gerrit.new(*args).run
+        with_dependency('twigg-gerrit') { Gerrit.new(*args).run }
       end
 
       def github(*args)
