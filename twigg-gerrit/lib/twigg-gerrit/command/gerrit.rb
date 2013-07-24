@@ -3,7 +3,58 @@ module Twigg
     # The "gerrit" subcommand can be used to conveniently initialize a set of
     # repos and keep them up-to-date.
     class Gerrit < GitHost
+      include Util
+
     private
+
+      def sub_subcommands
+        super + ['stats']
+      end
+
+      def db
+        @db ||= begin
+          require 'sequel'
+
+          adapter = Config.gerrit.db.adapter # eg. mysql2
+          with_dependency(adapter) do
+            db = Sequel.send(adapter, Config.gerrit.db.database,
+                            host:     Config.gerrit.db.host,
+                            password: Config.gerrit.db.password,
+                            port:     Config.gerrit.db.port,
+                            user:     Config.gerrit.db.user)
+          end
+        end
+      end
+
+      # Returns the age of `time` relative to now in hours (for short intervals)
+      # or days (for intervals longer than 24 hours).
+      def age(time)
+        delta = Time.now - time
+        return 'future' if delta < 0
+        hours = (delta / (60 * 60)).to_i
+        days = hours / 24
+        (hours > 24 ? "#{pluralize days, 'day'}" : "#{pluralize hours, 'hour'}") +
+          ' ago'
+      end
+
+      # Shows a list of open changes, ordered by last update date (descending).
+      def stats
+        changes = db[:changes].
+          select(:change_id, :last_updated_on, :subject, :full_name).
+          join(:accounts, account_id: :owner_account_id).
+          where(status: 'n').
+          order(Sequel.desc(:last_updated_on)).all
+
+        puts "Open changes (#{changes.count})"
+        changes.map do |change|
+          puts "  #%-6d %s [%s] %s" % [
+            change[:change_id],
+            change[:subject],
+            change[:full_name],
+            age(change[:last_updated_on]),
+          ]
+        end
+      end
 
       # Returns a Gerrit address.
       #

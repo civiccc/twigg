@@ -74,7 +74,7 @@ module Twigg
     end
 
     extend Forwardable
-    def_delegators 'self.class', :ignore
+    def_delegators 'self.class', :ignore, :with_dependency
 
     def initialize(*args)
       @debug   = true if args.delete('-d') || args.delete('--debug')

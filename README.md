@@ -29,14 +29,17 @@ Usage:
 
 ### `twigg gerrit`
 
-This subcommand clones a set of projects from a Gerrit instance, or updates an
-existing set of clones.
+This subcommand clones a set of projects from a Gerrit instance, updates an
+existing set of clones, or shows stats.
 
     twigg gerrit [--verbose|-v] clone
     twigg gerrit [--verbose|-v] update
+    twigg gerrit [--verbose|-v] stats
 
 In order to use the `gerrit` subcommand the twigg-gerrit gem must be installed
-(`gem install twigg-gerrit`).
+(`gem install twigg-gerrit`). The `gerrit stats` command additionally requires a
+database adapter such as the "mysql2" gem, and a Gerrit instance with an
+accessible database.
 
 ### `twigg github`
 

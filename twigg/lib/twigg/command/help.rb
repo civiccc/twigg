@@ -39,8 +39,8 @@ module Twigg
           Commands:
 
             #{executable} app    # run the Twigg web app
-            #{executable} gerrit # clone/update repos from Gerrit
-            #{executable} github # clone/update repos from GitHub
+            #{executable} gerrit # clone/update/report from Gerrit
+            #{executable} github # clone/update from GitHub
             #{executable} init   # generate a .twiggrc file
             #{executable} help   # this help information
             #{executable} stats  # show statistics about repos
@@ -54,6 +54,7 @@ module Twigg
 
             #{executable} gerrit clone [repos dir]  # clone repos into repos dir
             #{executable} gerrit update [repos dir] # update repos in repos dir
+            #{executable} gerrit stats [repos dir]  # show stats for repos in dir
 
         DOC
       end

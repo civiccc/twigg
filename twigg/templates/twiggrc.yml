@@ -8,12 +8,19 @@ default_days: 7
 repositories_directory: /home/jimmy/repos
 
 app:
-  bind: '0.0.0.0'
+  bind: '0.0.0.0' # default
 
 gerrit:
   user: jimmy
-  port: 29418
+  port: 29418 # default
   host: gerrit.example.com
+  db:
+    adapter:  mysql2 # default
+    database: gerritdb
+    host:     gerrit.example.com
+    password: secret
+    port:     3306 # default
+    user:     jimmy
 
 github:
   organization: causes

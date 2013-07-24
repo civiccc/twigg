@@ -32,11 +32,20 @@ module Twigg
       setting :host, default: 'localhost'
       setting :port, default: 29418
       setting :user, default: ENV['USER']
+
+      namespace :db do
+        setting :adapter,   default: 'mysql2'
+        setting :database,  required: true
+        setting :host,      default: 'localhost'
+        setting :password
+        setting :port,      default: 3306
+        setting :user,      default: ENV['USER']
+      end
     end
 
     namespace :github do
       setting :organization, required: true
-      setting :token, required: true
+      setting :token,        required: true
     end
 
     setting :repositories_directory, required: true do |name, value|
