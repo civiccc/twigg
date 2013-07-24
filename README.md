@@ -82,7 +82,6 @@ request:
 
 To interact with Twigg in a REPL:
 
-
     cd $(git rev-parse --show-cdup)/twigg
     TWIGGRC=custom bundle exec irb -r twigg
 
