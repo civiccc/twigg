@@ -6,7 +6,7 @@ module Twigg
       commit_set = CommitSet.new
       Dir[File.join(repositories_directory, '*')].each do |repo_path|
         begin
-          Repo.new(repo_path).commits(all: true, since: since).each do |commit|
+          Repo.new(repo_path).commits(since: since).each do |commit|
             commit_set.add_commit(commit)
           end
         rescue Repo::InvalidRepoError

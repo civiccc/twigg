@@ -17,18 +17,18 @@ module Twigg
 
     # Returns an array of {Commit} objects reachable from the HEAD of the repo.
     #
-    # There are a number of options that correspond to the options of the same
-    # name to `git log`:
+    # There are a number of keyword arguments that correspond to the options of
+    # the same name to `git log`:
     #
-    #   - `since:`: only return commits made since this Time
     #   - `all:` : return reachable commits from all branches, not just HEAD
+    #   - `since:`: only return commits made since this Time
     #
-    def commits(options = {})
+    def commits(all: true, since: nil)
       args = []
-      args << '--all' if options[:all]
-      args << "--since=#{options[:since].to_i}" if options[:since]
+      args << '--all' if all
+      args << "--since=#{since.to_i}" if since
       @commits ||= {}
-      @commits[options] ||= parse_log(log(*args))
+      @commits[args] ||= parse_log(log(*args))
     end
 
     # Returns the name of the repo.
