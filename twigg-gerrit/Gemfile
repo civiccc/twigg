@@ -3,5 +3,6 @@ source 'https://rubygems.org'
 gemspec
 
 group :development do
+  gem 'mysql2'
   gem 'twigg', path: File.join(File.dirname(__FILE__), '..', 'twigg')
 end
