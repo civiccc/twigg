@@ -23,6 +23,8 @@ module Twigg
           exit
         end
 
+        Config.config # consumes and applies `-c`/`--config` option
+
         begin
           send(subcommand, *args)
         rescue => e

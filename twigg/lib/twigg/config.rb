@@ -40,7 +40,9 @@ module Twigg
     end
 
     def initialize
-      @settings = Settings.new(config_from_env || config_from_home)
+      @settings = Settings.new(config_from_argv ||
+                               config_from_env ||
+                               config_from_home)
     end
 
   private
@@ -66,6 +68,16 @@ module Twigg
           DOC
         end
       end
+    end
+
+    def config_from_argv
+      # It is a bit of a smell to have the Config class know about argument
+      # processing, but, at least in development, Bundler will end up eagerly
+      # loading the config when it evaluates the Gemfile (and hence the
+      # twigg-app.gemspec), which means that this happens before the
+      # Twigg::Command.run method gets a chance to set things up properly.
+      path = consume_option(%w[-c --config], ARGV)
+      config_from_file(path) if path
     end
 
     def config_from_env

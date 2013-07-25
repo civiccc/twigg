@@ -37,5 +37,28 @@ module Twigg
       indent = doc.scan(/^[ \t]*(?=\S)/).map(&:size).min || 0
       doc.gsub(/^[ \t]{#{indent}}/, '')
     end
+
+    # Given `switches` (which may be either a single switch or an array of
+    # switches) and an array of arguments, `args`, scans through the arguments
+    # looking for the switches and the corresponding values.
+    #
+    # This can be used, for example, to extract the value "/etc/twiggrc" from an
+    # argument list like "--verbose --debug --config /etc/twiggrc help".
+    #
+    # In the event that the switches appear multiple times in the list, the
+    # right-most wins. If a switch is found without a corresponding option an
+    # exception is raised.
+    #
+    # Consumes matching options (ie. deletes them from `args) and returns the
+    # corresponding (rightmost) value, or `nil` in the event there is no match.
+    def consume_option(switches, args)
+      # consume from left to right; rightmost will win
+      while index = args.find_index { |arg| Array(switches).include?(arg) }
+        switch, value = args.slice!(index, 2)
+        raise ArgumentError, "missing option (expected after #{switch})" unless value
+      end
+
+      value
+    end
   end
 end
