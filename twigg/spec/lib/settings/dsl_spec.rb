@@ -18,11 +18,11 @@ describe Twigg::Settings::DSL do
     end
 
     it 'handles top-level settings' do
-      subject.foo.color.should == 'red'
+      expect(subject.foo.color).to eq('red')
     end
 
     it 'handles nested settings' do
-      subject.foo.bar.volume.should == 100
+      expect(subject.foo.bar.volume).to eq(100)
     end
   end
 
@@ -43,11 +43,11 @@ describe Twigg::Settings::DSL do
     end
 
     it 'handles settings prepared prior to re-opening' do
-      subject.jungle.boogie.should == 'large'
+      expect(subject.jungle.boogie).to eq('large')
     end
 
     it 'handles settings prepared after re-opening' do
-      subject.jungle.fever.should be_true
+      expect(subject.jungle.fever).to be_true
     end
   end
 
@@ -77,7 +77,7 @@ describe Twigg::Settings::DSL do
     end
 
     it 'always returns the same value' do
-      2.times.map { subject.philotic }.should == %w[foo foo]
+      expect(2.times.map { subject.philotic }).to eq(%w[foo foo])
     end
   end
 end

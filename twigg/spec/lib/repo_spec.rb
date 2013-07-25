@@ -9,7 +9,7 @@ describe Twigg::Repo do
       let(:repo) { scratch_repo }
 
       it 'returns a working instance' do
-        subject.should be_a(Twigg::Repo)
+        expect(subject).to be_a(Twigg::Repo)
       end
     end
 
@@ -51,8 +51,8 @@ describe Twigg::Repo do
       end
 
       it 'includes the commit with the empty message' do
-        subject.length.should == 1
-        subject.first.should be_a(Twigg::Commit)
+        expect(subject.length).to eq(1)
+        expect(subject.first).to be_a(Twigg::Commit)
       end
     end
 
@@ -64,9 +64,9 @@ describe Twigg::Repo do
       end
 
       it 'includes the empty commit' do
-        subject.length.should == 1
-        subject.first.should be_a(Twigg::Commit)
-        subject.first.subject.should == 'Empty'
+        expect(subject.length).to eq(1)
+        expect(subject.first).to be_a(Twigg::Commit)
+        expect(subject.first.subject).to eq('Empty')
       end
     end
 
@@ -78,8 +78,8 @@ describe Twigg::Repo do
       end
 
       it 'includes the empty commit with the empty message' do
-        subject.length.should == 1
-        subject.first.should be_a(Twigg::Commit)
+        expect(subject.length).to eq(1)
+        expect(subject.first).to be_a(Twigg::Commit)
       end
     end
   end

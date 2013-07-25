@@ -9,12 +9,12 @@ describe Twigg::Settings do
     end
 
     it 'provides method-based access' do
-      subject.a.should == 1
-      subject.b.should == 'foo'
+      expect(subject.a).to eq(1)
+      expect(subject.b).to eq('foo')
     end
 
     it 'returns `nil` for unset keys' do
-      subject.c.should be_nil
+      expect(subject.c).to be_nil
     end
   end
 
@@ -29,12 +29,12 @@ describe Twigg::Settings do
     end
 
     it 'provides multi-level traversal' do
-      subject.a.b.should == 1
-      subject.c.d.e.should == 2
+      expect(subject.a.b).to eq(1)
+      expect(subject.c.d.e).to eq(2)
     end
 
     it 'returns `nil` for nested unset keys' do
-      subject.a.blah.should be_nil
+      expect(subject.a.blah).to be_nil
     end
   end
 
@@ -45,7 +45,7 @@ describe Twigg::Settings do
       end
 
       it 'uses the default' do
-        subject.default_days.should == 7
+        expect(subject.default_days).to eq(7)
       end
     end
 
@@ -55,7 +55,7 @@ describe Twigg::Settings do
       end
 
       it 'uses the set value' do
-        subject.default_days.should == 10
+        expect(subject.default_days).to eq(10)
       end
     end
   end
@@ -78,7 +78,7 @@ describe Twigg::Settings do
       end
 
       it 'uses the set value' do
-        subject.repositories_directory.should == __dir__
+        expect(subject.repositories_directory).to eq(__dir__)
       end
     end
   end
@@ -90,7 +90,7 @@ describe Twigg::Settings do
       end
 
       it 'uses the set value' do
-        subject.repositories_directory.should == __dir__
+        expect(subject.repositories_directory).to eq(__dir__)
       end
     end
 
