@@ -28,7 +28,7 @@ module Twigg
       args << '--all' if all
       args << "--since=#{since.to_i}" if since
       @commits ||= {}
-      @commits[args] ||= log(*args, method('parse_log'))
+      @commits[args] ||= parse_log(log(*args))
     end
 
     # Returns the name of the repo.
@@ -71,18 +71,14 @@ module Twigg
     alias :valid? :git_dir
 
     # Runs the Git command, `command`, with args `args`.
-    #
-    # Yields an IO object to the passed-in block that can be used to read the
-    # output (for example, with `#each_line`).
     def git(command, *args)
-      block = args.pop
       IO.popen([{ 'GIT_DIR' => git_dir },
                 'git', command, *args, *STDERR_TO_STDOUT], 'r') do |io|
-        block.call(io)
+        io.read
       end
     end
 
-    def log(*args, &block)
+    def log(*args)
       format = [
         '%H',  # commit hash
         '%n',  # newline
@@ -92,12 +88,12 @@ module Twigg
         '%n',  # newline
         '%s',  # subject
       ].join
-      git 'log', "--pretty=format:'#{format}'", '--numstat', *args, &block
+      git 'log', "--pretty=format:'#{format}'", '--numstat', *args
     end
 
-    def parse_log(io)
+    def parse_log(string)
       [].tap do |commits|
-        lines = io.each_line
+        lines = string.each_line
         loop do
           begin
             commit           = { commit: lines.next.chomp }
