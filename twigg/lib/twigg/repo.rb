@@ -28,7 +28,7 @@ module Twigg
       args << '--all' if all
       args << "--since=#{since.to_i}" if since
       @commits ||= {}
-      @commits[args] ||= parse_log(log(*args))
+      @commits[args] ||= log(*args, method('parse_log'))
     end
 
     # Returns the name of the repo.
@@ -70,49 +70,57 @@ module Twigg
     # Delegates to `#git_dir`
     alias :valid? :git_dir
 
+    # Runs the Git command, `command`, with args `args`.
+    #
+    # Yields an IO object to the passed-in block that can be used to read the
+    # output (for example, with `#each_line`).
     def git(command, *args)
-      # send both stderr and stdout to stdout
+      block = args.pop
       IO.popen([{ 'GIT_DIR' => git_dir },
                 'git', command, *args, *STDERR_TO_STDOUT], 'r') do |io|
-        io.read
+        block.call(io)
       end
     end
 
-    def log(*args)
-      git 'log', '--numstat', '--format=raw', *args
+    def log(*args, &block)
+      format = [
+        '%H',  # commit hash
+        '%n',  # newline
+        '%aN', # author name (respecting .mailmap)
+        '%n',  # newline
+        '%ct', # committer date, UNIX timestamp
+        '%n',  # newline
+        '%s',  # subject
+      ].join
+      git 'log', "--pretty=format:'#{format}'", '--numstat', *args, &block
     end
 
-    def parse_log(string)
+    def parse_log(io)
       [].tap do |commits|
-        tokens = string.scan %r{
-          ^commit\s+([a-f0-9]{40})$ |                   # digest
-          ^author\s+(.*?)\s+<(.+)>\s\d+\s[+-]\d{4,6}$ | # author (name, email)
-          ^committer\s+.+\s+<.+>\s(\d+)\s[+-]\d{4,6}$ | # committer (date)
-          ^[ ]{4}(.+?)$ |                               # subject + message
-          ^(\d+)\t(\d+)\t.+$                            # num stats (per file)
-        }x
+        lines = io.each_line
+        loop do
+          begin
+            commit           = { commit: lines.next.chomp }
+            commit[:author]  = lines.next.chomp
+            commit[:date]    = Time.at(lines.next.chomp.to_i).to_date
+            commit[:subject] = lines.next.chomp
+            commit[:stat]    = Hash.new(0)
+            commit[:repo]    = self
 
-        while token = tokens.shift
-          commit  = token[0]
-          author  = tokens.shift
-          author  = author[1].size > 0 ? author[1] : author[2] # name -> email
-          date    = Time.at(tokens.shift[3].to_i).to_date
-          subject = tokens.first && tokens.first[4] || ''      # --allow-empty-message
-          tokens.shift while tokens.first && tokens.first[4]   # commit message body, drop
+            while lines.peek =~ /^(\d+|-)\t(\d+|-)\t.+$/ && lines.next
+              commit[:stat][:additions] += $~[1].to_i
+              commit[:stat][:deletions] += $~[2].to_i
+            end
+            lines.next if lines.peek == "\n" # blank separator line
 
-          # stats can be blank if --allow-empty or a merge commit
-          stat = Hash.new(0)
-          while tokens.first && tokens.first[5] && token = tokens.shift
-            stat[:additions] += token[5].to_i
-            stat[:deletions] += token[6].to_i
+          rescue StopIteration
+            break # end of output
+          ensure
+            # if the underlying repo is bad (eg. no commits yet) this could
+            # raise an ArgumentError, so we rescue
+            commit = Commit.new(commit) rescue nil
+            commits << commit if commit
           end
-
-          commits << Commit.new(repo:    self,
-                                commit:  commit,
-                                subject: subject,
-                                author:  author,
-                                date:    date,
-                                stat:    stat)
         end
       end
     end
