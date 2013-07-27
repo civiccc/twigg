@@ -2,8 +2,8 @@ module Twigg
   class CommitSet
     attr_reader :commits
 
-    def initialize(commits = nil)
-      @commits = commits ? commits.dup : []
+    def initialize(commits = [])
+      @commits = commits
     end
 
     def count
