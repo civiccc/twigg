@@ -3,6 +3,10 @@ require 'ostruct'
 module Twigg
   class Settings
     module DSL
+      # Hash subclass used as a book-keeping detail, which allows us to
+      # differentiate settings hashes from hashes used to construct namespaces.
+      class Namespace < Hash; end
+
       module ClassMethods
         attr_reader :overrides
 
@@ -44,7 +48,7 @@ module Twigg
           @overrides ||= {}
 
           overrides = namespaces.inject(@overrides) do |overrides, namespace|
-            overrides[namespace] ||= {}
+            overrides[namespace] ||= Namespace.new
           end
 
           overrides[name] = options
@@ -84,7 +88,7 @@ module Twigg
           return unless overrides
 
           overrides.each do |name, options|
-            if namespace?(options)
+            if options.is_a?(Namespace)
               process_namespace(instance, namespace, name, options) # recurses
             else
               define_getter(instance, namespace, name, options)
@@ -133,12 +137,6 @@ module Twigg
 
             instance_variable_set("@#{namespace}__#{name}", value)
           end
-        end
-
-        # Returns true if `hash` is multi-level, and therefore respresents a
-        # namespace.
-        def namespace?(hash)
-          hash.values.any? { |value| value.respond_to?(:keys) }
         end
       end
     end

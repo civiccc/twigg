@@ -51,5 +51,11 @@ module Twigg
     setting :repositories_directory, required: true do |name, value|
       raise ArgumentError, "#{name} not a directory" unless File.directory?(value)
     end
+
+    setting :teams, default: {} do |name, value|
+      if !value.respond_to?(:to_h) || value.to_h.values.any? { |team| !team.is_a?(Array) }
+        raise ArgumentError, "#{name} should be a hash of arrays"
+      end
+    end
   end
 end

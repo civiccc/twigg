@@ -1,6 +1,21 @@
 require 'spec_helper'
 
 describe Twigg::Settings::DSL do
+  context 'with a hash default value' do
+    subject do
+      Class.new(OpenStruct) do
+        extend  Twigg::Settings::DSL::ClassMethods
+        include Twigg::Settings::DSL::InstanceMethods
+
+        setting :stuff, default: {}
+      end.new
+    end
+
+    it 'returns the default' do
+      expect(subject.stuff).to eq({})
+    end
+  end
+
   context 'with nested namespaces' do
     subject do
       Class.new(OpenStruct) do

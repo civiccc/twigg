@@ -25,3 +25,14 @@ gerrit:
 github:
   organization: causes
   token: 0da57c4304855867e97dd4419d7d070543c5c092
+
+teams:
+  - Red Team:
+    - John Smith
+    - Barbara Jones
+  - Blue Team:
+    - Alec Alexson
+    - Jane James
+  - Green Team:
+    - Rodrigo Schultz
+    - Yahuro Bordeux
