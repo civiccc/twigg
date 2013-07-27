@@ -35,9 +35,9 @@
                       %td
                         %code
                           - if commit.link
-                            %a{ href: commit.link, title: commit.commit }= h(commit.subject)
+                            %a{ href: commit.link, title: commit.commit }&= commit.subject
                           - else
-                            = h(commit.subject)
+                            &= commit.subject
                       %td
                         - if commit.repo.link
                           %a{ href: commit.repo.link }= commit.repo.name

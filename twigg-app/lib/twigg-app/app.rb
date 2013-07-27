@@ -22,10 +22,6 @@ module Twigg
     helpers Twigg::Util
 
     helpers do
-      def h(text)
-        Rack::Utils.escape_html(text)
-      end
-
       def author_path(author)
         '/authors/' + author.tr(' ', '.')
       end
