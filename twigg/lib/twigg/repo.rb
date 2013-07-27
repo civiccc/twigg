@@ -88,7 +88,7 @@ module Twigg
         '%n',  # newline
         '%s',  # subject
       ].join
-      git 'log', "--pretty=format:'#{format}'", '--numstat', *args
+      git 'log', "--pretty=format:#{format}", '--numstat', *args
     end
 
     def parse_log(string)
