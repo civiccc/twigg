@@ -50,5 +50,23 @@ module Twigg
         sort_by { |author, commit_set| -commit_set.count }.
         map { |author, commit_set| { author: author, commit_set: commit_set } }
     end
+
+    def teams
+      authors = top_authors.group_by { |h| h[:author] }
+
+      teams = Config.teams.each_pair.map do |team, members|
+        members = members.map { |member| authors.delete(member) }.
+          compact.
+          flatten.
+          sort_by { |member| -member[:commit_set].count }
+        [team, members] if members.any?
+      end.compact
+
+      unless authors.empty?
+        teams << ['Other', authors.values.flatten]
+      end
+
+      teams
+    end
   end
 end

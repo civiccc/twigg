@@ -55,5 +55,11 @@ module Twigg
       end
       haml :'authors/show'
     end
+
+    get '/teams' do
+      @days = params.fetch('days', Config.default_days).to_i
+      @commit_set = Gatherer.gather(Config.repositories_directory, @days)
+      haml :'teams/index'
+    end
   end
 end

@@ -1,0 +1,50 @@
+- content_for :title do
+  Commit Stats Over Past #{number_with_delimiter @days} Days
+
+%h2 #{number_with_delimiter @commit_set.count} commits
+%table.table.table-striped.table-hover.table-bordered
+  %thead
+    %tr
+      %th Total commits
+      %th Author
+      %th Breakdown by project
+      %th &nbsp;
+  %tbody
+    - @commit_set.teams.each do |team, authors|
+      %tr
+        %td(colspan=4)&= team
+      - authors.each do |object|
+        %tr
+          %td= number_with_delimiter(object[:commit_set].count)
+          %td
+            %a{ href: author_path(object[:author]) }= object[:author]
+          %td= breakdown(object[:commit_set])
+          %td
+            %button.btn.btn-mini{ type: 'button',
+              data: { toggle: 'modal', target: '#' + name_to_id(object[:author]) + '-details' }}
+              Details
+            .modal.hide.fade{ id: name_to_id(object[:author]) + '-details', tabindex: '-1' }
+              .modal-header
+                %button(type='button' class='close' data-dismiss='modal' aria-hidden='true')
+                  &times;
+                %h3 Details for #{object[:author]}
+              .modal-body
+                %table.table.table-hover.table-bordered.table-condensed
+                  %tbody
+                    - object[:commit_set].commits.each do |commit|
+                      %tr
+                        %td +#{number_with_delimiter commit.stat[:additions]}
+                        %td -#{number_with_delimiter commit.stat[:deletions]}
+                        %td
+                          %code
+                            - if commit.link
+                              %a{ href: commit.link, title: commit.commit }&= commit.subject
+                            - else
+                              &= commit.subject
+                        %td
+                          - if commit.repo.link
+                            %a{ href: commit.repo.link }= commit.repo.name
+                          - else
+                            = commit.repo.name
+              .modal-footer
+                %a(href='#' class='btn' data-dismiss='modal') Close
