@@ -19,7 +19,7 @@ module Twigg
       end
     end
 
-    def add_commit(commit)
+    def <<(commit)
       @commits << commit
     end
 
@@ -42,7 +42,7 @@ module Twigg
       author_to_commit_set = Hash.new { |h, k| h[k] = self.class.new }
       @commits.each do |commit|
         commit.author_names.each do |author_name|
-          author_to_commit_set[author_name].add_commit(commit)
+          author_to_commit_set[author_name] << commit
         end
       end
 
