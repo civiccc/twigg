@@ -99,7 +99,7 @@ module Twigg
             commit           = { commit: lines.next.chomp }
             commit[:author]  = lines.next.chomp
             commit[:date]    = Time.at(lines.next.chomp.to_i).to_date
-            commit[:subject] = lines.next.chomp
+            commit[:subject] = lines.next.chomp rescue ''
             commit[:stat]    = Hash.new(0)
             commit[:repo]    = self
 
