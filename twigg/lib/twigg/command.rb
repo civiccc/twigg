@@ -23,8 +23,6 @@ module Twigg
           exit
         end
 
-        Config.config # consumes and applies `-c`/`--config` option
-
         begin
           send(subcommand, *args)
         rescue => e
@@ -79,6 +77,9 @@ module Twigg
     def_delegators 'self.class', :ignore, :with_dependency
 
     def initialize(*args)
+      Config.config # ensure `-c`/`--config` option is applied
+      consume_option(%w[-c --config], args) # ensure consumed
+
       @debug   = true if args.delete('-d') || args.delete('--debug')
       @verbose = true if args.delete('-v') || args.delete('--verbose')
       @args    = args
