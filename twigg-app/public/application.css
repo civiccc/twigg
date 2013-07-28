@@ -4,8 +4,8 @@
 
 /* Bootstrap overrides */
 
-body .modal {
-  left: 5%;
+body .modal-dialog {
+  left: 0;
   margin-left: auto;
   margin-right: auto;
   width: 90%;
