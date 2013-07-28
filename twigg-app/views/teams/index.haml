@@ -12,7 +12,8 @@
   %tbody
     - @commit_set.teams.each do |team, authors|
       %tr
-        %td(colspan=4)&= team
+        %td(colspan=4)
+          %span{ data: { toggle: 'tooltip' }, title: authors.map { |a| a[:author] }.join(', ') }&= team
       - authors.each do |object|
         %tr
           %td= number_with_delimiter(object[:commit_set].count)

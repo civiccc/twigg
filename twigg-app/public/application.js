@@ -17,3 +17,6 @@ Twigg.Profile = (function() {
     loadCommitsPerDay: loadCommitsPerDay
   };
 })();
+
+// for bootstrap:
+$('[data-toggle=tooltip]').tooltip();
