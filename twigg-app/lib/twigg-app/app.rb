@@ -36,7 +36,7 @@ module Twigg
     end
 
     get '/' do
-      redirect to('/authors')
+      redirect to('/teams')
     end
 
     get '/authors' do
