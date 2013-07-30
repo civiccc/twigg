@@ -14,7 +14,7 @@
       %tr
         %td= number_with_delimiter(object[:commit_set].count)
         %td
-          %span{ data: { toggle: 'tooltip' }, title: object[:authors].join(', ') }&= object[:author]
+          %a{ href: team_path(object[:author]), data: { toggle: 'tooltip' }, title: object[:authors].join(', ') }&= object[:author]
         %td= breakdown(object[:commit_set])
         %td
           %a{ data: { toggle: 'modal' }, href: '#' + name_to_id(object[:author]) + '-details' }

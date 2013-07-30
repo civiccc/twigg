@@ -26,6 +26,10 @@ module Twigg
         '/authors/' + author.tr(' ', '.')
       end
 
+      def team_path(team)
+        '/teams/' + team.tr(' ', '.')
+      end
+
       def name_to_id(name)
         name.tr(' .@', '-').downcase
       end
@@ -60,6 +64,11 @@ module Twigg
       @days = params.fetch('days', Config.default_days).to_i
       @commit_set = Gatherer.gather(Config.repositories_directory, @days)
       haml :'teams/index'
+    end
+
+    get '/teams/:slug' do
+      @team = slug_to_name(params[:slug])
+      haml :'teams/show'
     end
   end
 end

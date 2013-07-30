@@ -1,0 +1,9 @@
+- content_for :title do
+  = @team
+
+%ul.breadcrumb
+  %li
+    %a(href='/') Home
+  %li
+    %a(href='/teams') Teams
+  %li.active= @team
