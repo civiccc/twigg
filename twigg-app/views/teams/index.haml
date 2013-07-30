@@ -6,47 +6,43 @@
   %thead
     %tr
       %th Total commits
-      %th Author
+      %th Team
       %th Breakdown by project
       %th &nbsp;
   %tbody
-    - @commit_set.teams.each do |team, authors|
+    - @commit_set.teams.each do |object|
       %tr
-        %td(colspan=4)
-          %span{ data: { toggle: 'tooltip' }, title: authors.map { |a| a[:author] }.join(', ') }&= team
-      - authors.each do |object|
-        %tr
-          %td= number_with_delimiter(object[:commit_set].count)
-          %td
-            %a{ href: author_path(object[:author]) }= object[:author]
-          %td= breakdown(object[:commit_set])
-          %td
-            %a{ data: { toggle: 'modal' }, href: '#' + name_to_id(object[:author]) + '-details' }
-              Details
-            .modal.fade{ id: name_to_id(object[:author]) + '-details', tabindex: '-1' }
-              .modal-dialog
-                .modal-content
-                  .modal-header
-                    %button(type='button' class='close' data-dismiss='modal' aria-hidden='true')
-                      &times;
-                    %h3 Details for #{object[:author]}
-                  .modal-body
-                    %table.table.table-hover.table-bordered.table-condensed
-                      %tbody
-                        - object[:commit_set].commits.each do |commit|
-                          %tr
-                            %td +#{number_with_delimiter commit.stat[:additions]}
-                            %td -#{number_with_delimiter commit.stat[:deletions]}
-                            %td
-                              %code
-                                - if commit.link
-                                  %a{ href: commit.link, title: commit.commit }&= commit.subject
-                                - else
-                                  &= commit.subject
-                            %td
-                              - if commit.repo.link
-                                %a{ href: commit.repo.link }= commit.repo.name
+        %td= number_with_delimiter(object[:commit_set].count)
+        %td
+          %span{ data: { toggle: 'tooltip' }, title: object[:authors].join(', ') }&= object[:author]
+        %td= breakdown(object[:commit_set])
+        %td
+          %a{ data: { toggle: 'modal' }, href: '#' + name_to_id(object[:author]) + '-details' }
+            Details
+          .modal.fade{ id: name_to_id(object[:author]) + '-details', tabindex: '-1' }
+            .modal-dialog
+              .modal-content
+                .modal-header
+                  %button(type='button' class='close' data-dismiss='modal' aria-hidden='true')
+                    &times;
+                  %h3 Details for #{object[:author]}
+                .modal-body
+                  %table.table.table-hover.table-bordered.table-condensed
+                    %tbody
+                      - object[:commit_set].commits.each do |commit|
+                        %tr
+                          %td +#{number_with_delimiter commit.stat[:additions]}
+                          %td -#{number_with_delimiter commit.stat[:deletions]}
+                          %td
+                            %code
+                              - if commit.link
+                                %a{ href: commit.link, title: commit.commit }&= commit.subject
                               - else
-                                = commit.repo.name
-                  .modal-footer
-                    %a(href='#' class='btn btn-default' data-dismiss='modal') Close
+                                &= commit.subject
+                          %td
+                            - if commit.repo.link
+                              %a{ href: commit.repo.link }= commit.repo.name
+                            - else
+                              = commit.repo.name
+                .modal-footer
+                  %a(href='#' class='btn btn-default' data-dismiss='modal') Close

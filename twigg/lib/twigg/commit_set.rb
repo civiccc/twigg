@@ -23,6 +23,18 @@ module Twigg
       @commits << commit
     end
 
+    # Returns a copy of the receiver merged with `commit_set`.
+    def +(commit_set)
+      unless commit_set.is_a?(CommitSet)
+        raise TypeError, "expected Twigg::CommitSet, got #{commit_set.class}"
+      end
+
+      dup.tap do |other|
+        other.commits.concat(commit_set.commits)
+        other.commits.uniq!
+      end
+    end
+
     def count_by_repo
       counts = Hash.new(0)
       @commits.each { |commit| counts[commit.repo] += 1 }
@@ -52,18 +64,34 @@ module Twigg
     end
 
     def teams
-      authors = authors.group_by { |h| h[:author] }
+      author_map = authors.group_by { |h| h[:author] }
 
       teams = Config.teams.each_pair.map do |team, members|
-        members = members.map { |member| authors.delete(member) }.
-          compact.
-          flatten.
-          sort_by { |member| -member[:commit_set].count }
-        [team, members] if members.any?
-      end.compact
+        commits = members.each_with_object(self.class.new) do |member, commit_set|
+          if member = author_map.delete(member)
+            commit_set += member.first[:commit_set]
+          end
+        end
 
-      unless authors.empty?
-        teams << ['Other', authors.values.flatten]
+        if commits.commits.any?
+          {
+            author:     team.to_s,
+            commit_set: commits,
+            authors:    members,
+          }
+        end
+      end.compact.sort_by { |team| -team[:commit_set].count }
+
+      unless author_map.empty?
+        commits =  author_map.values.each_with_object(self.class.new) do |object, commit_set|
+            commit_set += object.first[:commit_set]
+        end
+
+        teams << {
+          author:     'Other',
+          commit_set: commits,
+          authors:    author_map.keys,
+        }
       end
 
       teams

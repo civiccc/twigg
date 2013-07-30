@@ -21,6 +21,16 @@ module Twigg
       @author.split(/\+|&|,|\band\b/).map(&:strip)
     end
 
+    def eql?(other)
+      other.is_a?(Commit)         &&
+        other.repo    == @repo    &&
+        other.commit  == @commit  &&
+        other.subject == @subject &&
+        other.author  == @author  &&
+        other.date    == @date    &&
+        other.stat    == @stat
+    end
+
     def inspect
       "repo: #{@repo.name}\n" +
         "commit: #{@commit}\n" +
