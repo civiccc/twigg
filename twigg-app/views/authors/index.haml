@@ -10,7 +10,7 @@
       %th Breakdown by project
       %th &nbsp;
   %tbody
-    - @commit_set.top_authors.each do |object|
+    - @commit_set.authors.each do |object|
       %tr
         %td= number_with_delimiter(object[:commit_set].count)
         %td

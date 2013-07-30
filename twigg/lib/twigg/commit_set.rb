@@ -38,7 +38,7 @@ module Twigg
       self.class.new(commits_for_author)
     end
 
-    def top_authors
+    def authors
       author_to_commit_set = Hash.new { |h, k| h[k] = self.class.new }
       @commits.each do |commit|
         commit.author_names.each do |author_name|
@@ -52,7 +52,7 @@ module Twigg
     end
 
     def teams
-      authors = top_authors.group_by { |h| h[:author] }
+      authors = authors.group_by { |h| h[:author] }
 
       teams = Config.teams.each_pair.map do |team, members|
         members = members.map { |member| authors.delete(member) }.

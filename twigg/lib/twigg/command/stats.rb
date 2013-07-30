@@ -14,7 +14,7 @@ module Twigg
       def run
         global_additions, global_deletions = 0, 0
         master_set = Twigg::Gatherer.gather(@repositories_directory, @days)
-        master_set.top_authors.each do |top_author_data|
+        master_set.authors.each do |top_author_data|
           author     = top_author_data[:author]
           commit_set = top_author_data[:commit_set]
           puts '%5s %-24s %s' % [
