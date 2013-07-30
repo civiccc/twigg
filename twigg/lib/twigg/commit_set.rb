@@ -51,25 +51,18 @@ module Twigg
     end
 
     def authors
-      author_to_commit_set = Hash.new { |h, k| h[k] = self.class.new }
-      @commits.each do |commit|
-        commit.author_names.each do |author_name|
-          author_to_commit_set[author_name] << commit
-        end
-      end
-
       author_to_commit_set.
         sort_by { |author, commit_set| -commit_set.count }.
         map { |author, commit_set| { author: author, commit_set: commit_set } }
     end
 
     def teams
-      author_map = authors.group_by { |h| h[:author] }
+      set = author_to_commit_set
 
       teams = Config.teams.each_pair.map do |team, members|
         commits = members.each_with_object(self.class.new) do |member, commit_set|
-          if member = author_map.delete(member)
-            commit_set += member.first[:commit_set]
+          if member = set.delete(member)
+            commit_set += member
           end
         end
 
@@ -82,19 +75,25 @@ module Twigg
         end
       end.compact.sort_by { |team| -team[:commit_set].count }
 
-      unless author_map.empty?
-        commits =  author_map.values.each_with_object(self.class.new) do |object, commit_set|
-            commit_set += object.first[:commit_set]
-        end
-
+      unless set.empty?
         teams << {
           author:     'Other',
-          commit_set: commits,
-          authors:    author_map.keys,
+          commit_set: set.values.inject(self.class.new, :+),
+          authors:    set.keys,
         }
       end
 
       teams
+    end
+
+  private
+
+    def author_to_commit_set
+      Hash.new { |h, k| h[k] = self.class.new }.tap do |set|
+        @commits.each do |commit|
+          commit.author_names.each { |author_name| set[author_name] << commit }
+        end
+      end
     end
   end
 end
