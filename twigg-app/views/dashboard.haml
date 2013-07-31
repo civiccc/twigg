@@ -1,5 +1,5 @@
 - content_for :title do
   Twigg
 
-.teams.well{ 'data-lazy-url' => '/teams' }
-.authors.well{ 'data-lazy-url' => '/authors' }
+.teams.well{ 'data-lazy-url' => teams_path(days: @days) }
+.authors.well{ 'data-lazy-url' => authors_path(days: @days) }

@@ -26,8 +26,16 @@ module Twigg
         '/authors/' + author.tr(' ', '.')
       end
 
+      def authors_path(options = {})
+        '/authors' + (options.empty? ? '' : "?#{::URI.encode_www_form(options)}")
+      end
+
       def team_path(team)
         '/teams/' + team.tr(' ', '.')
+      end
+
+      def teams_path(options = {})
+        '/teams' + (options.empty? ? '' : "?#{::URI.encode_www_form(options)}")
       end
 
       def name_to_id(name)
@@ -39,18 +47,21 @@ module Twigg
       end
     end
 
+    before do
+      @days = params[:days].to_i
+      @days = Config.default_days if @days.zero?
+    end
+
     get '/' do
       haml :dashboard
     end
 
     get '/authors' do
-      @days = params.fetch('days', Config.default_days).to_i
       @commit_set = Gatherer.gather(Config.repositories_directory, @days)
       haml :'authors/index', layout: !request.xhr?
     end
 
     get '/authors/:slug' do
-      @days= params.fetch('days', Config.default_days).to_i
       master_set = Gatherer.gather(Config.repositories_directory, @days)
       @author = slug_to_name(params[:slug])
       @commit_set = master_set.select_author(@author)
@@ -61,7 +72,6 @@ module Twigg
     end
 
     get '/teams' do
-      @days = params.fetch('days', Config.default_days).to_i
       @commit_set = Gatherer.gather(Config.repositories_directory, @days)
       haml :'teams/index', layout: !request.xhr?
     end
