@@ -6,6 +6,7 @@ require 'yaml'
 
 module Twigg
   class App < Sinatra::Base
+    autoload :Quips,   'twigg-app/quips'
     autoload :VERSION, 'twigg-app/version'
 
     # Returns a Pathname instance corresponding to the root directory of the gem
@@ -44,6 +45,10 @@ module Twigg
 
       def slug_to_name(slug)
         slug.tr('.', ' ')
+      end
+
+      def random_quip
+        Quips.random
       end
     end
 

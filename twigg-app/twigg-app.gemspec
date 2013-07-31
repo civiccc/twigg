@@ -25,6 +25,7 @@ Gem::Specification.new do |spec|
     'lib/**/*',
     'public/**/*',
     'views/*',
+    'data/*',
   ]
 
   spec.require_paths = ['lib']

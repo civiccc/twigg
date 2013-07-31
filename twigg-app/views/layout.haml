@@ -7,22 +7,29 @@
     %link(rel='stylesheet' href='/application.css' media='screen')
     %link(rel='shortcut icon' href='/favicon.png')
   %body
-    .navbar.navbar-inverse
+    .wrap
+      .navbar.navbar-inverse
+        .container
+          %button{ type: 'button', class: 'navbar-toggle', data: { toggle: 'collapse', target: '.navbar-responsive-collapse' }}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand(href='/') Twigg
+          .nav-collapse.collapse.navbar-responsive-collapse
+            %ul.nav.navbar-nav
+              %li
+                %a(href='/teams') Teams
+              %li
+                %a(href='/authors') Authors
       .container
-        %button{ type: 'button', class: 'navbar-toggle', data: { toggle: 'collapse', target: '.navbar-responsive-collapse' }}
-          %span.icon-bar
-          %span.icon-bar
-          %span.icon-bar
-        %a.navbar-brand(href='/') Twigg
-        .nav-collapse.collapse.navbar-responsive-collapse
-          %ul.nav.navbar-nav
-            %li
-              %a(href='/teams') Teams
-            %li
-              %a(href='/authors') Authors
-    .container
-      %h1= yield_content :title
-      = yield
+        %h1= yield_content :title
+        = yield
+      .push
+    .footer.navbar
+      - quip = random_quip
+      %p.navbar-text.text-center{ title: quip }
+        Twigg &mdash;
+        %em= quip
     %script(src='/vendor/jquery.js')
     %script(src='/vendor/bootstrap/js/bootstrap.min.js')
     %script(src='/vendor/replace.js')

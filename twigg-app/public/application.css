@@ -8,6 +8,35 @@
   font-style: italic;
 }
 
+/* sticky footer */
+
+body,
+html {
+  height: 100%;
+}
+
+.wrap {
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -50px;
+  min-height: 100%;
+}
+
+.push {
+  height: 50px;
+}
+
+.footer {
+  height: 50px;
+  margin-top: -50px;
+}
+
+.footer p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* Bootstrap overrides */
 
 body .modal-dialog {
