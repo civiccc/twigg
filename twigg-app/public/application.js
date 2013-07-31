@@ -19,4 +19,6 @@ Twigg.Profile = (function() {
 })();
 
 // for bootstrap:
-$('[data-toggle=tooltip]').tooltip();
+$(document).initializeEach('[data-toggle=tooltip]', function() {
+  $(this).tooltip();
+});
