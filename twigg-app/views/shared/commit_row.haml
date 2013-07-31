@@ -1,0 +1,35 @@
+%tr
+  %td= number_with_delimiter(commit_set.count)
+  %td
+    %a{ href: author_href, data: { toggle: 'tooltip' }, title: author_tooltip }&= author
+  %td= breakdown(commit_set)
+  %td
+    %a{ data: { toggle: 'modal' }, href: '#' + name_to_id(author) + '-details' }
+      Details
+    .modal.fade{ id: name_to_id(author) + '-details', tabindex: '-1' }
+      .modal-dialog
+        .modal-content
+          .modal-header
+            %button(type='button' class='close' data-dismiss='modal' aria-hidden='true')
+              &times;
+            %h3 Details for #{author}
+          .modal-body
+            %table.table.table-hover.table-bordered.table-condensed
+              %tbody
+                - commit_set.commits.each do |commit|
+                  %tr
+                    %td +#{number_with_delimiter commit.stat[:additions]}
+                    %td -#{number_with_delimiter commit.stat[:deletions]}
+                    %td
+                      %code
+                        - if commit.link
+                          %a{ href: commit.link, title: commit.commit }&= commit.subject
+                        - else
+                          &= commit.subject
+                    %td
+                      - if commit.repo.link
+                        %a{ href: commit.repo.link }= commit.repo.name
+                      - else
+                        = commit.repo.name
+          .modal-footer
+            %a(href='#' class='btn btn-default' data-dismiss='modal') Close
