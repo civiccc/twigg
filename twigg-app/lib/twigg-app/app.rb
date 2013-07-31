@@ -40,13 +40,13 @@ module Twigg
     end
 
     get '/' do
-      redirect to('/teams')
+      haml :dashboard
     end
 
     get '/authors' do
       @days = params.fetch('days', Config.default_days).to_i
       @commit_set = Gatherer.gather(Config.repositories_directory, @days)
-      haml :'authors/index'
+      haml :'authors/index', layout: !request.xhr?
     end
 
     get '/authors/:slug' do
@@ -63,7 +63,7 @@ module Twigg
     get '/teams' do
       @days = params.fetch('days', Config.default_days).to_i
       @commit_set = Gatherer.gather(Config.repositories_directory, @days)
-      haml :'teams/index'
+      haml :'teams/index', layout: !request.xhr?
     end
 
     get '/teams/:slug' do
