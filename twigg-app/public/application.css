@@ -2,6 +2,12 @@
   height: 200px;
 }
 
+.replace-active:after {
+  color: #aaa;
+  content: 'loading...';
+  font-style: italic;
+}
+
 /* Bootstrap overrides */
 
 body .modal-dialog {
