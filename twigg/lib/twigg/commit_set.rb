@@ -1,13 +1,13 @@
+require 'forwardable'
+
 module Twigg
   class CommitSet
+    extend Forwardable
+    def_delegators :commits, :any?, :count, :each, :<<
     attr_reader :commits
 
     def initialize(commits = [])
       @commits = commits
-    end
-
-    def count
-      @commits.count
     end
 
     def count_by_day(days)
@@ -17,10 +17,6 @@ module Twigg
       (start_date..end_date).map do |date|
         { date: date, count: date_to_commits.fetch(date, []).count }
       end
-    end
-
-    def <<(commit)
-      @commits << commit
     end
 
     # Returns a copy of the receiver merged with `commit_set`.
@@ -37,7 +33,7 @@ module Twigg
 
     def count_by_repo
       counts = Hash.new(0)
-      @commits.each { |commit| counts[commit.repo] += 1 }
+      each { |commit| counts[commit.repo] += 1 }
       counts.sort_by { |repo, count| -count }.
         map { |repo, count| { repo: repo, count: count } }
     end
@@ -66,7 +62,7 @@ module Twigg
           end
         end
 
-        if commits.commits.any?
+        if commits.any?
           {
             author:     team.to_s,
             commit_set: commits,
@@ -90,7 +86,7 @@ module Twigg
 
     def author_to_commit_set
       Hash.new { |h, k| h[k] = self.class.new }.tap do |set|
-        @commits.each do |commit|
+        each do |commit|
           commit.author_names.each { |author_name| set[author_name] << commit }
         end
       end

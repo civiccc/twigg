@@ -26,7 +26,7 @@ module Twigg
           author_additions, author_deletions = 0, 0
           if @verbose
             puts
-            commit_set.commits.each do |commit|
+            commit_set.each do |commit|
               puts '    %5s, %5s %s [%s]' % [
                 "+#{number_with_delimiter commit.stat[:additions]}",
                 "-#{number_with_delimiter commit.stat[:deletions]}",
