@@ -75,9 +75,9 @@ module Twigg
     end
 
     get '/authors/:slug' do
-      master_set = Gatherer.gather(Config.repositories_directory, @days)
       @author = slug_to_name(params[:slug])
-      @commit_set = master_set.select_author(@author)
+      @commit_set = Gatherer.gather(Config.repositories_directory, @days).
+        select_author(@author)
       @nvd3_data = @commit_set.count_by_day(@days).map do |object|
         { x: object[:date].to_s, y: object[:count] }
       end
