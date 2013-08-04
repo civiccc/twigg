@@ -6,9 +6,9 @@ require 'yaml'
 
 module Twigg
   class App < Sinatra::Base
-    autoload :Quips,   'twigg-app/quips'
-    autoload :Routes,  'twigg-app/routes'
-    autoload :VERSION, 'twigg-app/version'
+    autoload :Quips,   'twigg-app/app/quips'
+    autoload :Routes,  'twigg-app/app/routes'
+    autoload :VERSION, 'twigg-app/app/version'
 
     # Returns a Pathname instance corresponding to the root directory of the gem
     # (ie. the directory containing the `lib`, `public`  and `views` directories).
