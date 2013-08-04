@@ -89,13 +89,13 @@ module Twigg
 
       @max_solo = @pairs.inject(0) do |max, (pairee, pairs)|
         [pairs.inject(0) do |max, (pairer, count)|
-          pairee == pairer ? count : 0
+          [pairee == pairer ? count : 0, max].max
         end, max].max
       end
 
       @max_pair = @pairs.inject(0) do |max, (pairee, pairs)|
         [pairs.inject(0) do |max, (pairer, count)|
-          pairee == pairer ? 0 : count
+          [pairee == pairer ? 0 : count, max].max
         end, max].max
       end
 
