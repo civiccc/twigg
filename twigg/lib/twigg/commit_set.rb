@@ -1,4 +1,5 @@
 require 'forwardable'
+require 'set'
 
 module Twigg
   class CommitSet
@@ -44,6 +45,16 @@ module Twigg
       end
 
       self.class.new(commits_for_author)
+    end
+
+    def select_team(team)
+      members = Set.new(Config.teams[team])
+
+      commits_for_team = @commits.select do |commit|
+        commit.author_names.any? { |author| members.include?(author) }
+      end
+
+      self.class.new(commits_for_team)
     end
 
     def authors

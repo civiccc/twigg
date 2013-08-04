@@ -109,6 +109,8 @@ module Twigg
 
     get '/teams/:slug' do
       @team = slug_to_name(params[:slug])
+      @commit_set = Gatherer.gather(Config.repositories_directory, @days).
+        select_team(@team)
       haml :'teams/show'
     end
   end
