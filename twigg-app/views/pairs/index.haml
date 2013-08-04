@@ -18,9 +18,10 @@
         .pairer{ data: { toggle: 'tooltip' }, title: pairer }
           &= pairer.scan(/\b\w/).join
       - authors.each do |pairee|
-        - solo = pairer == pairee
+        - solo  = pairer == pairee
         - alpha = @pairs[pairer][pairee].to_f / (solo ? @max_solo : @max_pair) * 0.5
-        %td{ style: "background: rgba(0, #{solo ? 80 : 255}, #{solo ? 255 : 0}, #{alpha});" }
+        - color = 'color: #f8f8ff;' if solo && alpha > 0.4
+        %td{ style: "background: rgba(0, #{solo ? 80 : 255}, #{solo ? 255 : 0}, #{alpha}); #{color}" }
           - if @pairs[pairer][pairee] > 0
             -# need inner container for tooltip, otherwise cell will resize on hover
             .count{ data: { toggle: 'tooltip' }, title: solo ? pairee : "#{pairee} & #{pairer}" }
