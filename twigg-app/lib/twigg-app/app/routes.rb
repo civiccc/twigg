@@ -6,11 +6,11 @@ module Twigg
       end
 
       def authors_path(options = {})
-        '/authors' + (options.empty? ? '' : "?#{::URI.encode_www_form(options)}")
+        '/authors' + query_string_from_options(options)
       end
 
       def pairs_path(options = {})
-        '/pairs' + (options.empty? ? '' : "?#{::URI.encode_www_form(options)}")
+        '/pairs' + query_string_from_options(options)
       end
 
       def team_path(team)
@@ -18,7 +18,13 @@ module Twigg
       end
 
       def teams_path(options = {})
-        '/teams' + (options.empty? ? '' : "?#{::URI.encode_www_form(options)}")
+        '/teams' + query_string_from_options(options)
+      end
+
+    private
+
+      def query_string_from_options(options)
+        options.empty? ? '' : "?#{::URI.encode_www_form(options)}"
       end
     end
   end
