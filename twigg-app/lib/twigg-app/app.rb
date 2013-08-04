@@ -31,6 +31,10 @@ module Twigg
         '/authors' + (options.empty? ? '' : "?#{::URI.encode_www_form(options)}")
       end
 
+      def pairs_path(options = {})
+        '/pairs' + (options.empty? ? '' : "?#{::URI.encode_www_form(options)}")
+      end
+
       def team_path(team)
         '/teams/' + team.tr(' ', '.')
       end
@@ -74,6 +78,24 @@ module Twigg
         { x: object[:date].to_s, y: object[:count] }
       end
       haml :'authors/show'
+    end
+
+    get '/pairs' do
+      @pairs = Gatherer.gather(Config.repositories_directory, @days).pairs
+
+      @max_solo = @pairs.inject(0) do |max, (pairee, pairs)|
+        [pairs.inject(0) do |max, (pairer, count)|
+          pairee == pairer ? count : 0
+        end, max].max
+      end
+
+      @max_pair = @pairs.inject(0) do |max, (pairee, pairs)|
+        [pairs.inject(0) do |max, (pairer, count)|
+          pairee == pairer ? 0 : count
+        end, max].max
+      end
+
+      haml :'pairs/index', layout: !request.xhr?
     end
 
     get '/teams' do

@@ -1,0 +1,28 @@
+- content_for :title do
+  Pairing stats over past #{number_with_delimiter @days} days
+
+%table.table.table-condensed.text-center
+  - authors  = @pairs.keys.sort
+  %tr
+    %td
+    - authors.each do |pairee|
+      %th.text-center
+        -# need inner container for tooltip, otherwise cell will resize on hover
+        .pairee{ data: { toggle: 'tooltip' }, title: pairee }
+          &= pairee.scan(/\b\w/).join
+  - authors.each do |pairer|
+    %tr
+      %th.text-right
+        -# need inner container for tooltip, otherwise cell will resize on hover
+        .pairer{ data: { toggle: 'tooltip' }, title: pairer }
+          &= pairer.scan(/\b\w/).join
+      - authors.each do |pairee|
+        - solo = pairer == pairee
+        - alpha = @pairs[pairer][pairee].to_f / (solo ? @max_solo : @max_pair) * 0.5
+        %td{ style: "background: rgba(0, #{solo ? 80 : 255}, #{solo ? 255 : 0}, #{alpha});" }
+          - if @pairs[pairer][pairee] > 0
+            -# need inner container for tooltip, otherwise cell will resize on hover
+            .count{ data: { toggle: 'tooltip' }, title: solo ? pairee : "#{pairee} & #{pairer}" }
+              = number_with_delimiter @pairs[pairer][pairee]
+          - else
+            &nbsp;
