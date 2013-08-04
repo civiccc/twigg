@@ -8,24 +8,5 @@
     %a{ href: authors_path } Authors
   %li.active= @author
 
-%h2 Past #{number_with_delimiter @days} Days
-%table.table.table-striped.table-hover.table-bordered
-  %tbody
-    %tr
-      %th Total commits
-      %td= number_with_delimiter(@commit_set.count)
-    %tr
-      %th Breakdown by project
-      %td= breakdown(@commit_set)
-
-#chart
-  %svg
-
-%h2 #{number_with_delimiter @commit_set.count} commits
-= haml :'shared/commit_list', locals: { commit_set: @commit_set }
-
-%script(src='/vendor/d3.v3.js')
-%script(src='/vendor/nv.d3.min.js')
-  - content_for :footer do
-    :javascript
-      Twigg.Profile.loadCommitsPerDay('#chart svg', #{@nvd3_data.to_json})
+= haml :'shared/commit_set',
+  locals: { commit_set: @commit_set, days: @days, nvd3_data: @nvd3_data }
