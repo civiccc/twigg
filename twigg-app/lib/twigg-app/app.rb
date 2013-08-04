@@ -7,6 +7,7 @@ require 'yaml'
 module Twigg
   class App < Sinatra::Base
     autoload :Quips,   'twigg-app/quips'
+    autoload :Routes,  'twigg-app/routes'
     autoload :VERSION, 'twigg-app/version'
 
     # Returns a Pathname instance corresponding to the root directory of the gem
@@ -28,6 +29,7 @@ module Twigg
     end
 
     helpers Sinatra::ContentFor
+    helpers Twigg::App::Routes
     helpers Twigg::Util
 
     helpers do
@@ -46,26 +48,6 @@ module Twigg
       def strip_tags(html)
         require 'nokogiri'
         Nokogiri::HTML(html).text
-      end
-
-      def author_path(author)
-        '/authors/' + author.tr(' ', '.')
-      end
-
-      def authors_path(options = {})
-        '/authors' + (options.empty? ? '' : "?#{::URI.encode_www_form(options)}")
-      end
-
-      def pairs_path(options = {})
-        '/pairs' + (options.empty? ? '' : "?#{::URI.encode_www_form(options)}")
-      end
-
-      def team_path(team)
-        '/teams/' + team.tr(' ', '.')
-      end
-
-      def teams_path(options = {})
-        '/teams' + (options.empty? ? '' : "?#{::URI.encode_www_form(options)}")
       end
 
       def name_to_id(name)
