@@ -40,6 +40,7 @@ module Twigg
 
             #{executable} app    # run the Twigg web app
             #{executable} gerrit # clone/update/report from Gerrit
+            #{executable} git    # perform operations on Git repos
             #{executable} github # clone/update from GitHub
             #{executable} init   # generate a .twiggrc file
             #{executable} help   # this help information
@@ -55,6 +56,15 @@ module Twigg
             #{executable} gerrit clone [repos dir]  # clone repos into repos dir
             #{executable} gerrit update [repos dir] # update repos in repos dir
             #{executable} gerrit stats [repos dir]  # show stats for repos in dir
+
+        DOC
+      end
+
+      def git
+        stderr strip_heredoc(<<-DOC)
+          Git:
+
+            #{executable} git gc [repos dir] # garbage collect repos in repos dir
 
         DOC
       end

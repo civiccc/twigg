@@ -3,8 +3,9 @@ require 'forwardable'
 module Twigg
   class Command
     # Subcommands, in the order they should appear in the help output.
-    SUBCOMMANDS = %w[help init app stats gerrit github]
+    SUBCOMMANDS = %w[help init app stats gerrit github git]
 
+    autoload :Git,     'twigg/command/git'
     autoload :GitHost, 'twigg/command/git_host'
     autoload :GitHub,  'twigg/command/git_hub'
     autoload :Init,    'twigg/command/init'
@@ -54,6 +55,10 @@ module Twigg
 
       def gerrit(*args)
         with_dependency('twigg-gerrit') { Gerrit.new(*args).run }
+      end
+
+      def git(*args)
+        Git.new(*args).run
       end
 
       def github(*args)

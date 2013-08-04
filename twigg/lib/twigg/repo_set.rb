@@ -16,8 +16,6 @@ module Twigg
       end
     end
 
-  private
-
     def repos
       @repos ||= begin
         Dir[File.join(@repositories_directory, '*')].map do |path|

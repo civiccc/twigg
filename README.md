@@ -41,6 +41,12 @@ In order to use the `gerrit` subcommand the twigg-gerrit gem must be installed
 database adapter such as the "mysql2" gem, and a Gerrit instance with an
 accessible database.
 
+### `twigg git`
+
+This subcommand can be used to run Git operations across a set of repositories.
+
+    twigg git [--verbose|-v] gc
+
 ### `twigg github`
 
 This subcommand clones a set of projects from a GitHub, or updates an existing
