@@ -35,6 +35,19 @@ module Twigg
         'active' if request.path_info == path
       end
 
+      def day_links
+        {
+          class: 'day-links glyphicon glyphicon-time',
+          data: { toggle: 'popover', content: haml(:'/shared/day_links') },
+          title: 'Other time intervals',
+        }
+      end
+
+      def strip_tags(html)
+        require 'nokogiri'
+        Nokogiri::HTML(html).text
+      end
+
       def author_path(author)
         '/authors/' + author.tr(' ', '.')
       end

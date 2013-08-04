@@ -1,5 +1,7 @@
 - content_for :title do
   Pairing stats over past #{number_with_delimiter @days} days
+  %small
+    %span{day_links}
 
 %table.pairs.table.table-condensed.text-center
   - authors  = @pairs.keys.sort

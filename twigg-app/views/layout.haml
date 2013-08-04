@@ -2,7 +2,7 @@
 %html
   %head
     %title
-      = yield_content :title
+      = strip_tags(yield_content :title)
       - if Twigg::Config.organization
         &mdash;
         &= Twigg::Config.organization
@@ -29,7 +29,8 @@
               %li{ class: active?(pairs_path) }
                 %a{ href: pairs_path } Pairs
       .container
-        %h1= yield_content :title
+        .page-header
+          %h1= yield_content :title
         = yield
       .push
     .footer.navbar

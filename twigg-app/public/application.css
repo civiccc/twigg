@@ -2,6 +2,10 @@
   height: 200px;
 }
 
+.day-links {
+  cursor: pointer;
+}
+
 .replace-active:after {
   color: #aaa;
   content: 'loading...';
@@ -49,4 +53,9 @@ body .modal-dialog {
   margin-left: auto;
   margin-right: auto;
   width: 90%;
+}
+
+h1 .popover {
+  /* popover text in headings is way too big, even inside <small><small> */
+  font-size: 0.75em;
 }

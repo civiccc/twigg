@@ -1,0 +1,8 @@
+%ul.list-unstyled
+  - [3, 7, 14, 30, 60, 90].each do |count|
+    %li
+      - if @days == count
+        #{count} days
+      - else
+        %a{ href: "#{request.path_info}?days=#{count}" }
+          #{count} days</a>

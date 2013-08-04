@@ -1,5 +1,7 @@
 - content_for :title do
   Commit Stats Over Past #{number_with_delimiter @days} Days
+  %small
+    %span{day_links}
 
 %h2 #{number_with_delimiter @commit_set.count} commits
 %table.table.table-striped.table-hover.table-bordered
