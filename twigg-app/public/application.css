@@ -8,6 +8,11 @@
   font-style: italic;
 }
 
+.pairs a {
+  color: inherit;
+  text-decoration: none;
+}
+
 /* sticky footer */
 
 body,

@@ -1,21 +1,19 @@
 - content_for :title do
   Pairing stats over past #{number_with_delimiter @days} days
 
-%table.table.table-condensed.text-center
+%table.pairs.table.table-condensed.text-center
   - authors  = @pairs.keys.sort
   %thead
     %tr
       %td
       - authors.each do |pairee|
         %th.text-center
-          -# need inner container for tooltip, otherwise cell will resize on hover
-          .pairee{ data: { toggle: 'tooltip' }, title: pairee }
+          %a{ href: author_path(pairee), data: { toggle: 'tooltip' }, title: pairee }
             &= pairee.scan(/\b\w/).join
   - authors.each do |pairer|
     %tr
       %th.text-right
-        -# need inner container for tooltip, otherwise cell will resize on hover
-        .pairer{ data: { toggle: 'tooltip' }, title: pairer }
+        %a{ href: author_path(pairer), data: { toggle: 'tooltip' }, title: pairer }
           &= pairer.scan(/\b\w/).join
       - authors.each do |pairee|
         - solo  = pairer == pairee
@@ -23,8 +21,12 @@
         - color = 'color: #f8f8ff;' if solo && alpha > 0.4
         %td{ style: "background: rgba(0, #{solo ? 80 : 255}, #{solo ? 255 : 0}, #{alpha}); #{color}" }
           - if @pairs[pairer][pairee] > 0
-            -# need inner container for tooltip, otherwise cell will resize on hover
-            .count{ data: { toggle: 'tooltip' }, title: solo ? pairee : "#{pairee} & #{pairer}" }
-              = number_with_delimiter @pairs[pairer][pairee]
+            - if solo
+              %a{ href: author_path(pairee), data: { toggle: 'tooltip' }, title: pairee }
+                = number_with_delimiter @pairs[pairer][pairee]
+            - else
+              -# need inner container for tooltip, otherwise cell will resize on hover
+              .count{ data: { toggle: 'tooltip' }, title: "#{pairee} & #{pairer}" }
+                = number_with_delimiter @pairs[pairer][pairee]
           - else
             &nbsp;
