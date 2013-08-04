@@ -21,11 +21,11 @@
           %a.navbar-brand(href='/') Twigg
           .nav-collapse.collapse.navbar-responsive-collapse
             %ul.nav.navbar-nav
-              %li
-                %a(href='/teams') Teams
-              %li
-                %a(href='/authors') Authors
-              %li
+              %li{ class: active?(teams_path) }
+                %a{ href: teams_path } Teams
+              %li{ class: active?(authors_path) }
+                %a{ href: authors_path } Authors
+              %li{ class: active?(pairs_path) }
                 %a{ href: pairs_path } Pairs
       .container
         %h1= yield_content :title

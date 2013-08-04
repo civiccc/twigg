@@ -23,6 +23,10 @@ module Twigg
     helpers Twigg::Util
 
     helpers do
+      def active?(path)
+        'active' if request.path_info == path
+      end
+
       def author_path(author)
         '/authors/' + author.tr(' ', '.')
       end
