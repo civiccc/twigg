@@ -1,7 +1,8 @@
 # Sample .twiggrc file (YAML format)
 #
 # To use, place in a standard location (eg. `~/.twiggrc`) or explicitly
-# instruct Twigg to use the file via the TWIGGRC environment variable.
+# instruct Twigg to use the file via the TWIGGRC environment variable or the
+# `-c`/`--config` switches.
 #
 ---
 default_days: 7
