@@ -3,13 +3,14 @@
 
 %table.table.table-condensed.text-center
   - authors  = @pairs.keys.sort
-  %tr
-    %td
-    - authors.each do |pairee|
-      %th.text-center
-        -# need inner container for tooltip, otherwise cell will resize on hover
-        .pairee{ data: { toggle: 'tooltip' }, title: pairee }
-          &= pairee.scan(/\b\w/).join
+  %thead
+    %tr
+      %td
+      - authors.each do |pairee|
+        %th.text-center
+          -# need inner container for tooltip, otherwise cell will resize on hover
+          .pairee{ data: { toggle: 'tooltip' }, title: pairee }
+            &= pairee.scan(/\b\w/).join
   - authors.each do |pairer|
     %tr
       %th.text-right
