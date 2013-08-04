@@ -8,6 +8,7 @@ module Twigg
   autoload :Console,   'twigg/console'
   autoload :Gatherer,  'twigg/gatherer'
   autoload :Repo,      'twigg/repo'
+  autoload :RepoSet,   'twigg/repo_set'
   autoload :Settings,  'twigg/settings'
   autoload :Util,      'twigg/util'
   autoload :VERSION,   'twigg/version'
