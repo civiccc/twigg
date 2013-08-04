@@ -7,6 +7,7 @@
   %li
     %a(href='/authors') Authors
   %li.active= @author
+
 %h2 Past #{number_with_delimiter @days} Days
 %table.table.table-striped.table-hover.table-bordered
   %tbody
@@ -16,8 +17,13 @@
     %tr
       %th Breakdown by project
       %td= breakdown(@commit_set)
+
 #chart
   %svg
+
+%h2 #{number_with_delimiter @commit_set.count} commits
+= haml :'shared/commit_list', locals: { commit_set: @commit_set }
+
 %script(src='/vendor/d3.v3.js')
 %script(src='/vendor/nv.d3.min.js')
   - content_for :footer do

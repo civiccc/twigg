@@ -1,0 +1,17 @@
+%table.table.table-hover.table-bordered.table-condensed
+  %tbody
+    - commit_set.commits.each do |commit|
+      %tr
+        %td +#{number_with_delimiter commit.stat[:additions]}
+        %td -#{number_with_delimiter commit.stat[:deletions]}
+        %td
+          %code
+            - if commit.link
+              %a{ href: commit.link, title: commit.commit }&= commit.subject
+            - else
+              &= commit.subject
+        %td
+          - if commit.repo.link
+            %a{ href: commit.repo.link }= commit.repo.name
+          - else
+            = commit.repo.name
