@@ -67,20 +67,7 @@ module Twigg
     #
     # Keys are pairer names. Values are hashes of pairees-to-count maps.
     def pairs
-      Hash.new do |hash, pairer|
-        hash[pairer] = Hash.new { |hash, pairee| hash[pairee] = 0 }
-      end.tap do |matrix|
-        each do |commit|
-          authors = commit.author_names
-
-          # if you're solo, that's equivalent to pairing with yourself
-          authors *= 2 if authors.size == 1
-
-          authors.permutation(2).each do |pairer, pairee|
-            matrix[pairer][pairee] += 1
-          end
-        end
-      end
+      PairMatrix.new(self)
     end
 
     def teams

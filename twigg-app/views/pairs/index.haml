@@ -4,22 +4,21 @@
     %span{day_links}
 
 %table.pairs.table.table-condensed.text-center
-  - authors  = @pairs.keys.sort
   %thead
     %tr
       %td
-      - authors.each do |pairee|
+      - @pairs.authors.each do |pairee|
         %th.text-center
           %a{ href: author_path(pairee), data: { toggle: 'tooltip' }, title: pairee }
             &= pairee.scan(/\b\w/).join
-  - authors.each do |pairer|
+  - @pairs.authors.each do |pairer|
     %tr
       %th.text-right
         %a{ href: author_path(pairer), data: { toggle: 'tooltip' }, title: pairer }
           &= pairer.scan(/\b\w/).join
-      - authors.each do |pairee|
+      - @pairs.authors.each do |pairee|
         - solo  = pairer == pairee
-        - alpha = @pairs[pairer][pairee].to_f / (solo ? @max_solo : @max_pair) * 0.5
+        - alpha = @pairs[pairer][pairee].to_f / (solo ? @pairs.max_solo : @pairs.max_pair) * 0.5
         - color = 'color: #f8f8ff;' if solo && alpha > 0.4
         %td{ style: "background: rgba(0, #{solo ? 80 : 255}, #{solo ? 255 : 0}, #{alpha}); #{color}" }
           - if @pairs[pairer][pairee] > 0
