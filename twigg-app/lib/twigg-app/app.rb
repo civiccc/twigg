@@ -19,6 +19,14 @@ module Twigg
     set :public_dir, root + 'public'
     set :views,      root + 'views'
 
+    configure :development do
+      require 'sinatra/reloader'
+      register Sinatra::Reloader
+
+      # watch for changes to lib files of any twigg gems
+      also_reload root + '../*/lib/**/*'
+    end
+
     helpers Sinatra::ContentFor
     helpers Twigg::Util
 

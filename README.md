@@ -82,13 +82,6 @@ clone of the Twigg Git repo:
     bundle exec bin/twigg app
     TWIGGRC=custom bundle exec bin/twigg app # custom config location
 
-For the web app, you can use Shotgun to get auto-reloading behavior on every
-request:
-
-    cd $(git rev-parse --show-cdup)/twigg-app
-    bundle exec shotgun -o 0.0.0.0 config.ru # with default config at ~/.twiggrc
-    TWIGGRC=custom bundle exec shotgun -p 0.0.0.0 config.ru # with custom config
-
 To interact with Twigg in a REPL:
 
     cd $(git rev-parse --show-cdup)/twigg
