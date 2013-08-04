@@ -1,6 +1,11 @@
 - content_for :title do
   Twigg
 
+%h2 Teams
 .teams.well{ 'data-lazy-url' => teams_path(days: @days) }
+
+%h2 Pairs
 .pairs.well{ 'data-lazy-url' => pairs_path(days: @days) }
+
+%h2 Authors
 .authors.well{ 'data-lazy-url' => authors_path(days: @days) }
