@@ -1,7 +1,11 @@
 !!!
 %html
   %head
-    %title= yield_content :title
+    %title
+      = yield_content :title
+      - if Twigg::Config.organization
+        &mdash;
+        &= Twigg::Config.organization
     %meta(name='viewport' content='width=device-width, initial-scale=1.0')
     %link(rel='stylesheet' href='/vendor/bootstrap/css/bootstrap.min.css' media='screen')
     %link(rel='stylesheet' href='/application.css' media='screen')

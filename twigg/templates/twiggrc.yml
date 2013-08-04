@@ -6,6 +6,7 @@
 #
 ---
 default_days: 7
+organization: Causes
 repositories_directory: /home/jimmy/repos
 
 app:
