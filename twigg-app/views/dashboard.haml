@@ -1,5 +1,7 @@
 - content_for :title do
   Twigg
+  %small
+    %span{day_links}
 
 %h2 Teams
 .teams.well{ 'data-lazy-url' => teams_path(days: @days) }
