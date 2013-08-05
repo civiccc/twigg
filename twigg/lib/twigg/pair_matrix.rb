@@ -19,7 +19,7 @@ module Twigg
           # if you're solo, that's equivalent to pairing with yourself
           authors *= 2 if authors.size == 1
 
-          authors.permutation(2).each do |pairer, pairee|
+          authors.permutation(2).to_a.uniq.each do |pairer, pairee|
             matrix[pairer][pairee] += 1
           end
         end
