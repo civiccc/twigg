@@ -1,6 +1,8 @@
 require 'forwardable'
 
 module Twigg
+  # A PairMatrix is initialized with a {CommitSet} instance and computes
+  # pairing information for those commits.
   class PairMatrix
     extend Forwardable
     def_delegators :pairs, :[], :keys
@@ -9,6 +11,19 @@ module Twigg
       @commit_set = commit_set
     end
 
+    # Returns a sparse matrix representing the pairing permutations, and commit
+    # counts for each, in the receiver.
+    #
+    # The returned matrix is a Hash data structure and can be queried like so:
+    #
+    #     pm['Joe Lencioni']['Noah Silas']   #=> 3 (commit count by the pair)
+    #     pm['Tony Wooster']['Tony Wooster'] #=> 9 (commit count as solo author)
+    #     pm['Joe Lencioni']['Tony Wooster'] #=> 0 (no commits, no pairing)
+    #
+    # Note that the {#[]} method is forwarded to the underlying Hash, which
+    # means that the above examples work equally well whether `pm` is an
+    # instance of a {PairMatrix} or the result of a call to the the {#pairs}
+    # method on a {PairMatrix} instance.
     def pairs
       @pairs ||= sparse_matrix.tap do |matrix|
         @commit_set.each do |commit|
@@ -24,10 +39,14 @@ module Twigg
       end
     end
 
+    # Returns a sorted array of names corresponding to the authors represented
+    # in the matrix.
     def authors
       @authors ||= pairs.keys.sort
     end
 
+    # Scan the matrix, identifying and returning the "solo" element (ie. one
+    # person working alone) with the highest number of commits.
     def max_solo
       @max_solo ||= pairs.inject(0) do |max, (pairee, pairs)|
         [pairs.inject(0) do |max, (pairer, count)|
@@ -36,6 +55,8 @@ module Twigg
       end
     end
 
+    # Scan the matrix, identifying and returning the "pair" element (ie. two
+    # distinct people pairing) with the highest number of commits.
     def max_pair
       @max_pair ||= pairs.inject(0) do |max, (pairee, pairs)|
         [pairs.inject(0) do |max, (pairer, count)|
