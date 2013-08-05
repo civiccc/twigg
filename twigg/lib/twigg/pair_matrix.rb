@@ -10,19 +10,17 @@ module Twigg
     end
 
     def pairs
-      @pairs ||= begin
-        Hash.new do |hash, pairer|
-          hash[pairer] = Hash.new { |hash, pairee| hash[pairee] = 0 }
-        end.tap do |matrix|
-          @commit_set.each do |commit|
-            authors = commit.author_names
+      @pairs ||= Hash.new do |hash, pairer|
+        hash[pairer] = Hash.new { |hash, pairee| hash[pairee] = 0 }
+      end.tap do |matrix|
+        @commit_set.each do |commit|
+          authors = commit.author_names
 
-            # if you're solo, that's equivalent to pairing with yourself
-            authors *= 2 if authors.size == 1
+          # if you're solo, that's equivalent to pairing with yourself
+          authors *= 2 if authors.size == 1
 
-            authors.permutation(2).each do |pairer, pairee|
-              matrix[pairer][pairee] += 1
-            end
+          authors.permutation(2).each do |pairer, pairee|
+            matrix[pairer][pairee] += 1
           end
         end
       end
