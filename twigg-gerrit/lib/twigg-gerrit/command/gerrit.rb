@@ -13,19 +13,15 @@ module Twigg
 
       # Shows a list of open changes, ordered by last update date (descending).
       def stats
-        changes = ::Twigg::Gerrit::DB[:changes].
-          select(:change_id, :last_updated_on, :subject, :full_name).
-          join(:accounts, account_id: :owner_account_id).
-          where(status: 'n').
-          order(Sequel.desc(:last_updated_on)).all
+        changes = ::Twigg::Gerrit::Change.changes
 
         puts "Open changes (#{changes.count})"
         changes.map do |change|
           puts "  #%-6d %s [%s] %s" % [
-            change[:change_id],
-            change[:subject],
-            change[:full_name],
-            age(change[:last_updated_on]),
+            change.change_id,
+            change.subject,
+            change.full_name,
+            age(change.last_updated_on),
           ]
         end
       end
