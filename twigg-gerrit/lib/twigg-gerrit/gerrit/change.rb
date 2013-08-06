@@ -25,6 +25,10 @@ module Twigg
         raise ArgumentError unless @full_name       = options[:full_name]
         raise ArgumentError unless @last_updated_on = options[:last_updated_on]
       end
+
+      def url
+        Config.gerrit.web.host + '/' + change_id.to_s
+      end
     end
   end
 end

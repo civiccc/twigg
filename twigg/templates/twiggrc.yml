@@ -25,6 +25,8 @@ gerrit:
     password: secret
     port:     3306 # default
     user:     jimmy
+  web:
+    host:     'https://localhost' # default
 
 github:
   organization: causes

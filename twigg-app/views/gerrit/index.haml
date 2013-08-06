@@ -13,6 +13,7 @@
     - @changes.each do |change|
       %tr
         %td= change.change_id
-        %td&= change.subject
+        %td
+          %a{ href: change.url }&= change.subject
         %td&= change.full_name
         %td= age(change.last_updated_on)

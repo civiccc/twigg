@@ -37,6 +37,10 @@ module Twigg
       setting :port, default: 29418
       setting :user, default: ENV['USER']
 
+      namespace :web do
+        setting :host,   default: 'https://localhost'
+      end
+
       namespace :db do
         setting :adapter,   default: 'mysql2'
         setting :database,  required: true
