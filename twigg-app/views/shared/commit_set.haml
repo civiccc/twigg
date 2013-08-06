@@ -1,5 +1,5 @@
 %h2
-  Past #{number_with_delimiter days} days
+  Past #{pluralize days, 'day'}
   %small
     %span{day_links}
 
@@ -15,7 +15,7 @@
 #chart
   %svg
 
-%h2 #{number_with_delimiter commit_set.count} commits
+%h2= pluralize commit_set.count, 'commit'
 = haml :'shared/commit_list', locals: { commit_set: commit_set }
 
 - content_for :footer do

@@ -1,5 +1,5 @@
 - content_for :title do
-  Pairing stats over past #{number_with_delimiter @days} days
+  Pairing stats over past #{pluralize @days, 'day'}
   %small
     %span{day_links}
 
