@@ -89,7 +89,7 @@ module Twigg
 
     if Config.app.gerrit.enabled
       get '/gerrit' do
-        @changes = []
+        @changes = Gerrit::Change.changes
         haml :'gerrit/index'
       end
     end
