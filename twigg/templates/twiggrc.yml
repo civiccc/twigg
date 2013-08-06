@@ -11,6 +11,8 @@ repositories_directory: /home/jimmy/repos
 
 app:
   bind: '0.0.0.0' # default
+  gerrit:
+    enabled: false # default
 
 gerrit:
   user: jimmy

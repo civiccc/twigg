@@ -28,6 +28,9 @@
                 %a{ href: authors_path } Authors
               %li{ class: active?(pairs_path) }
                 %a{ href: pairs_path } Pairs
+              - if Twigg::Config.app.gerrit.enabled
+                %li{ classs: active?(gerrit_path) }
+                  %a{ href: gerrit_path } Gerrit
       .container
         .page-header
           %h1= yield_content :title

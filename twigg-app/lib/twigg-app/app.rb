@@ -87,6 +87,13 @@ module Twigg
       haml :'authors/show'
     end
 
+    if Config.app.gerrit.enabled
+      get '/gerrit' do
+        @changes = []
+        haml :'gerrit/index'
+      end
+    end
+
     get '/pairs' do
       @pairs = Gatherer.gather(Config.repositories_directory, @days).pairs
       haml :'pairs/index', layout: !request.xhr?

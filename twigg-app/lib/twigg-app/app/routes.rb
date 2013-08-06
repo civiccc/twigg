@@ -9,6 +9,10 @@ module Twigg
         '/authors' + query_string_from_options(options)
       end
 
+      def gerrit_path
+        '/gerrit'
+      end
+
       def pairs_path(options = {})
         '/pairs' + query_string_from_options(options)
       end

@@ -1,0 +1,18 @@
+- content_for :title do
+  Open changes in Gerrit
+
+%h2= pluralize(@changes.count, 'change')
+%table.table.table-striped.table-hover.table-bordered
+  %thead
+    %tr
+      %th #
+      %th Subject
+      %th Author
+      %th Last modified
+  %tbody
+    - @changes.each do |change|
+      %tr
+        %td= @change.change_id
+        %td= @change.subject
+        %td= @change.full_name
+        %td= @change.last_updated_on

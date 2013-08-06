@@ -23,7 +23,11 @@ module Twigg
     include  DSL::InstanceMethods
 
     namespace :app do
-      setting :bind, default: '0.0.0.0'
+      setting :bind,   default: '0.0.0.0'
+
+      namespace :gerrit do
+        setting :enabled, default: false
+      end
     end
 
     setting :default_days, default: 7
