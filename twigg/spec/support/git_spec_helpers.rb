@@ -1,6 +1,8 @@
 require 'tmpdir'
 
 module GitSpecHelpers
+  extend self
+
   def scratch_repo(bare: false, &block)
     Dir.mktmpdir.tap do |path|
       Dir.chdir(path) do
