@@ -1,5 +1,5 @@
 module Twigg
-  class App
+  module App
     module Routes
       def author_path(author)
         '/authors/' + author.tr(' ', '.')

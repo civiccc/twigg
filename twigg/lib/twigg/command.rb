@@ -45,7 +45,7 @@ module Twigg
 
       def app(*args)
         ignore args
-        with_dependency('twigg-app') { App.run! }
+        with_dependency('twigg-app') { App::Server.run! }
       end
 
       def gerrit(*args)

@@ -1,7 +1,7 @@
 require 'yaml'
 
 module Twigg
-  class App
+  module App
     module Quips
       QUIPS = YAML.load_file(Twigg::App.root + 'data' + 'quips.yml')
 
