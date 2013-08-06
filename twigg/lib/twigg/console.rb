@@ -63,4 +63,6 @@ module Twigg
       value
     end
   end
+
+  Console.public_class_method :die
 end

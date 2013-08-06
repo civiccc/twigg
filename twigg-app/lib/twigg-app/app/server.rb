@@ -7,6 +7,8 @@ require 'yaml'
 module Twigg
   module App
     class Server < Sinatra::Base
+      extend Dependency
+
       set :bind,       Config.app.bind
       set :public_dir, App.root + 'public'
       set :views,      App.root + 'views'
@@ -79,9 +81,11 @@ module Twigg
       end
 
       if Config.app.gerrit.enabled
-        get '/gerrit' do
-          @changes = Gerrit::Change.changes
-          haml :'gerrit/index'
+        with_dependency 'twigg-gerrit' do
+          get '/gerrit' do
+            @changes = Gerrit::Change.changes
+            haml :'gerrit/index'
+          end
         end
       end
 
