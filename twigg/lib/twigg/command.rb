@@ -16,6 +16,8 @@ module Twigg
     include Console
 
     class << self
+      include Dependency # for with_dependency
+
       def run(subcommand, *args)
         Help.new('usage').run! unless SUBCOMMANDS.include?(subcommand)
 
@@ -39,13 +41,6 @@ module Twigg
 
       def ignore(args)
         warn "unsupported extra arguments #{args.inspect} ignored" if args.any?
-      end
-
-      def with_dependency(gem, &block)
-        require gem
-        yield
-      rescue LoadError => e
-        die "#{e}: try `gem install #{gem}`"
       end
 
       def app(*args)
@@ -79,7 +74,7 @@ module Twigg
     end
 
     extend Forwardable
-    def_delegators 'self.class', :ignore, :with_dependency
+    def_delegators 'self.class', :ignore
 
     def initialize(*args)
       Config.config # ensure `-c`/`--config` option is applied

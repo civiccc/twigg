@@ -11,24 +11,9 @@ module Twigg
         super + ['stats']
       end
 
-      def db
-        @db ||= begin
-          require 'sequel'
-
-          adapter = Config.gerrit.db.adapter # eg. mysql2
-          with_dependency(adapter) do
-            db = Sequel.send(adapter, Config.gerrit.db.database,
-                            host:     Config.gerrit.db.host,
-                            password: Config.gerrit.db.password,
-                            port:     Config.gerrit.db.port,
-                            user:     Config.gerrit.db.user)
-          end
-        end
-      end
-
       # Shows a list of open changes, ordered by last update date (descending).
       def stats
-        changes = db[:changes].
+        changes = ::Twigg::Gerrit::DB[:changes].
           select(:change_id, :last_updated_on, :subject, :full_name).
           join(:accounts, account_id: :owner_account_id).
           where(status: 'n').

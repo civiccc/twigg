@@ -4,6 +4,8 @@ module Twigg
   # Functionality includes printing, process lifecycle management and
   # formatting.
   module Console
+    extend self
+
   private
     # Print `msgs` to standard error
     def stderr(*msgs)

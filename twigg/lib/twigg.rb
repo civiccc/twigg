@@ -6,6 +6,7 @@ module Twigg
   autoload :CommitSet,  'twigg/commit_set'
   autoload :Config,     'twigg/config'
   autoload :Console,    'twigg/console'
+  autoload :Dependency, 'twigg/dependency'
   autoload :Gatherer,   'twigg/gatherer'
   autoload :PairMatrix, 'twigg/pair_matrix'
   autoload :Repo,       'twigg/repo'
