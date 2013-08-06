@@ -113,4 +113,89 @@ describe Twigg::PairMatrix do
       end
     end
   end
+
+  describe '#authors' do
+    let(:commit_set) do
+      Twigg::CommitSet.new([
+        build(:commit, author: 'Bran Jimson'),
+        build(:commit, author: 'Bryan Adams'),
+        build(:commit, author: 'Douglas Crockford & Richard Stallman'),
+        build(:commit, author: 'Luna Goodwin, Wesley Burton + Carl Cox'),
+      ])
+    end
+
+    it 'returns the list of authors in sorted order' do
+      expect(subject.authors).to eq([
+        'Bran Jimson',
+        'Bryan Adams',
+        'Carl Cox',
+        'Douglas Crockford',
+        'Luna Goodwin',
+        'Richard Stallman',
+        'Wesley Burton',
+      ])
+    end
+  end
+
+  describe '#max_solo' do
+    context 'with no solo commits' do
+      let(:commit_set) do
+        Twigg::CommitSet.new([
+          build(:commit, author: 'Abe Lincoln + Bill Clinton'),
+          build(:commit, author: 'George W. Bush and George H. W. Bush'),
+        ])
+      end
+
+      it 'returns zero' do
+        expect(subject.max_solo).to be_zero
+      end
+    end
+
+    context 'with solo commits' do
+      let(:commit_set) do
+        Twigg::CommitSet.new([
+          build(:commit, author: 'Ben Wiseley'),
+          build(:commit, author: 'Ben Wiseley'),
+          build(:commit, author: 'Hao Su'),
+          build(:commit, author: 'Tom Dooner & Aaron Neyer'),
+          build(:commit, author: 'Lex Broner and Tom Dooner'),
+        ])
+      end
+
+      it 'returns the maximum solo commit count' do
+        expect(subject.max_solo).to eq(2)
+      end
+    end
+  end
+
+  describe '#max_pair' do
+    context 'with no pair commits' do
+      let(:commit_set) do
+        Twigg::CommitSet.new([
+          build(:commit, author: 'Adrienne Phillipson'),
+          build(:commit, author: 'Madonna Maravedicci'),
+        ])
+      end
+
+      it 'returns zero' do
+        expect(subject.max_pair).to be_zero
+      end
+    end
+
+    context 'with pair commits' do
+      let(:commit_set) do
+        Twigg::CommitSet.new([
+          build(:commit, author: 'Ben Wiseley'),
+          build(:commit, author: 'Hao Su'),
+          build(:commit, author: 'Tom Dooner & Aaron Neyer'),
+          build(:commit, author: 'Aaron Neyer and Tom Dooner'),
+          build(:commit, author: 'Lex Broner and Tom Dooner'),
+        ])
+      end
+
+      it 'returns the maximum pair commit count' do
+        expect(subject.max_pair).to eq(2)
+      end
+    end
+  end
 end
