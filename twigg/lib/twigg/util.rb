@@ -2,6 +2,17 @@ module Twigg
   module Util
   private
 
+    # Returns the age of `time` relative to now in hours (for short intervals)
+    # or days (for intervals longer than 24 hours).
+    def age(time)
+      delta = Time.now - time
+      return 'future' if delta < 0
+      hours = (delta / (60 * 60)).to_i
+      days = hours / 24
+      (hours > 24 ? "#{pluralize days, 'day'}" : "#{pluralize hours, 'hour'}") +
+        ' ago'
+    end
+
     def number_with_delimiter(integer)
       # Regex based on one in `ActiveSupport::NumberHelper#number_to_delimited`;
       # this method is simpler because it only needs to handle integers.

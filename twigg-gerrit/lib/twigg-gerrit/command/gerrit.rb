@@ -26,17 +26,6 @@ module Twigg
         end
       end
 
-      # Returns the age of `time` relative to now in hours (for short intervals)
-      # or days (for intervals longer than 24 hours).
-      def age(time)
-        delta = Time.now - time
-        return 'future' if delta < 0
-        hours = (delta / (60 * 60)).to_i
-        days = hours / 24
-        (hours > 24 ? "#{pluralize days, 'day'}" : "#{pluralize hours, 'hour'}") +
-          ' ago'
-      end
-
       # Shows a list of open changes, ordered by last update date (descending).
       def stats
         changes = db[:changes].
