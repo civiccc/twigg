@@ -1,5 +1,6 @@
 require 'haml'
 require 'json'
+require 'sass'
 require 'sinatra'
 require 'sinatra/content_for'
 require 'yaml'
@@ -92,6 +93,11 @@ module Twigg
       get '/pairs' do
         @pairs = Gatherer.gather(Config.repositories_directory, @days).pairs
         haml :'pairs/index', layout: !request.xhr?
+      end
+
+      get '/stylesheets/:name.css' do
+        content_type 'text/css', charset: 'utf-8'
+        scss :"stylesheets/#{params[:name]}"
       end
 
       get '/teams' do

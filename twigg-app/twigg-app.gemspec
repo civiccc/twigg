@@ -37,6 +37,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'haml', '~> 4.0.3'
   spec.add_dependency 'nokogiri'
+  spec.add_dependency 'sass',            '~> 3.2.10'
   spec.add_dependency 'sinatra-contrib', '~> 1.4.0'
   spec.add_dependency 'twigg'
 end
