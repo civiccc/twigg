@@ -11,6 +11,14 @@ module Twigg
       @commits = commits
     end
 
+    def additions
+      commits.inject(0) { |memo, commit| memo + commit.stat[:additions] }
+    end
+
+    def deletions
+      commits.inject(0) { |memo, commit| memo + commit.stat[:deletions] }
+    end
+
     def count_by_day(days)
       start_date = Date.today - days
       end_date = Date.today
