@@ -13,9 +13,9 @@ module Twigg
 
       def run
         master_set = Twigg::Gatherer.gather(@repositories_directory, @days)
-        master_set.authors.each do |top_author_data|
-          author     = top_author_data[:author]
-          commit_set = top_author_data[:commit_set]
+        master_set.authors.each do |author_data|
+          author     = author_data[:author]
+          commit_set = author_data[:commit_set]
           puts '%5s %-24s %s' % [
             number_with_delimiter(commit_set.count),
             author,
