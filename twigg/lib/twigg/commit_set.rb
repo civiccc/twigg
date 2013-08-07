@@ -12,11 +12,15 @@ module Twigg
     end
 
     def additions
-      commits.inject(0) { |memo, commit| memo + commit.stat[:additions] }
+      @additions ||= commits.inject(0) do |memo, commit|
+        memo + commit.stat[:additions]
+      end
     end
 
     def deletions
-      commits.inject(0) { |memo, commit| memo + commit.stat[:deletions] }
+      @deletions ||= commits.inject(0) do |memo, commit|
+        memo + commit.stat[:deletions]
+      end
     end
 
     def count_by_day(days)
@@ -66,7 +70,7 @@ module Twigg
     end
 
     def authors
-      author_to_commit_set.
+      @authors ||= author_to_commit_set.
         sort_by { |author, commit_set| -commit_set.count }.
         map { |author, commit_set| { author: author, commit_set: commit_set } }
     end
