@@ -15,3 +15,8 @@
             %a{ href: commit.repo.link }= commit.repo.name
           - else
             = commit.repo.name
+    %tr
+      %th +#{number_with_delimiter commit_set.additions}
+      %th -#{number_with_delimiter commit_set.deletions}
+      %th &nbsp;
+      %th &nbsp;
