@@ -8,17 +8,17 @@ PATH
   specs:
     twigg-app (0.0.1)
       haml (~> 4.0.3)
-      nokogiri
+      nokogiri (~> 1.6.0)
       sass (~> 3.2.10)
       sinatra-contrib (~> 1.4.0)
-      twigg
+      twigg (= 0.0.1)
 
 PATH
   remote: ../twigg-gerrit
   specs:
     twigg-gerrit (0.0.1)
       sequel
-      twigg
+      twigg (= 0.0.1)
 
 GEM
   remote: https://rubygems.org/

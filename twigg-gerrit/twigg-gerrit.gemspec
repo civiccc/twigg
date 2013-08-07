@@ -33,5 +33,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake'
 
   spec.add_dependency 'sequel'
-  spec.add_dependency 'twigg'
+  spec.add_dependency 'twigg', Twigg::VERSION
 end
