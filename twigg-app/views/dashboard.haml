@@ -9,5 +9,9 @@
 %h2 Pairs
 .pairs.well{ 'data-lazy-url' => pairs_path(days: @days) }
 
+- if Twigg::Config.app.gerrit.enabled
+  %h2 Gerrit
+  .gerrit.well{ 'data-lazy-url' => gerrit_path }
+
 %h2 Authors
 .authors.well{ 'data-lazy-url' => authors_path(days: @days) }

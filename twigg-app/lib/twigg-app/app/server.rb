@@ -84,7 +84,7 @@ module Twigg
         with_dependency 'twigg-gerrit' do
           get '/gerrit' do
             @changes = Gerrit::Change.changes
-            haml :'gerrit/index'
+            haml :'gerrit/index', layout: !request.xhr?
           end
         end
       end
