@@ -17,7 +17,7 @@
   text-decoration: none;
 }
 
-/* sticky footer */
+// sticky footer
 
 body,
 html {
@@ -38,15 +38,15 @@ html {
 .footer {
   height: 50px;
   margin-top: -50px;
+
+  p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
-.footer p {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-/* Bootstrap overrides */
+// Bootstrap overrides
 
 body .modal-dialog {
   left: 0;
@@ -56,6 +56,6 @@ body .modal-dialog {
 }
 
 h1 .popover {
-  /* popover text in headings is way too big, even inside <small><small> */
+  // popover text in headings is way too big, even inside <small><small>
   font-size: 0.75em;
 }
