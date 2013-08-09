@@ -1,11 +1,12 @@
 module Twigg
   class Commit
-    attr_reader :repo, :commit, :subject, :author, :date, :stat
+    attr_reader :repo, :commit, :subject, :body, :author, :date, :stat
 
     def initialize(options)
       raise ArgumentError unless @repo    = options[:repo]
       raise ArgumentError unless @commit  = options[:commit]
       raise ArgumentError unless @subject = options[:subject]
+      raise ArgumentError unless @body    = options[:body]
       raise ArgumentError unless @author  = options[:author]
       raise ArgumentError unless @date    = options[:date]
       raise ArgumentError unless @stat    = options[:stat]
@@ -26,6 +27,7 @@ module Twigg
         other.repo    == @repo    &&
         other.commit  == @commit  &&
         other.subject == @subject &&
+        other.body    == @body    &&
         other.author  == @author  &&
         other.date    == @date    &&
         other.stat    == @stat
