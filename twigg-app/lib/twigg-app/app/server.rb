@@ -3,6 +3,7 @@ require 'json'
 require 'sass'
 require 'sinatra'
 require 'sinatra/content_for'
+require 'sinatra/respond_with'
 require 'yaml'
 
 module Twigg
@@ -21,6 +22,8 @@ module Twigg
         # watch for changes to lib files of any twigg gems
         also_reload App.root + '../*/lib/**/*'
       end
+
+      register Sinatra::RespondWith
 
       helpers Sinatra::ContentFor
       helpers Twigg::App::Routes
@@ -95,10 +98,14 @@ module Twigg
         haml :'pairs/index', layout: !request.xhr?
       end
 
-      get '/russian-novels' do # easter egg
-        commit_set = Gatherer.gather(Config.repositories_directory, @days)
-        @data = RussianNovel.new(commit_set).data
-        haml :'russian-novels/index'
+      get '/russian-novels', provides: %i[html json] do
+        respond_to do |f|
+          f.html { haml :'russian-novels/index' }
+          f.json {
+            commit_set = Gatherer.gather(Config.repositories_directory, @days)
+            RussianNovel.new(commit_set).data.to_json
+          }
+        end
       end
 
       get '/stylesheets/:name.css' do
