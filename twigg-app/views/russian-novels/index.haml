@@ -20,7 +20,7 @@
           svg = d3.select('#bubble-chart').append('svg')
             .attr('height', diameter)
             .attr('width', diameter),
-          xhr = d3.json('#{russian_novels_path}')
+          xhr = d3.json('#{russian_novels_path(days: @days)}')
             .on('progress', function() { /* not yet implemented */ })
             .on('load', function(data) {
               var node = svg.selectAll('.node')
