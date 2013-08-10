@@ -103,7 +103,7 @@ module Twigg
 
       unless set.empty?
         teams << {
-          author:     'Other',
+          author:     Team::OTHER_TEAM_NAME,
           commit_set: set.values.inject(self.class.new, :+),
           authors:    set.keys,
         }

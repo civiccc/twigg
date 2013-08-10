@@ -12,6 +12,7 @@ module Twigg
   autoload :Repo,       'twigg/repo'
   autoload :RepoSet,    'twigg/repo_set'
   autoload :Settings,   'twigg/settings'
+  autoload :Team,       'twigg/team'
   autoload :Util,       'twigg/util'
   autoload :VERSION,    'twigg/version'
 
