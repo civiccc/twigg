@@ -9,7 +9,7 @@
   :javascript
     (function() {
       var data = #{@data.to_json},
-          diameter = 960, // may want to make this dynamic on window.innerWidth
+          diameter = Math.min($('#bubble-chart').width(), window.innerHeight * 1.2),
           format = d3.format(',d'),
           color = d3.scale.category20c(),
           bubble = d3.layout.pack()
