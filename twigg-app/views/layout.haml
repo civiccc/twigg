@@ -31,6 +31,8 @@
               - if Twigg::Config.app.gerrit.enabled
                 %li{ classs: active?(gerrit_path) }
                   %a{ href: gerrit_path } Gerrit
+              %li{ class: active?(russian_novels_path) }
+                %a{ href: russian_novels_path } я
       .container
         .page-header
           %h1= yield_content :title

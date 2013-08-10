@@ -95,6 +95,12 @@ module Twigg
         haml :'pairs/index', layout: !request.xhr?
       end
 
+      get '/russian-novels' do # easter egg
+        commit_set = Gatherer.gather(Config.repositories_directory, @days)
+        @data = RussianNovel.new(commit_set).data
+        haml :'russian-novels/index'
+      end
+
       get '/stylesheets/:name.css' do
         content_type 'text/css', charset: 'utf-8'
         scss :"stylesheets/#{params[:name]}"

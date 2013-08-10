@@ -23,6 +23,18 @@ module Twigg
       end
     end
 
+    def flesch_reading_ease
+      @flesch_reading_ease ||= commits.inject(0) do |memo, commit|
+        memo + commit.flesch_reading_ease
+      end / count
+    end
+
+    def russianness
+      @russianness ||= commits.inject(0) do |memo, commit|
+        memo + commit.russianness
+      end
+    end
+
     def count_by_day(days)
       start_date = Date.today - days
       end_date = Date.today

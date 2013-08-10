@@ -17,6 +17,10 @@ module Twigg
         '/pairs' + query_string_from_options(options)
       end
 
+      def russian_novels_path
+        '/russian-novels'
+      end
+
       def team_path(team)
         '/teams/' + team.tr(' ', '.')
       end

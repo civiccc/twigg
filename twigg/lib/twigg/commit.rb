@@ -33,6 +33,21 @@ module Twigg
         other.stat    == @stat
     end
 
+    def filtered_commit_message
+      @filtered_commit_message ||= @body.lines.reject do |line|
+        line =~ /^[a-z-]+: /i # filter out Change-Id:, Signed-off-by: etc
+      end.concat([@subject]).join("\n").chomp
+    end
+
+    def flesch_reading_ease
+      @flesch_reading_ease ||= Flesch.new(filtered_commit_message).reading_ease
+    end
+
+    # Return the length of the commit message in lines.
+    def russianness
+      filtered_commit_message.lines.count
+    end
+
     def inspect
       "repo: #{@repo.name}\n" +
         "commit: #{@commit}\n" +
