@@ -41,8 +41,8 @@
               node.append('title')
                 .text(function(d) {
                   return 'Author: ' + d.author + ' (' + d.team + ')\n' +
-                        'Russianness: ' + format(d.russianness) + '\n' +
-                        'Flesch Reading Ease: ' + d3.round(d.flesch_reading_ease, 2);
+                         'Russianness: ' + format(d.russianness) + '\n' +
+                         'Flesch Reading Ease: ' + d3.round(d.flesch_reading_ease, 2);
                 });
 
               node.append('circle')
