@@ -4,6 +4,8 @@
     %span{day_links}
 
 #bubble-chart
+  .progress.progress-striped.active
+    .progress-bar{ style: 'width: 100%' }
 
 - content_for :footer do
   :javascript
@@ -22,6 +24,7 @@
           xhr = d3.json('#{russian_novels_path(days: @days)}')
             .on('progress', function() { /* not yet implemented */ })
             .on('load', function(data) {
+              $('#bubble-chart .progress').remove();
               var node = svg.selectAll('.node')
                 .data(bubble.nodes(data).filter(function(d) { return !d.children; }))
                 .enter().append('g')
