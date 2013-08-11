@@ -53,5 +53,10 @@
                 .attr('dy', '.3em')
                 .style('text-anchor', 'middle')
                 .text(function(d) { return d.author.substring(0, d.r / 4); });
+
+              $('#bubble-chart svg').on('click', 'g', function(event) {
+                window.location = '#{authors_path}/'+
+                  $(event.currentTarget).find('text').text().replace(/ /, '.');
+              });
             }).get();
     })();

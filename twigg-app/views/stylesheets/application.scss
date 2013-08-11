@@ -2,13 +2,17 @@
   display: block;
   margin: 0 auto;
 
-  .node:hover {
-    circle {
-      -webkit-svg-shadow: 0 0 7px #666;
-    }
+  .node {
+    cursor: pointer;
 
-    text {
-      fill: #fff;
+    &:hover {
+      circle {
+        -webkit-svg-shadow: 0 0 7px #666;
+      }
+
+      text {
+        fill: #fff;
+      }
     }
   }
 }
