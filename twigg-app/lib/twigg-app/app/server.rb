@@ -22,8 +22,8 @@ module Twigg
           config.sass_dir     = 'views/stylesheets'
         end
 
-        set :sass,       Compass.sass_engine_options
-        set :scss,       Compass.sass_engine_options
+        set :sass, Compass.sass_engine_options
+        set :scss, Compass.sass_engine_options
       end
 
       configure :development do
