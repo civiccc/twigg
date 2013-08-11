@@ -1,3 +1,4 @@
+require 'compass'
 require 'haml'
 require 'json'
 require 'sass'
@@ -14,6 +15,16 @@ module Twigg
       set :bind,       Config.app.bind
       set :public_dir, App.root + 'public'
       set :views,      App.root + 'views'
+
+      configure do
+        Compass.configuration do |config|
+          config.project_path = __dir__
+          config.sass_dir     = 'views/stylesheets'
+        end
+
+        set :sass,       Compass.sass_engine_options
+        set :scss,       Compass.sass_engine_options
+      end
 
       configure :development do
         require 'sinatra/reloader'

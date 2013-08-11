@@ -7,6 +7,7 @@ PATH
   remote: ../twigg-app
   specs:
     twigg-app (0.0.1)
+      compass (~> 0.12.2)
       haml (~> 4.0.3)
       nokogiri (~> 1.6.0)
       sass (~> 3.2.10)
@@ -31,10 +32,16 @@ GEM
       tzinfo (~> 0.3.37)
     atomic (1.1.12)
     backports (3.3.3)
+    chunky_png (1.2.8)
+    compass (0.12.2)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
     diff-lcs (1.2.4)
     eventmachine (1.0.3)
     factory_girl (4.2.0)
       activesupport (>= 3.0.0)
+    fssm (0.2.10)
     haml (4.0.3)
       tilt
     i18n (0.6.4)
