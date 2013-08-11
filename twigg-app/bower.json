@@ -1,0 +1,11 @@
+{
+  "name": "twigg",
+  "dependencies": {
+    "bootstrap": "~3.0.0",
+    "bootstrap-glyphicons": "gh-pages",
+    "d3": "~3.2.8",
+    "jquery": "~2.0.0",
+    "nvd3": ">0.9"
+  },
+  "private": true
+}

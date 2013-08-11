@@ -7,8 +7,8 @@
         &mdash;
         &= Twigg::Config.organization
     %meta(name='viewport' content='width=device-width, initial-scale=1.0')
-    %link(rel='stylesheet' href='/vendor/bootstrap/css/bootstrap.min.css' media='screen')
-    %link(rel='stylesheet' href='/vendor/bootstrap/css/bootstrap-glyphicons.css' media='screen')
+    %link(rel='stylesheet' href='/vendor/bootstrap/dist/css/bootstrap.min.css' media='screen')
+    %link(rel='stylesheet' href='/vendor/bootstrap-glyphicons/css/bootstrap-glyphicons.css' media='screen')
     %link(rel='stylesheet' href='/stylesheets/application.css' media='screen')
     %link(rel='shortcut icon' href='/favicon.png')
   %body
@@ -43,10 +43,10 @@
       %p.navbar-text.text-center{ title: quip }
         Twigg &mdash;
         %em= quip
-    %script(src='/vendor/jquery.js')
-    %script(src='/vendor/bootstrap/js/bootstrap.min.js')
+    %script(src='/vendor/jquery/jquery.min.js')
+    %script(src='/vendor/bootstrap/dist/js/bootstrap.min.js')
     %script(src='/vendor/replace.js')
-    %script(src='/vendor/d3.v3.js')
-    %script(src='/vendor/nv.d3.min.js')
+    %script(src='/vendor/d3/d3.min.js')
+    %script(src='/vendor/nvd3/nv.d3.min.js')
     %script(src='/application.js')
     = yield_content :footer
