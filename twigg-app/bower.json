@@ -5,7 +5,7 @@
     "bootstrap-glyphicons": "gh-pages",
     "d3": "~3.2.8",
     "jquery": "~2.0.0",
-    "nvd3": ">0.9"
+    "replacejs": "~0.0.1"
   },
   "private": true
 }

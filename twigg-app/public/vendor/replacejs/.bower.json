@@ -1,0 +1,33 @@
+{
+  "name": "replacejs",
+  "version": "0.0.1",
+  "main": [
+    "replace.js",
+    "primer.js",
+    "primer.min.js"
+  ],
+  "ignore": [
+    "**/.*",
+    "demo",
+    "index.html",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": ">=1.10"
+  },
+  "devDependencies": {
+    "jquery-waypoints": "~2.0.2"
+  },
+  "homepage": "https://github.com/causes/replacejs",
+  "_release": "0.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.1",
+    "commit": "8f94908093930325d779fbb455e1f79d9600a027"
+  },
+  "_source": "git://github.com/causes/replacejs.git",
+  "_target": "~0.0.1"
+}
