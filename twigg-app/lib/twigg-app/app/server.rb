@@ -89,9 +89,7 @@ module Twigg
         @author = slug_to_name(params[:slug])
         @commit_set = Gatherer.gather(Config.repositories_directory, @days).
           select_author(@author)
-        @nvd3_data = @commit_set.count_by_day(@days).map do |object|
-          { x: object[:date].to_s, y: object[:count] }
-        end
+        @nvd3_data = @commit_set.count_by_day(@days)
         haml :'authors/show'
       end
 
@@ -133,9 +131,7 @@ module Twigg
         @team = slug_to_name(params[:slug])
         @commit_set = Gatherer.gather(Config.repositories_directory, @days).
           select_team(@team)
-        @nvd3_data = @commit_set.count_by_day(@days).map do |object|
-          { x: object[:date].to_s, y: object[:count] }
-        end
+        @nvd3_data = @commit_set.count_by_day(@days)
         haml :'teams/show'
       end
     end
