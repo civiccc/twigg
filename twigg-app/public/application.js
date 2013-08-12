@@ -40,8 +40,12 @@ Twigg.Profile = (function() {
           'x': function(d, i) { return x(i) },
           'y': function(d) { return y(d.count) },
           'width': barWidth,
-          'height': function(d) { return height - y(d.count); }
+          'height': function(d) { return height - y(d.count); },
+          'title': function(d) { return d.count + ' (' + d.date + ')'; },
+          'data-toggle': 'tooltip'
         });
+
+    $('#bar-chart [data-toggle=tooltip]').tooltip({ container: 'body' });
 
     // show count inside bars if wide/high enough
     if (barWidth > 20) {
