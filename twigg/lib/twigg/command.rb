@@ -3,13 +3,17 @@ require 'forwardable'
 module Twigg
   class Command
     # Subcommands, in the order they should appear in the help output.
-    SUBCOMMANDS = %w[help init app stats gerrit github git]
+    PUBLIC_SUBCOMMANDS = %w[help init app stats gerrit github git]
+
+    EASTER_EGGS        = %w[russian]
+    SUBCOMMANDS        = PUBLIC_SUBCOMMANDS.concat(EASTER_EGGS)
 
     autoload :Git,     'twigg/command/git'
     autoload :GitHost, 'twigg/command/git_host'
     autoload :GitHub,  'twigg/command/git_hub'
     autoload :Init,    'twigg/command/init'
     autoload :Help,    'twigg/command/help'
+    autoload :Russian, 'twigg/command/russian'
     autoload :Stats,   'twigg/command/stats'
 
     extend Console
@@ -66,6 +70,10 @@ module Twigg
 
       def init(*args)
         Init.new(*args).run
+      end
+
+      def russian(*args)
+        Russian.new(*args).run
       end
 
       def stats(*args)

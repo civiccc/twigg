@@ -99,6 +99,14 @@ module Twigg
         DOC
       end
 
+      def russian
+        stderr strip_heredoc(<<-DOC)
+          Russian:
+
+            #{executable} russian <repos dir> <number of days> # easter egg
+        DOC
+      end
+
       def stats
         stderr strip_heredoc(<<-DOC)
           Stats:
