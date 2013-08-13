@@ -6,7 +6,7 @@ module Twigg
     PUBLIC_SUBCOMMANDS = %w[help init app stats gerrit github git]
 
     EASTER_EGGS        = %w[russian]
-    SUBCOMMANDS        = PUBLIC_SUBCOMMANDS.concat(EASTER_EGGS)
+    SUBCOMMANDS        = PUBLIC_SUBCOMMANDS + EASTER_EGGS
 
     autoload :Git,     'twigg/command/git'
     autoload :GitHost, 'twigg/command/git_host'

@@ -3,7 +3,8 @@ require 'shellwords'
 module Twigg
   class Command
     class Help < Command
-      HELP_TOPICS = SUBCOMMANDS + %w[commands usage]
+      PUBLIC_HELP_TOPICS = PUBLIC_SUBCOMMANDS + %w[commands usage]
+      HELP_TOPICS        = PUBLIC_HELP_TOPICS + EASTER_EGGS
 
       def initialize(*args)
         super
@@ -15,7 +16,7 @@ module Twigg
         if HELP_TOPICS.include?(@topic)
           show_help(@topic)
         else
-          HELP_TOPICS.each { |topic| show_help(topic) }
+          PUBLIC_HELP_TOPICS.each { |topic| show_help(topic) }
         end
       end
 
