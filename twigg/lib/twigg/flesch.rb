@@ -10,9 +10,13 @@ module Twigg
 
     def reading_ease
       # from wikipedia:
-      206.835 -
+      ease = 206.835 -
         1.015 * (total_words / total_sentences.to_f) -
         84.6  * (total_syllables / total_words.to_f)
+
+      # beware NaN values (usually caused by empty commit messages),
+      # incompatible with JSON
+      ease.nan? ? 206.835 : ease
     end
 
   private
