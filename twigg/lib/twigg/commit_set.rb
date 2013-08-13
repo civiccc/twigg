@@ -4,7 +4,7 @@ require 'set'
 module Twigg
   class CommitSet
     extend Forwardable
-    def_delegators :commits, :any?, :count, :each, :<<
+    def_delegators :commits, :any?, :count, :each, :inject, :<<
     attr_reader :commits
 
     def initialize(commits = [])
@@ -12,25 +12,25 @@ module Twigg
     end
 
     def additions
-      @additions ||= commits.inject(0) do |memo, commit|
+      @additions ||= inject(0) do |memo, commit|
         memo + commit.stat[:additions]
       end
     end
 
     def deletions
-      @deletions ||= commits.inject(0) do |memo, commit|
+      @deletions ||= inject(0) do |memo, commit|
         memo + commit.stat[:deletions]
       end
     end
 
     def flesch_reading_ease
-      @flesch_reading_ease ||= commits.inject(0) do |memo, commit|
+      @flesch_reading_ease ||= inject(0) do |memo, commit|
         memo + commit.flesch_reading_ease
       end / count
     end
 
     def russianness
-      @russianness ||= commits.inject(0) do |memo, commit|
+      @russianness ||= inject(0) do |memo, commit|
         memo + commit.russianness
       end
     end
