@@ -1,7 +1,8 @@
 module Twigg
   module Gerrit
     autoload :VERSION, 'twigg-gerrit/gerrit/version'
-    autoload :Change,  'twigg-gerrit/gerrit/change.rb'
-    autoload :DB,      'twigg-gerrit/gerrit/db.rb'
+    autoload :Author,  'twigg-gerrit/gerrit/author'
+    autoload :Change,  'twigg-gerrit/gerrit/change'
+    autoload :DB,      'twigg-gerrit/gerrit/db'
   end
 end

@@ -99,6 +99,11 @@ module Twigg
             @changes = Gerrit::Change.changes
             haml :'gerrit/index', layout: !request.xhr?
           end
+
+          get '/gerrit/authors' do
+            @authors = Gerrit::Author.stats
+            haml :'gerrit/authors'
+          end
         end
       end
 

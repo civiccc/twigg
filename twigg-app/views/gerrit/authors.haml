@@ -1,0 +1,33 @@
+- content_for :title do
+  Author activity in Gerrit
+
+%table.table.table-hover.table-bordered
+  %thead
+    %tr
+      %th
+      %th{ colspan: 3 } Activity
+      %th{ colspan: 4 } Quality
+    %tr
+      %th Author
+      %th Comments posted
+      %th Scores assigned
+      %th Changes
+      %th Comments received
+      %th Comments / change
+      %th Revisions
+      %th Revisions / change
+  %tbody
+    - @authors.each do |author, stats|
+      %tr
+        %td&= author
+        %td= number_with_delimiter(stats[:comments_posted])
+        %td= number_with_delimiter(stats[:scores_assigned])
+        %td= number_with_delimiter(stats[:recently_active_changes])
+        %td= number_with_delimiter(stats[:comments_received])
+        %td
+          - if stats[:comments_received]
+            = '%.2f' % (stats[:comments_received].to_i / stats[:recently_active_changes].to_f)
+        %td= number_with_delimiter(stats[:revisions_pushed])
+        %td
+          - if stats[:revisions_pushed]
+            = '%.2f' % (stats[:revisions_pushed].to_i / stats[:recently_active_changes].to_f)
