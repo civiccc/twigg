@@ -3,33 +3,36 @@
   %small
     %span{day_links}
 
-%table.table.table-hover.table-bordered
+%table.table.table-hover.table-bordered.sortable
   %thead
     %tr
       %th
       %th{ colspan: 3 } Activity
       %th{ colspan: 4 } Quality
     %tr
-      %th Author
-      %th Comments posted
-      %th Scores assigned
-      %th Changes
-      %th Comments received
-      %th Comments / change
-      %th Revisions
-      %th Revisions / change
+      %th{ data: { sort: 'string-ins' } } Author
+      %th{ data: { sort: 'int' } } Comments posted
+      %th{ data: { sort: 'int' } } Scores assigned
+      %th{ data: { sort: 'int' } } Changes
+      %th{ data: { sort: 'int' } } Comments received
+      %th{ data: { sort: 'float' } } Comments / change
+      %th{ data: { sort: 'int' } } Revisions
+      %th{ data: { sort: 'float' } } Revisions / change
   %tbody
     - @authors.each do |author, stats|
       %tr
         %td&= author
-        %td= number_with_delimiter(stats[:comments_posted])
-        %td= number_with_delimiter(stats[:scores_assigned])
-        %td= number_with_delimiter(stats[:recently_active_changes])
-        %td= number_with_delimiter(stats[:comments_received])
-        %td
-          - if stats[:comments_received]
-            = '%.2f' % (stats[:comments_received].to_i / stats[:recently_active_changes].to_f)
-        %td= number_with_delimiter(stats[:revisions_pushed])
-        %td
-          - if stats[:revisions_pushed]
-            = '%.2f' % (stats[:revisions_pushed].to_i / stats[:recently_active_changes].to_f)
+        %td{ 'data-sort-value' => stats[:comments_posted] || 0 }
+          = number_with_delimiter(stats[:comments_posted])
+        %td{ 'data-sort-value' => stats[:scores_assigned] || 0 }
+          = number_with_delimiter(stats[:scores_assigned])
+        %td{ 'data-sort-value' => stats[:recently_active_changes] || 0 }
+          = number_with_delimiter(stats[:recently_active_changes])
+        %td{ 'data-sort-value' => stats[:comments_received] || 0 }
+          = number_with_delimiter(stats[:comments_received])
+        - comments_per_change = stats[:comments_received].to_i / stats[:recently_active_changes].to_f
+        %td{ 'data-sort-value' => (comments_per_change.nan? ? 0 : comments_per_change) }= '%.2f' % comments_per_change unless comments_per_change.nan?
+        %td{ 'data-sort-value' => stats[:revisions_pushed] || 0 }
+          = number_with_delimiter(stats[:revisions_pushed])
+        - revisions_per_change = stats[:revisions_pushed].to_i / stats[:recently_active_changes].to_f
+        %td{ 'data-sort-value' => (revisions_per_change.nan? ? 0 : revisions_per_change) }= '%.2f' % revisions_per_change unless revisions_per_change.nan?

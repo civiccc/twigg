@@ -91,6 +91,10 @@ Twigg.Profile = (function() {
   };
 })();
 
+$(document).initializeEach('table.sortable', function() {
+  $(this).stupidtable();
+});
+
 // for bootstrap:
 $(document).initializeEach('[data-toggle=tooltip]', function() {
   $(this).tooltip();
