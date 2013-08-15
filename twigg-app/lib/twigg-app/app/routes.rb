@@ -9,7 +9,11 @@ module Twigg
         '/authors' + query_string_from_options(options)
       end
 
-      def gerrit_path
+      def gerrit_authors_path
+        '/gerrit/authors'
+      end
+
+      def gerrit_changes_path
         '/gerrit'
       end
 

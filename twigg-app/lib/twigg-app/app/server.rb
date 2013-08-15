@@ -41,8 +41,10 @@ module Twigg
       helpers Twigg::Util
 
       helpers do
-        def active?(path)
-          'active' if request.path_info == path
+        # Returns true if the current request corresponds to any path in
+        # `paths`.
+        def active?(*paths)
+          'active' if Array(paths).include?(request.path_info)
         end
 
         def day_links

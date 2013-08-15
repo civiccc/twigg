@@ -30,8 +30,15 @@
               %li{ class: active?(pairs_path) }
                 %a{ href: pairs_path } Pairs
               - if Twigg::Config.app.gerrit.enabled
-                %li{ classs: active?(gerrit_path) }
-                  %a{ href: gerrit_path } Gerrit
+                %li.dropdown{ class: active?(gerrit_changes_path, gerrit_authors_path) }
+                  %a{ href: '#', data: { toggle: 'dropdown' } }
+                    Gerrit
+                    %b.caret
+                  %ul.dropdown-menu
+                    %li
+                      %a{ href: gerrit_changes_path } Changes
+                    %li
+                      %a{ href: gerrit_authors_path } Authors
               %li{ class: active?(russian_novels_path) }
                 %a{ href: russian_novels_path } я
       .container
