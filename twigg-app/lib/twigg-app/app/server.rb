@@ -101,7 +101,7 @@ module Twigg
           end
 
           get '/gerrit/authors' do
-            @authors = Gerrit::Author.stats
+            @authors = Gerrit::Author.stats(days: @days)
             haml :'gerrit/authors'
           end
         end
