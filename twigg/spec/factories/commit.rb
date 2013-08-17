@@ -6,6 +6,7 @@ FactoryGirl.define do
     repo    strategy: :build
     stat    { { additions: rand(100), deletions: rand(100) } }
     subject { generate(:subject) }
+    body    { generate(:body) }
 
     initialize_with { new(attributes) }
   end

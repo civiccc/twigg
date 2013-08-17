@@ -100,25 +100,23 @@ module Twigg
         loop do
           begin
             commit           = { repo: self }
+            commit[:body]    = []
+            commit[:stat]    = Hash.new(0)
             commit[:commit]  = lines.next.chomp
             commit[:author]  = lines.next.chomp
             commit[:date]    = Time.at(lines.next.chomp.to_i).to_date
             commit[:subject] = lines.next.chomp rescue ''
 
-            commit[:body]    = []
             while lines.peek =~ /^ {4}(.*)$/ && lines.next
               commit[:body] << $~[1]
             end
-            commit[:body]    = commit[:body].join("\n")
             lines.next if lines.peek == "\n" # blank separator line
 
-            commit[:stat]    = Hash.new(0)
             while lines.peek =~ /^(\d+|-)\t(\d+|-)\t.+$/ && lines.next
               commit[:stat][:additions] += $~[1].to_i
               commit[:stat][:deletions] += $~[2].to_i
             end
             lines.next if lines.peek == "\n" # blank separator line
-
           rescue StopIteration
             break # end of output
           ensure

@@ -5,6 +5,10 @@ require 'yaml'
 FactoryGirl.define do
   fixtures = YAML.load_file(Twigg.root + 'spec/support/fixtures.yml')
 
+  sequence(:body) do |n|
+    fixtures['bodies'].sample.split
+  end
+
   sequence(:date) do |n|
     Time.at(n).to_date
   end

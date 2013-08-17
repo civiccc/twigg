@@ -1,4 +1,238 @@
 ---
+bodies:
+- |-
+  This makes things line up a little nicely and fixes some clipping
+  issues. It's still not perfect, but it is relatively presentable at this
+  point.
+- |-
+  As noted in previous commits, this plug-in is a little flakey but it
+  basically works. The number of data attributes required in the DOM is a
+  bit annoying, as is the need to carefully eliminate undefined and NaN
+  values. I might end up swapping this out for something built using
+  the jQuery sortElements plug-in at some point, which I suspect might be
+  more robust:
+
+    https://github.com/padolsey/jQuery-Plugins/blob/master/sortElements/jquery.sortElements.js
+- |-
+  Based on:
+
+    https://github.com/joequery/Stupid-Table-Plugin/pull/68
+
+  Which doesn't seem to work either. I swapped out `closest` for
+  `parents`.
+
+  This mostly works, but there are some unresolved edge cases that I
+  haven't trouble-shot yet.
+- |-
+  I don't want to write my own table-sorter, nor do I want to pull in one
+  of the heavyweight "everything including the kitchen sink" solutions out
+  there; this is about the lightest I can find, although it is a little
+  flakey. It will have to do for now.
+
+  Downloaded from:
+
+    https://github.com/joequery
+- |-
+  It can be useful to look over longer periods (like 180 days;
+  approximately 6 months). Add such a link to the "day links" menu.
+- |-
+  Now we have subpages, let's organize them inside a drop-down menu on the
+  navbar.
+- |-
+  At /gerrit/authors we now show some crude metrics for "activity"
+  (defined as commenting on patches and assigning scores) and "quality"
+  (crudely inferable from the number of received comments, received
+  comments per change, revision count, and revisions per change).
+
+  To make the table useful, I'll be adding sortability in a bit.
+- |-
+  Our footer text was suddenly being floated left. No more.
+- |-
+  Only minor tweaks required, as described here:
+
+    http://blog.getbootstrap.com/2013/08/13/bootstrap-3-rc2/
+
+  I couldn't get `bower install` or `bower update` to recognize that there
+  was a new version to be installed, so I hard-coded the desired version
+  in the bower.json file.
+- |-
+  We use `#inject` in a few places, so delegate it to make it a little
+  easier to use.
+- |-
+  `#concat` modifies the receiver; what we actually wanted here was `#+`.
+
+  This bug meant that the "russian" easter egg subcommand was showing up
+  in the help output.
+
+  With this change, it only shows up if directly invoked (eg. with `twigg
+  russian -h` or `twigg help russian`).
+- |-
+  As we were passing `*args` here, that meant that an invocation like:
+
+    twigg russian -h
+
+  Would actually invoke the Help class with `-h` as args, although what we
+  actually wanted was to show the "russian" subcommand help.
+- |-
+  JSON doesn't allow NaN values, and empty commit messages produce exactly
+  that. (`0 / 0` raises a ZeroDivisionError, but `0 / 0.0` simply returns
+  `NaN`).
+
+  For such messages, assume the score is 206.835, which is what it would
+  be if we were to assume that `0 / 0.0` is `0` (which, apparently,
+  Wolfram Alpha does, which is good enough for me; for reference, it
+  considers `0 / 0` to be "indeterminate").
+- |-
+  This makes it even easier to add help for new subcommands.
+
+  Along the way I made the output format more compact (no blank lines
+  under topic headers, and no indenting); this was initially just going to
+  be an intermediate state on the way to maintaining parity with what the
+  output looked like before, but on inspecting it while testing, I found
+  it to look better so am going to leave it.
+- |-
+  Make it a little easier to add new help topics by moving some of the
+  repeated logic out of the different methods.
+- |-
+  For parity with the web app, the CLI gets its own version of the easter
+  egg. Note that because it is an easter egg, there's nothing fancy about
+  the output; we just dump out the data in YAML format.
+
+  It's actually quite readble.
+- |-
+  The `xhr` variable was being assigned but never used.
+- |-
+  Show the commit count and the date; this is useful on rows where the bar
+  itself is too small to show a number, or there are two many bars to
+  distinguish the dates easily.
+
+  Note that we need to tell Bootstrap where to place the tooltips, or it
+  will do its default behavior and insert a div in the middle of the svg,
+  which the browser won't like.
+- |-
+  Now that replace.js has been registered using Bower, it can be managed
+  in the same way as our other front-end dependencies.
+
+  This commit rips out the old copy of replace.js and subs in a
+  Bower-managed one (installed using `bower install`).
+
+  This commit also fixes some weirdness with the "bower_components"
+  symlink, which appears to have gone wobbly a few commits back. Now it
+  once again points at "public/vendor".
+- |-
+  Replace the nvd3 bar chart with a pure-d3 implementation. This reduces
+  our dependency footprint and gives us finer-grained control over how
+  these things actually look. This first cut is a little crude, but it is
+  close to parity with what we had before. In developing this I took
+  pointers from:
+
+    http://bl.ocks.org/mbostock/3885304
+    http://jsfiddle.net/chrisJamesC/MmEjF/34/
+- |-
+  This leads to a nicer user experience, because it means that accidental
+  dragging while clicking doesn't make the pretty bubbles looks ugly.
+- |-
+  As per the directions here:
+
+    https://github.com/chriseppstein/compass/wiki/Sinatra-Integration
+
+  I didn't add the Haml configuration as that page suggests, because Haml
+  already outputs HTML5 by default.
+
+  This will be used in a future commit to make use of the "user-select"
+  mixin, and possibly later on, others as well.
+- |-
+  The partial duplication of the routing logic in the JS (specifically,
+  the name-to-slug transformation logic) is a slight smell, but the
+  benefit is clear.
+- |-
+  This commit switches over to Bower for all of twigg-app's front-end
+  dependencies, with the exception of replace.js, whose Bower-ification is
+  currently awaiting review here:
+
+    https://gerrit.causes.com/26425
+
+  This means that d3, nvd3, jquery, bootstrap, and boostrap-glyphicons are
+  all being pulled down into the "bower_components" directory with `bower
+  install`. This will make updating easier than manually downloading and
+  placing new versions.
+
+  For now, replace.js has been manually copied over.
+
+  Note that `gem build` does the wrong thing if "public/vendor" is just a symlink to
+  "bower_components (it adds only normal files to the gem archive). We can
+  work around this by changing the direction of the symlink:
+  "public/vendor" is the real directory and "bower_components" is just a
+  symlink to it; `bower install` does the right thing.
+
+  One other minor thing to note: the bootstrap-glyphicons project doesn't
+  have any tags right now, so we have to point the "version" at
+  "gh-pages", which is the only branch in the repo.
+- |-
+  For now we're using some janky string-based jQuery client-side
+  templating. I'll come up with something cleaner for this later.
+- |-
+  We are listening for progress events, but without streaming on the
+  server we're not really going to get any of those in a meaningful way
+  (especially because we can't start streaming the JSON until the entire
+  commit set machinery has finished its job).
+
+  So, we just throw up a crude indeterminate progress bar.
+
+  It's better than nothing.
+- |-
+  This has been unused since the switch to async fetching of the JSON for
+  the bubble chart.
+- |-
+  When we switched to pulling the JSON down asynchronously we effectively
+  broke the "days" variable.
+- |-
+  Make the bubble chart as large as possible. This means that we try to
+  make the SVG fill up as much width as the `#bubble-chart` div has
+  available, but we don't ever go any wider than `window.innerHeight *
+  1.2`, because on very wide displays this would induce an awkward need to
+  scroll in order to see the entire chart.
+
+  Additionally, to make things look nice, center the chart.
+
+  Note that the dimensions are calculated once only, when the window is
+  first displayed. We don't make any attempt to recalculate on window
+  resize.
+- |-
+  This allows us to render the page immediately, and then show the bubble
+  chart once we have the data for it.
+
+  For now, no progress or loading indicator is in place; I'll add that
+  shortly.
+- |-
+  Accessible at /russian-novels, or via the "я" link in the global nav
+  bar, this page shows a bubble chart representing the Russianness of an
+  author's commit messages over the requested interval.
+
+    - bubble size indicates overall Russianness (commit message length)
+    - bubble text shows the author name
+    - bubble hover shows detailed stats on Russianness, Flesch Reading
+      Ease score (lower scores indicate harder-to-read commit messages)
+      and author and team name
+    - bubble color indicates team membership
+
+  This is a quick easter egg hacked together for fun, so I will probably
+  loop back later and clean up the overall placement of the code (as an
+  easter egg, it perhaps warrants being better encapsulated off somewhere
+  peripheral, rather than cluttering up the main Commit and CommitSet
+  classes).
+- |-
+  I'll be calling on this functionality presently to build the Russian
+  Novel easter egg.
+- |-
+  This also is in support of the upcoming "Russian novel" easter egg. This
+  class gives us a cheap approximation of the Flesch Reading Ease score[1]
+  which we will be deriving for commit messages.
+
+  [1]: http://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_test
+- |-
+  I'll be using this for the upcoming "Russian novel" easter egg.
+
 first_names:
   - Aaron
   - Abbey

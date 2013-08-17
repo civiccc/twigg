@@ -34,7 +34,7 @@ module Twigg
     end
 
     def filtered_commit_message
-      @filtered_commit_message ||= @body.lines.reject do |line|
+      @filtered_commit_message ||= @body.reject do |line|
         line =~ /^[a-z-]+: /i # filter out Change-Id:, Signed-off-by: etc
       end.concat([@subject]).join("\n").chomp
     end
