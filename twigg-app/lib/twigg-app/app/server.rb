@@ -41,10 +41,17 @@ module Twigg
       helpers Twigg::Util
 
       helpers do
-        # Returns true if the current request corresponds to any path in
-        # `paths`.
-        def active?(*paths)
-          'active' if Array(paths).include?(request.path_info)
+        # Returns a truthy value (the "active" class) if the current request
+        # corresponds to any path in `paths_or_regex`; otherwise, returns `nil`.
+        #
+        # @param paths_or_regex May be a String, Array of Strings, or a Regexp.
+        def active?(*paths_or_regex)
+          case paths_or_regex
+          when Array, String
+            Array(paths_or_regex).include?(request.path_info)
+          when Regexp
+            paths_or_regex.match(request.path_info)
+          end && 'active'
         end
 
         def day_links

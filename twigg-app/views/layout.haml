@@ -30,7 +30,7 @@
               %li{ class: active?(pairs_path) }
                 %a{ href: pairs_path } Pairs
               - if Twigg::Config.app.gerrit.enabled
-                %li.dropdown{ class: active?(gerrit_changes_path, gerrit_authors_path) }
+                %li.dropdown{ class: active?(%r{\A/gerrit\b}) }
                   %a{ href: '#', data: { toggle: 'dropdown' } }
                     Gerrit
                     %b.caret
