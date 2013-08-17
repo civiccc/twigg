@@ -5,6 +5,7 @@ require 'sass'
 require 'sinatra'
 require 'sinatra/content_for'
 require 'sinatra/respond_with'
+require 'sprockets'
 require 'yaml'
 
 module Twigg
@@ -15,6 +16,9 @@ module Twigg
       set :bind,       Config.app.bind
       set :public_dir, App.root + 'public'
       set :views,      [App.root + 'views', App.root + 'assets']
+      set :assets,     (Sprockets::Environment.new(App.root) do |env|
+        env.append_path 'assets/javascripts'
+      end)
 
       configure do
         Compass.configuration do |config|
@@ -127,6 +131,11 @@ module Twigg
             haml :'gerrit/tags'
           end
         end
+      end
+
+      get '/javascripts/:name.js' do
+        content_type 'application/javascript'
+        settings.assets["#{params[:name]}.js"]
       end
 
       get '/pairs' do
