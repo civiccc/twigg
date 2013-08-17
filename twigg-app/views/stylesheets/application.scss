@@ -115,4 +115,16 @@ h1 .popover {
 // Table styling
 th[data-sort] {
   cursor: pointer;
+
+  &.sorting-asc:after,
+  &.sorting-desc:after {
+    color: #ccc;
+    content: '\25b2'; // upward facing triangle
+    font-size: 10px;
+    margin-left: 2px;
+  }
+
+  &.sorting-desc:after {
+    content: '\25bc'; // downward facing triangle
+  }
 }
