@@ -12,11 +12,11 @@
       %th Breakdown by project
       %td= breakdown(commit_set)
 
-#bar-chart
+.bar-chart
 
 %h2= pluralize commit_set.count, 'commit'
 = haml :'shared/commit_list', locals: { commit_set: commit_set }
 
 - content_for :footer do
   :javascript
-    Twigg.Profile.loadCommitsPerDay('#bar-chart', #{nvd3_data.to_json})
+    Twigg.Profile.loadCommitsPerDay('.bar-chart', #{nvd3_data.to_json})

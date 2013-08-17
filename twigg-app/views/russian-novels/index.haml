@@ -3,14 +3,14 @@
   %small
     %span{day_links}
 
-#bubble-chart
+.bubble-chart
   .progress.progress-striped.active
     .progress-bar{ style: 'width: 100%' }
 
 - content_for :footer do
   :javascript
     (function() {
-      var diameter = Math.min($('#bubble-chart').width(), window.innerHeight * 1.2),
+      var diameter = Math.min($('.bubble-chart').width(), window.innerHeight * 1.2),
           format = d3.format(',d'),
           color = d3.scale.category20c(),
           bubble = d3.layout.pack()
@@ -18,13 +18,13 @@
             .sort(function(a, b) { return a.russianness - b.russianness; } )
             .value(function(d) { return d.russianness; })
             .padding(1.5),
-          svg = d3.select('#bubble-chart').append('svg')
+          svg = d3.select('.bubble-chart').append('svg')
             .attr('height', diameter)
             .attr('width', diameter);
 
       d3.json('#{russian_novels_path(days: @days)}')
         .on('error', function() {
-          $('#bubble-chart')
+          $('.bubble-chart')
             .empty()
             .append('<div class="alert alert-danger">' +
               'There was a problem retrieving the data. ' +
@@ -32,7 +32,7 @@
               '</div>');
         })
         .on('load', function(data) {
-          $('#bubble-chart .progress').remove();
+          $('.bubble-chart .progress').remove();
           var node = svg.selectAll('.node')
             .data(bubble.nodes(data).filter(function(d) { return !d.children; }))
             .enter().append('g')
@@ -55,7 +55,7 @@
             .style('text-anchor', 'middle')
             .text(function(d) { return d.author.substring(0, d.r / 4); });
 
-          $('#bubble-chart svg').on('click', 'g', function(event) {
+          $('.bubble-chart svg').on('click', 'g', function(event) {
             window.location = '#{authors_path}/'+
               $(event.currentTarget).find('text').text().replace(/ /, '.');
           });

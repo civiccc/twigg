@@ -2,7 +2,7 @@ Twigg = {};
 Twigg.Profile = (function() {
   var loadCommitsPerDay = function(selector, data) {
     var height = 200,
-        width = $('#bar-chart').width(),
+        width = $('.bar-chart').width(),
         padding = 45,
         barSpacing = 1,
         barWidth = (width - padding) / data.length - barSpacing,
@@ -45,7 +45,7 @@ Twigg.Profile = (function() {
           'data-toggle': 'tooltip'
         });
 
-    $('#bar-chart [data-toggle=tooltip]').tooltip({ container: 'body' });
+    $('.bar-chart [data-toggle=tooltip]').tooltip({ container: 'body' });
 
     // show count inside bars if wide/high enough
     if (barWidth > 20) {
