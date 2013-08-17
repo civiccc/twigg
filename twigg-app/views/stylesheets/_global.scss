@@ -1,0 +1,14 @@
+.day-links {
+  cursor: pointer;
+}
+
+.replace-active:after {
+  color: #aaa;
+  content: 'loading...';
+  font-style: italic;
+}
+
+.pairs a {
+  color: inherit;
+  text-decoration: none;
+}

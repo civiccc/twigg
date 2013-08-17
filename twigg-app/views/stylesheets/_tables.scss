@@ -1,0 +1,20 @@
+th[data-sort] {
+  cursor: pointer;
+
+  &:after {
+    color: #ccc;
+    content: '\25b2'; // upward facing triangle
+    font-size: 10px;
+    margin-left: 2px;
+    visibility: hidden;
+  }
+
+  &.sorting-asc:after {
+    visibility: visible;
+  }
+
+  &.sorting-desc:after {
+    content: '\25bc'; // downward facing triangle
+    visibility: visible;
+  }
+}

@@ -1,0 +1,22 @@
+#bubble-chart svg {
+  display: block;
+  margin: 0 auto;
+
+  .node {
+    cursor: pointer;
+
+    &:hover {
+      circle {
+        -webkit-svg-shadow: 0 0 7px #666;
+      }
+
+      text {
+        fill: #fff;
+      }
+    }
+
+    text {
+      @include user-select(none);
+    }
+  }
+}
