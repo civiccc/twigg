@@ -3,9 +3,7 @@
   %small
     %span{day_links}
 
-.bubble-chart
-  .progress.progress-striped.active
-    .progress-bar{ style: 'width: 100%' }
+.bubble-chart= haml :'shared/progress'
 
 - content_for :footer do
   :javascript

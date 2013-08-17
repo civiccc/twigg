@@ -12,9 +12,7 @@
       %th Breakdown by project
       %td= breakdown(commit_set)
 
-.bar-chart
-  .progress.progress-striped.active
-    .progress-bar{ style: 'width: 100%' }
+.bar-chart= haml :'shared/progress'
 
 %h2= pluralize commit_set.count, 'commit'
 = haml :'shared/commit_list', locals: { commit_set: commit_set }
