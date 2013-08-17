@@ -113,6 +113,12 @@ module Twigg
             @authors = Gerrit::Author.stats(days: @days)
             haml :'gerrit/authors'
           end
+
+          get '/gerrit/tags' do
+            @stats   = Gerrit::Tag.stats(days: @days)
+            @authors = (@stats[:from].keys + @stats[:to].keys).uniq.sort
+            haml :'gerrit/tags'
+          end
         end
       end
 

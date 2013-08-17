@@ -4,5 +4,6 @@ module Twigg
     autoload :Author,  'twigg-gerrit/gerrit/author'
     autoload :Change,  'twigg-gerrit/gerrit/change'
     autoload :DB,      'twigg-gerrit/gerrit/db'
+    autoload :Tag,     'twigg-gerrit/gerrit/tag'
   end
 end

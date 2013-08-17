@@ -17,6 +17,10 @@ module Twigg
         '/gerrit'
       end
 
+      def gerrit_tags_path
+        '/gerrit/tags'
+      end
+
       def pairs_path(options = {})
         '/pairs' + query_string_from_options(options)
       end

@@ -39,6 +39,8 @@
                       %a{ href: gerrit_changes_path } Changes
                     %li
                       %a{ href: gerrit_authors_path } Authors
+                    %li
+                      %a{ href: gerrit_tags_path } Tags
               %li{ class: active?(russian_novels_path) }
                 %a{ href: russian_novels_path } я
       .container
@@ -55,6 +57,7 @@
     %script(src='/vendor/bootstrap/dist/js/bootstrap.min.js')
     %script(src='/vendor/replacejs/replace.js')
     %script(src='/vendor/d3/d3.min.js')
+    %script(src='/vendor/d3.layout.cloud.js')
     %script(src='/vendor/stupidtable.js')
     %script(src='/application.js')
     = yield_content :footer
