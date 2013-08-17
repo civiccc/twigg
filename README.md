@@ -1,3 +1,5 @@
+[![Gem Version](https://badge.fury.io/rb/twigg-gerrit.png)](http://badge.fury.io/rb/twigg-gerrit)
+
 # Twigg
 
 Twigg collects statistics for a set of Git repositories. It assumes that all the
