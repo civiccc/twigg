@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
   spec.license     = 'MIT'
 
   spec.files = Dir[
+    'assets/**/*',
     'lib/**/*',
     'public/**/*',
     'views/*',

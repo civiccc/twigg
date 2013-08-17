@@ -14,12 +14,12 @@ module Twigg
 
       set :bind,       Config.app.bind
       set :public_dir, App.root + 'public'
-      set :views,      App.root + 'views'
+      set :views,      [App.root + 'views', App.root + 'assets']
 
       configure do
         Compass.configuration do |config|
           config.project_path = __dir__
-          config.sass_dir     = 'views/stylesheets'
+          config.sass_dir     = 'assets/stylesheets'
         end
 
         set :sass, Compass.sass_engine_options
@@ -41,6 +41,13 @@ module Twigg
       helpers Twigg::Util
 
       helpers do
+        # Support multiple view directories.
+        #
+        # See: https://github.com/sinatra/sinatra/commit/441b17ead90d3e3a90a3a4
+        def find_template(views, name, engine, &block)
+          Array(views).each { |v| super(v, name, engine, &block) }
+        end
+
         # Returns a truthy value (the "active" class) if the current request
         # corresponds to any path in `paths_or_regex`; otherwise, returns `nil`.
         #
