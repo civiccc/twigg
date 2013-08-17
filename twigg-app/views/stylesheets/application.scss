@@ -110,3 +110,9 @@ h1 .popover {
 .footer .navbar-text {
   float: none;
 }
+
+
+// Table styling
+th[data-sort] {
+  cursor: pointer;
+}
