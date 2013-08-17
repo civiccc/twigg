@@ -105,12 +105,15 @@ module Twigg
         haml :'authors/index', layout: !request.xhr?
       end
 
-      get '/authors/:slug' do
+      get '/authors/:slug', provides: %i[html json] do
         @author = slug_to_name(params[:slug])
         @commit_set = Gatherer.gather(Config.repositories_directory, @days).
           select_author(@author)
-        @nvd3_data = @commit_set.count_by_day(@days)
-        haml :'authors/show'
+
+        respond_to do |f|
+          f.html { haml :'authors/show' }
+          f.json { @commit_set.count_by_day(@days).to_json }
+        end
       end
 
       if Config.app.gerrit.enabled
@@ -163,12 +166,15 @@ module Twigg
         haml :'teams/index', layout: !request.xhr?
       end
 
-      get '/teams/:slug' do
+      get '/teams/:slug', provides: %i[html json] do
         @team = slug_to_name(params[:slug])
         @commit_set = Gatherer.gather(Config.repositories_directory, @days).
           select_team(@team)
-        @nvd3_data = @commit_set.count_by_day(@days)
-        haml :'teams/show'
+
+        respond_to do |f|
+          f.html { haml :'teams/show' }
+          f.json { @commit_set.count_by_day(@days).to_json }
+        end
       end
     end
   end
