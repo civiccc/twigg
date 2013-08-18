@@ -1,4 +1,3 @@
-Twigg = {};
 Twigg.Profile = (function() {
   var loadCommitsPerDay = function(selector) {
     d3.json(window.location.href)
