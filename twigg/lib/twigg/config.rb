@@ -39,10 +39,15 @@ module Twigg
       end
     end
 
-    def initialize
-      @settings = Settings.new(config_from_argv ||
-                               config_from_env ||
-                               config_from_home)
+    def initialize(twiggrc: nil)
+      @settings = if twiggrc
+        # This option is mainly here to make testing easier
+        Settings.new(config_from_file(twiggrc))
+      else
+        Settings.new(config_from_argv ||
+                     config_from_env ||
+                     config_from_home)
+      end
     end
 
   private
