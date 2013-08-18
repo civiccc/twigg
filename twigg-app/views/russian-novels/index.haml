@@ -21,14 +21,7 @@
             .attr('width', diameter);
 
       d3.json('#{russian_novels_path(days: @days)}')
-        .on('error', function() {
-          $('.bubble-chart')
-            .empty()
-            .append('<div class="alert alert-danger">' +
-              'There was a problem retrieving the data. ' +
-              '<a class="alert-link" href="#{request.url}">Reload</a>.' +
-              '</div>');
-        })
+        .on('error', function() { $('.bubble-chart').displayAlert(); })
         .on('load', function(data) {
           $('.bubble-chart .progress').remove();
           var node = svg.selectAll('.node')

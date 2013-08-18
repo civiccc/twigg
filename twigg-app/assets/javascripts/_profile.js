@@ -2,14 +2,7 @@ Twigg = {};
 Twigg.Profile = (function() {
   var loadCommitsPerDay = function(selector) {
     d3.json(window.location.href)
-      .on('error', function(data) {
-        $('.bar-chart')
-          .empty()
-          .append('<div class="alert alert-danger">' +
-            'There was a problem retrieving the data. ' +
-            '<a class="alert-link" href="' + window.location.href + '">Reload</a>.' +
-            '</div>');
-      })
+      .on('error', function() { $('.bar-chart').displayAlert(); })
       .on('load', function(data) {
           $(selector).empty();
 
