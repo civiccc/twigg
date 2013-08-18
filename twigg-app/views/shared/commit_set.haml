@@ -17,6 +17,8 @@
 %h2= pluralize commit_set.count, 'commit'
 = haml :'shared/commit_list', locals: { commit_set: commit_set }
 
+-# this one could clearly be a backbone view with data-view attribute, no JS needed here?
+-# just need a way to pass in the frickin' JSON
 - content_for :footer do
   :javascript
-    Twigg.Profile.loadCommitsPerDay('.bar-chart')
+    Twigg.Profile.loadCommitsPerDay('.bar-chart');
