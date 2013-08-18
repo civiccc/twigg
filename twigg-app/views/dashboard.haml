@@ -11,7 +11,7 @@
 
 - if Twigg::Config.app.gerrit.enabled
   %h2 Gerrit
-  .gerrit.well{ 'data-lazy-url' => gerrit_path }
+  .gerrit.well{ 'data-lazy-url' => gerrit_changes_path }
 
 %h2 Authors
 .authors.well{ 'data-lazy-url' => authors_path(days: @days) }
