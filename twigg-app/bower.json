@@ -3,6 +3,7 @@
   "dependencies": {
     "bootstrap": "v3.0.0-rc.2",
     "bootstrap-glyphicons": "gh-pages",
+    "components-backbone": "~1.0.0",
     "d3": "~3.2.8",
     "jquery": "~2.0.0",
     "replacejs": "~0.0.1"
