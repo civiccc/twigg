@@ -6,7 +6,7 @@
     "components-backbone": "~1.0.0",
     "d3": "~3.2.8",
     "jquery": "~2.0.0",
-    "replacejs": "~0.0.1"
+    "replacejs": "~0.0.2"
   },
   "private": true
 }

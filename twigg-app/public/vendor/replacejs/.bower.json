@@ -1,6 +1,6 @@
 {
   "name": "replacejs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": [
     "replace.js",
     "primer.js",
@@ -22,12 +22,12 @@
     "jquery-waypoints": "~2.0.2"
   },
   "homepage": "https://github.com/causes/replacejs",
-  "_release": "0.0.1",
+  "_release": "0.0.2",
   "_resolution": {
     "type": "version",
-    "tag": "v0.0.1",
-    "commit": "8f94908093930325d779fbb455e1f79d9600a027"
+    "tag": "v0.0.2",
+    "commit": "d5049cc5390069a3373b98c699471256ab9c6114"
   },
   "_source": "git://github.com/causes/replacejs.git",
-  "_target": "~0.0.1"
+  "_target": "~0.0.2"
 }
