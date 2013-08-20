@@ -7,6 +7,8 @@ describe Twigg::Config do
     context 'with the example twiggrc.yml file' do
       let(:config_file) { 'templates/twiggrc.yml' }
 
+      before { stub(File).world_readable?(config_file) { false } }
+
       it 'specifies teams' do
         expect(subject.teams).to be_an(OpenStruct)
       end
