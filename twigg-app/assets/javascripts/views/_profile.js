@@ -88,6 +88,8 @@ Twigg.Views.Profile = Backbone.View.extend({
         var h = this.getBBox().height;
       return 'translate(' + h * -1 + ', ' + h + ') rotate(-30)';
     });
+
+    return this;
   },
 
   loadCommitsPerDay: function() {
