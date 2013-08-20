@@ -4,12 +4,12 @@
     %span{day_links}
 
 %h2= pluralize @commit_set.count, 'commit'
-%table.table.table-striped.table-hover.table-bordered
+%table.table.table-striped.table-hover.table-bordered.sortable
   %thead
     %tr
-      %th Total commits
-      %th Author
-      %th Breakdown by project
+      %th{ data: { sort: 'int' } } Total commits
+      %th{ data: { sort: 'string-ins' } } Author
+      %th{ data: { sort: 'string-ins' } } Breakdown by project
       %th &nbsp;
   %tbody
     - @commit_set.authors.each do |object|
