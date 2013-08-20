@@ -1,8 +1,10 @@
 //= require_self
+
 //= require _bootstrap
 //= require _jquery
 //= require _tables
 //= require _profile
-//= require _russia
+//= require _views
 
-var Twigg = window.Twigg || {};
+var Twigg   = window.Twigg || {};
+Twigg.Views = Twigg.Views || {};

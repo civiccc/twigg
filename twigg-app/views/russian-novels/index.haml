@@ -3,8 +3,7 @@
   %small
     %span{day_links}
 
-.bubble-chart= haml :'shared/progress'
-
-- content_for :footer do
-  :javascript
-    Twigg.Russia.showNovelStats();
+.bubble-chart{ data: { view: 'Russia',
+                       authors_path: authors_path,
+                       url: russian_novels_path(days: @days) } }
+  = haml :'shared/progress'
