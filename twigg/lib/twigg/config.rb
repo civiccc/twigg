@@ -40,14 +40,10 @@ module Twigg
     end
 
     def initialize(twiggrc: nil)
-      @settings = if twiggrc
-        # This option is mainly here to make testing easier
-        Settings.new(config_from_file(twiggrc))
-      else
-        Settings.new(config_from_argv ||
-                     config_from_env ||
-                     config_from_home)
-      end
+      @settings = Settings.new(config_from_file(twiggrc) ||
+                               config_from_argv ||
+                               config_from_env ||
+                               config_from_home)
     end
 
   private
@@ -58,6 +54,8 @@ module Twigg
     end
 
     def config_from_file(path)
+      return unless path
+
       YAML.load_file(path).tap do |contents|
         if File.world_readable?(path)
           warn "#{path} is world-readable"
@@ -82,11 +80,11 @@ module Twigg
       # twigg-app.gemspec), which means that this happens before the
       # Twigg::Command.run method gets a chance to set things up properly.
       path = consume_option(%w[-c --config], ARGV)
-      config_from_file(path) if path
+      config_from_file(path)
     end
 
     def config_from_env
-      config_from_file(ENV['TWIGGRC']) if ENV['TWIGGRC']
+      config_from_file(ENV['TWIGGRC'])
     end
 
     TWIGGRC = '.twiggrc'
