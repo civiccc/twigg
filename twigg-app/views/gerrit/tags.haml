@@ -11,11 +11,15 @@
   - @authors.each do |author|
     %h3&= author
     %ul.nav.nav-tabs{ data: { tabs: 'tabs' } }
-      %li.active
-        %a{ href: "##{name_to_id author}-used", data: { toggle: 'tab' } } Used
-      %li
-        %a{ href: "##{name_to_id author}-received", data: { toggle: 'tab' } } Received
+      - if @stats[:from][author].any?
+        %li.active
+          %a{ href: "##{name_to_id author}-used", data: { toggle: 'tab' } } Used
+      - if @stats[:to][author].any?
+        %li{ class: ('active' unless @stats[:from][author].any?) }
+          %a{ href: "##{name_to_id author}-received", data: { toggle: 'tab' } } Received
 
     .tab-content
-      .tab-pane.active{ id: "#{name_to_id author}-used" }
-      .tab-pane{ id: "#{name_to_id author}-received" }
+      - if @stats[:from][author].any?
+        .tab-pane.active{ id: "#{name_to_id author}-used" }
+      - if @stats[:to][author].any?
+        .tab-pane{ class: ('active' unless @stats[:from][author].any?), id: "#{name_to_id author}-received" }
