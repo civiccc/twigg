@@ -13,7 +13,7 @@ Twigg.Views.TagsWordCloud = Backbone.View.extend({
         fill = d3.scale.category20(),
         height = window.innerHeight * 0.8,
         domain = d3.extent(entries, function(d) { return d.value; }),
-        scale = d3.scale.log().range([10, height * 0.5]).domain(domain),
+        scale = d3.scale.log().range([24, height * 0.33]).domain(domain),
         width = this.options.width,
         words = entries.map(function(d) { return { text: d.key, size: d.value }; });
 
