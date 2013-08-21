@@ -128,10 +128,13 @@ module Twigg
             haml :'gerrit/authors'
           end
 
-          get '/gerrit/tags' do
+          get '/gerrit/tags', provides: %i[html json] do
             @stats   = Gerrit::Tag.stats(days: @days)
             @authors = (@stats[:from].keys + @stats[:to].keys).uniq.sort
-            haml :'gerrit/tags'
+            respond_to do |f|
+              f.html { haml :'gerrit/tags' }
+              f.json { @stats.to_json }
+            end
           end
         end
       end

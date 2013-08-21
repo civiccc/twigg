@@ -3,61 +3,19 @@
   %small
     %span{day_links}
 
-%h2 Global tag use
-#global-used
+%section{ data: { view: 'Tags' } }
+  %h2 Global tag use
+  #global-used
 
-%h2 Per-author tag use
-- @authors.each do |author|
-  %h3&= author
-  %ul.nav.nav-tabs{ data: { tabs: 'tabs' } }
-    %li.active
-      %a{ href: "##{name_to_id author}-used", data: { toggle: 'tab' } } Used
-    %li
-      %a{ href: "##{name_to_id author}-received", data: { toggle: 'tab' } } Received
+  %h2 Per-author tag use
+  - @authors.each do |author|
+    %h3&= author
+    %ul.nav.nav-tabs{ data: { tabs: 'tabs' } }
+      %li.active
+        %a{ href: "##{name_to_id author}-used", data: { toggle: 'tab' } } Used
+      %li
+        %a{ href: "##{name_to_id author}-received", data: { toggle: 'tab' } } Received
 
-  .tab-content
-    .tab-pane{ id: "##{name_to_id author}-used" }
-    .tab-pane{ id: "##{name_to_id author}-received" }
-
-- content_for :footer do
-  :javascript
-    (function() {
-      var data = #{@stats.to_json},
-          entries = d3.map(data.global).entries(),
-          fill = d3.scale.category20(),
-          height = window.innerHeight * .8,
-          domain = d3.extent(entries, function(d) { return d.value; }),
-          scale = d3.scale.log().range([10, height * .5]).domain(domain),
-          width = $('#global-used').width(),
-          words = entries.map(function(d) { return { text: d.key, size: d.value }; });
-
-      d3.layout.cloud()
-        .size([width, height])
-        .words(words)
-        .padding(5)
-        .rotate(function() { return ~~(Math.random() * 2) * 90; })
-        .font('Impact')
-        .fontSize(function(d) { return scale(d.size); })
-        .on('end', draw)
-        .start();
-
-      function draw(words) {
-        d3.select('#global-used')
-          .append('svg')
-            .attr('width', width)
-            .attr('height', height)
-          .append('g')
-            .attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')')
-          .selectAll('text')
-            .data(words)
-          .enter().append('text')
-            .style('font-size', function(d) { return d.size + 'px'; })
-            .style('font-family', 'Impact')
-            .style('fill', function(d, i) { return fill(i); })
-            .attr('text-anchor', 'middle')
-            .attr('transform', function(d) {
-              return 'translate(' + [d.x, d.y] + ') rotate(' + d.rotate + ')';
-            })
-            .text(function(d) { return d.text; });
-        }
-    })();
+    .tab-content
+      .tab-pane{ id: "##{name_to_id author}-used" }
+      .tab-pane{ id: "##{name_to_id author}-received" }
