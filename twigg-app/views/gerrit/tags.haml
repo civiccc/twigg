@@ -3,7 +3,7 @@
   %small
     %span{day_links}
 
-%section{ data: { view: 'Tags' } }
+%section{ data: { view: 'Tags', authors: h(@authors.to_json) } }
   %h2 Global tag use
   #global-used= haml :'shared/progress'
 
@@ -17,5 +17,5 @@
         %a{ href: "##{name_to_id author}-received", data: { toggle: 'tab' } } Received
 
     .tab-content
-      .tab-pane{ id: "##{name_to_id author}-used" }
-      .tab-pane{ id: "##{name_to_id author}-received" }
+      .tab-pane{ id: "#{name_to_id author}-used" }
+      .tab-pane{ id: "#{name_to_id author}-received" }

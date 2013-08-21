@@ -4,6 +4,7 @@
 Twigg.Views.Tags = Backbone.View.extend({
   initialize: function() {
     this.$globalUsed = $('#global-used');
+    this.width = this.$globalUsed.width();
     this.fetch();
   },
 
@@ -18,13 +19,38 @@ Twigg.Views.Tags = Backbone.View.extend({
   },
 
   render: function() {
-    var subview = new Twigg.Views.TagsWordCloud({
-      el:   this.$globalUsed[0],
-      data: this.data
+    // first render global stats
+    new Twigg.Views.TagsWordCloud({
+      el:    this.$globalUsed[0],
+      data:  this.data.global,
+      width: this.width
     });
 
-    subview.render();
+    // then render per-author stats
+    var authors = JSON.parse(_.unescape(this.$el.data('authors')));
+    _.each(authors, function(author, idx, list) {
+      var id = this.nameToId(author);
+
+      // tags used
+      new Twigg.Views.TagsWordCloud({
+        el:    this.$('#' + id + '-used')[0],
+        data:  this.data.from[author],
+        width: this.width
+      });
+
+      // tags received
+      new Twigg.Views.TagsWordCloud({
+        el:    this.$('#' + id + '-received')[0],
+        data:  this.data.to[author],
+        width: this.width
+      });
+    }, this);
 
     return this;
+  },
+
+  // Duplicative of `#name_to_id` Ruby method in Twigg::App::Server.
+  nameToId: function(name) {
+    return name.replace(/[ .@]/, '-').toLowerCase();
   }
 });

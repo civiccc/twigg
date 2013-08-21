@@ -1,11 +1,20 @@
+// Draws a tag word cloud for the given data.
 Twigg.Views.TagsWordCloud = Backbone.View.extend({
+  initialize: function() {
+    this.render();
+  },
+
   render: function() {
-    var entries = d3.map(this.options.data.global).entries(),
+    if (!this.options.data) {
+      return this; // nothing to do
+    }
+
+    var entries = d3.map(this.options.data).entries(),
         fill = d3.scale.category20(),
         height = window.innerHeight * 0.8,
         domain = d3.extent(entries, function(d) { return d.value; }),
         scale = d3.scale.log().range([10, height * 0.5]).domain(domain),
-        width = this.$el.width(),
+        width = this.options.width,
         words = entries.map(function(d) { return { text: d.key, size: d.value }; });
 
     d3.layout.cloud()
@@ -34,6 +43,7 @@ Twigg.Views.TagsWordCloud = Backbone.View.extend({
             })
             .text(function(d) { return d.text; });
       }.bind(this))
+      .timeInterval(10)
       .start();
 
     return this;

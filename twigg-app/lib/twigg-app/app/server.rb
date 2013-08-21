@@ -52,6 +52,10 @@ module Twigg
           Array(views).each { |v| super(v, name, engine, &block) }
         end
 
+        def h(str)
+          Rack::Utils.escape_html(str)
+        end
+
         # Returns a truthy value (the "active" class) if the current request
         # corresponds to any path in `paths_or_regex`; otherwise, returns `nil`.
         #
