@@ -51,6 +51,6 @@ Twigg.Views.Tags = Backbone.View.extend({
 
   // Duplicative of `#name_to_id` Ruby method in Twigg::App::Server.
   nameToId: function(name) {
-    return name.replace(/[ .@]/, '-').toLowerCase();
+    return name.replace(/[ .@]/g, '-').toLowerCase();
   }
 });
