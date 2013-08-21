@@ -5,7 +5,7 @@
 
 %section{ data: { view: 'Tags' } }
   %h2 Global tag use
-  #global-used
+  #global-used= haml :'shared/progress'
 
   %h2 Per-author tag use
   - @authors.each do |author|
