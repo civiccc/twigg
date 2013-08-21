@@ -1,4 +1,4 @@
-Twigg.Views.Profile = Backbone.View.extend({
+Twigg.Views.CommitSetBarChart = Backbone.View.extend({
   initialize: function() {
     this.loadCommitsPerDay();
   },
