@@ -24,5 +24,7 @@ Twigg.Views.Tags = Backbone.View.extend({
     });
 
     subview.render();
+
+    return this;
   }
 });

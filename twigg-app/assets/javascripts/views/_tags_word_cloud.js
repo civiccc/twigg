@@ -35,5 +35,7 @@ Twigg.Views.TagsWordCloud = Backbone.View.extend({
             .text(function(d) { return d.text; });
       }.bind(this))
       .start();
+
+    return this;
   }
 });
