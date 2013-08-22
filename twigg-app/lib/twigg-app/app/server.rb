@@ -105,7 +105,10 @@ module Twigg
       end
 
       get '/authors' do
-        @commit_set = Gatherer.gather(Config.repositories_directory, @days)
+        @commit_set = Cacher.get('authors', @days) do
+          Gatherer.gather(Config.repositories_directory, @days)
+        end
+
         haml :'authors/index', layout: !request.xhr?
       end
 
