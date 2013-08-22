@@ -14,6 +14,13 @@ app:
   gerrit:
     enabled: false # default
 
+cache:
+  enabled:   false     # default
+  expiry:    3600      # default, 1 hour
+  host:      localhost # default
+  namespace: twigg     # default
+  port:      11211     # default
+
 gerrit:
   user: jimmy
   port: 29418 # default

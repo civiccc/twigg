@@ -30,6 +30,14 @@ module Twigg
       end
     end
 
+    namespace :cache do
+      setting :enabled,   default: false
+      setting :expiry,    default: 3600 # 1 hour
+      setting :host,      default: 'localhost'
+      setting :namespace, default: 'twigg'
+      setting :port,      default: 11211
+    end
+
     setting :default_days, default: 7
 
     namespace :gerrit do

@@ -1,6 +1,7 @@
 require 'pathname'
 
 module Twigg
+  autoload :Cacher,       'twigg/cacher'
   autoload :Command,      'twigg/command'
   autoload :Commit,       'twigg/commit'
   autoload :CommitSet,    'twigg/commit_set'
