@@ -15,11 +15,12 @@ app:
     enabled: false # default
 
 cache:
-  enabled:   false     # default
-  expiry:    3600      # default, 1 hour
-  host:      localhost # default
-  namespace: twigg     # default
-  port:      11211     # default
+  enabled:         false     # default
+  expiry:          3600      # default, 1 hour
+  host:            localhost # default
+  namespace:       twigg     # default
+  port:            11211     # default
+  value_max_bytes: 4194304
 
 gerrit:
   user: jimmy
