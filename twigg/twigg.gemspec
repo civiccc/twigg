@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
     'bin/*',
     'files/*',
     'lib/**/*',
+    'templates/*',
   ]
 
   spec.executables   = ['twigg']
