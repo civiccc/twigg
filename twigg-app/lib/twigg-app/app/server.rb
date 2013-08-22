@@ -114,8 +114,10 @@ module Twigg
 
       get '/authors/:slug', provides: %i[html json] do
         @author = slug_to_name(params[:slug])
-        @commit_set = Gatherer.gather(Config.repositories_directory, @days).
-          select_author(@author)
+        @commit_set = Cacher.get('authors', @author, @days) do
+          Gatherer.gather(Config.repositories_directory, @days).
+            select_author(@author)
+        end
 
         respond_to do |f|
           f.html { haml :'authors/show' }
@@ -152,7 +154,10 @@ module Twigg
       end
 
       get '/pairs' do
-        @pairs = Gatherer.gather(Config.repositories_directory, @days).pairs
+        @pairs = Cacher.get('pairs', @days) do
+          Gatherer.gather(Config.repositories_directory, @days).pairs
+        end
+
         haml :'pairs/index', layout: !request.xhr?
       end
 
@@ -160,8 +165,10 @@ module Twigg
         respond_to do |f|
           f.html { haml :'russian-novels/index' }
           f.json {
-            commit_set = Gatherer.gather(Config.repositories_directory, @days)
-            RussianNovel.new(commit_set).data.to_json
+            Cacher.get('russian-novels', @days) do
+              commit_set = Gatherer.gather(Config.repositories_directory, @days)
+              RussianNovel.new(commit_set).data.to_json
+            end
           }
         end
       end
@@ -172,14 +179,19 @@ module Twigg
       end
 
       get '/teams' do
-        @commit_set = Gatherer.gather(Config.repositories_directory, @days)
+        @commit_set = Cacher.get('teams', @days) do
+          Gatherer.gather(Config.repositories_directory, @days)
+        end
+
         haml :'teams/index', layout: !request.xhr?
       end
 
       get '/teams/:slug', provides: %i[html json] do
         @team = slug_to_name(params[:slug])
-        @commit_set = Gatherer.gather(Config.repositories_directory, @days).
-          select_team(@team)
+        @commit_set = Cacher.get('teams', @team, @days) do
+          Gatherer.gather(Config.repositories_directory, @days).
+            select_team(@team)
+        end
 
         respond_to do |f|
           f.html { haml :'teams/show' }
