@@ -1,4 +1,4 @@
-[![Gem Version](https://badge.fury.io/rb/twigg-gerrit.png)](http://badge.fury.io/rb/twigg-gerrit)
+[![Gem Version](https://badge.fury.io/rb/twigg.png)](http://badge.fury.io/rb/twigg)
 
 # Twigg
 
