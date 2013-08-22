@@ -16,17 +16,17 @@ PATH
       twigg (= 0.0.1)
 
 PATH
-  remote: ../twigg-gerrit
-  specs:
-    twigg-gerrit (0.0.1)
-      sequel
-      twigg (= 0.0.1)
-
-PATH
   remote: ../twigg-cache
   specs:
     twigg-cache (0.0.1)
       dalli
+      twigg (= 0.0.1)
+
+PATH
+  remote: ../twigg-gerrit
+  specs:
+    twigg-gerrit (0.0.1)
+      sequel
       twigg (= 0.0.1)
 
 GEM
