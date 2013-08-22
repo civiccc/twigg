@@ -5,7 +5,7 @@
 # `-c`/`--config` switches.
 #
 ---
-default_days: 7
+default_days: 7 # default
 organization: Causes
 repositories_directory: /home/jimmy/repos
 
