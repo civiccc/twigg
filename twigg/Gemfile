@@ -7,5 +7,6 @@ group :development do
 
   gem 'mysql2'
   gem 'twigg-app',    path: File.join(base, 'twigg-app')
+  gem 'twigg-cache',  path: File.join(base, 'twigg-cache')
   gem 'twigg-gerrit', path: File.join(base, 'twigg-gerrit')
 end

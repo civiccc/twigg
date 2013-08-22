@@ -1,0 +1,26 @@
+PATH
+  remote: .
+  specs:
+    twigg-cache (0.0.1)
+      dalli
+      twigg (= 0.0.1)
+
+PATH
+  remote: /Users/greg/work/unversioned/twigg/twigg
+  specs:
+    twigg (0.0.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    dalli (2.6.4)
+    rake (10.0.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.3)
+  rake
+  twigg!
+  twigg-cache!
