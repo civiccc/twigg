@@ -28,6 +28,7 @@ Usage:
 
     twigg app # assumes `~/.twiggrc` at default location
     TWIGGRC=config.yml twigg app # custom location for configuration file
+    twigg app --daemon --pidfile ~/twigg.pid # run as a daemon, with pidfile
 
 ### `twigg gerrit`
 

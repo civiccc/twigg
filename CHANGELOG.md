@@ -1,3 +1,9 @@
+### 0.0.3 (28 August 2013)
+
+* Unbreak `twigg init` command in the built gem, which was broken because a
+  template was not being included
+* Teach `twigg app` about `-D`/`--daemon` and `-P`/`--pidfile` options
+
 ### 0.0.2 (22 August 2013)
 
 * Make /teams and /authors tables sortable

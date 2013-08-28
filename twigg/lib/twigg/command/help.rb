@@ -39,7 +39,7 @@ module Twigg
 
       def app
         <<-DOC
-          #{executable} app
+          #{executable} app [-D|--daemon] [-P|--pidfile <pidfile>]
         DOC
       end
 
