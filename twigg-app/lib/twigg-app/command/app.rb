@@ -11,8 +11,11 @@ module Twigg
 
       def run
         stderr 'Daemonizing...' if @daemon
-        stderr "Will write to pidfile #{@pidfile}" if @pidfile_path
-        die 'Pidfile already exists' if File.exist?(@pidfile_path)
+
+        if @pidfile_path
+          stderr "Will write to pidfile #{@pidfile}"
+          die 'Pidfile already exists' if File.exist?(@pidfile_path)
+        end
 
         Process.daemon if @daemon
 
