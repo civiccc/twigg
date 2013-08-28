@@ -1,3 +1,7 @@
+### 0.0.5 (28 August 2013)
+
+* Actually include all necessary views with the gem
+
 ### 0.0.4 (28 August 2013)
 
 * Fix failure to start `twigg app` in the absence of a pidfile option

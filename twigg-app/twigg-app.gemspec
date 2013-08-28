@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
     'assets/**/*',
     'lib/**/*',
     'public/**/*',
-    'views/*',
+    'views/**/*',
     'data/*',
   ]
 
