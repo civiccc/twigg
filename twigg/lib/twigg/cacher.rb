@@ -24,7 +24,7 @@ module Twigg
       #
       # Note: if a `nil` or `false` value is ever stored in the cache, this
       # method will consider any lookup of the corresponding key to be a miss,
-      # because we employ a simply truthiness check to determine presence.
+      # because we employ a simple truthiness check to determine presence.
       def get(key, *args, &block)
         raise ArgumentError, 'block required by not given' unless block_given?
         digest = hashed_key_and_args(key, *args)
