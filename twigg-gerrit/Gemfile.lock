@@ -1,21 +1,21 @@
 PATH
   remote: .
   specs:
-    twigg-gerrit (0.0.1)
+    twigg-gerrit (0.0.3)
       sequel
-      twigg (= 0.0.1)
+      twigg (= 0.0.3)
 
 PATH
   remote: /Users/greg/work/unversioned/twigg/twigg
   specs:
-    twigg (0.0.1)
+    twigg (0.0.3)
 
 GEM
   remote: https://rubygems.org/
   specs:
     mysql2 (0.3.13)
     rake (10.0.4)
-    sequel (4.0.0)
+    sequel (4.1.1)
 
 PLATFORMS
   ruby

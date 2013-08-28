@@ -1,14 +1,14 @@
 PATH
   remote: .
   specs:
-    twigg-cache (0.0.1)
+    twigg-cache (0.0.3)
       dalli
-      twigg (= 0.0.1)
+      twigg (= 0.0.3)
 
 PATH
   remote: /Users/greg/work/unversioned/twigg/twigg
   specs:
-    twigg (0.0.1)
+    twigg (0.0.3)
 
 GEM
   remote: https://rubygems.org/
