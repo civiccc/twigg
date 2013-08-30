@@ -1,9 +1,46 @@
-require 'bundler/gem_tasks'
-
+require_relative 'lib/twigg/version'
 require 'rspec/core/rake_task'
+import File.expand_path('../common.rake', __dir__)
+
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.rspec_opts = %w(-fs --color)
   t.pattern = 'spec/**/*_spec.rb'
 end
 
 task default: :spec
+
+gem = "twigg-#{Twigg::VERSION}.gem"
+file gem do
+  system 'gem build twigg.gemspec'
+end
+
+desc "build twigg gem (#{gem})"
+task build: gem
+
+RELEASE_PREREQS= %i[
+  require_bundle
+  require_clean_worktree
+  require_gerrit_annotations
+]
+
+desc "push twigg gem (#{gem}) to RubyGems"
+task push: [gem] + RELEASE_PREREQS do
+  prompt "Push #{gem} to RubyGems"
+  system "gem push #{gem}"
+end
+
+tag = "twigg/v#{Twigg::VERSION}"
+desc "tag twigg release (#{tag})"
+task tag: RELEASE_PREREQS do
+  system 'git log -1'
+  puts
+  message = "#{Twigg::VERSION} release"
+  prompt "Tag current HEAD (shown above) with #{tag} (#{message})"
+  system! "git tag #{tag} -m '#{message}'"
+
+  puts
+  system 'git remote show -n origin'
+  puts
+  prompt "Push tags to origin (shown above)"
+  system! 'git push origin --tags'
+end
