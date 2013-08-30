@@ -18,7 +18,7 @@ end
 
 task :require_bundle do
   system 'bundle check'
-  if !$?.success?
+  unless $?.success?
     raise 'bundle check failed'
   end
 end
