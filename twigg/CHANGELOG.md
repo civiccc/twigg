@@ -1,6 +1,7 @@
 ### 0.0.4 (not yet released)
 
-* Make `twigg help` output more concise
+* Improve readability of `twigg help` output by using a short executable name
+  and indenting subsections
 
 ### 0.0.3 (28 August 2013)
 

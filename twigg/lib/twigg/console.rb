@@ -31,13 +31,14 @@ module Twigg
 
     # Given a "heredoc" `doc`, find the non-empty line with the smallest indent,
     # and strip that amount of whitespace from the beginning of each line.
+    # Subsequently, prepend a fixed number (`indent`) of spaces to each line.
     #
     # This allows us to write nicely indented copy that sits well with the
     # surrounding code, irrespective of the level of indentation of the code,
     # without emitting excessive whitespace to the user at runtime.
-    def strip_heredoc(doc)
-      indent = doc.scan(/^[ \t]*(?=\S)/).map(&:size).min || 0
-      doc.gsub(/^[ \t]{#{indent}}/, '')
+    def strip_heredoc(doc, indent: 0)
+      strip_count = doc.scan(/^[ \t]*(?=\S)/).map(&:size).min || 0
+      doc.gsub(/^[ \t]{#{strip_count}}/, ' ' * indent)
     end
 
     # Given `switches` (which may be either a single switch or an array of

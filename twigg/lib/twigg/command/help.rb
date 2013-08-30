@@ -28,7 +28,7 @@ module Twigg
 
       def show_help(topic)
         puts TOPIC_HEADERS[topic] + ':'
-        stderr strip_heredoc(send(topic)) + "\n"
+        stderr strip_heredoc(send(topic), indent: 2) + "\n"
       end
 
       def app
