@@ -1,3 +1,7 @@
+### 0.0.4 (not yet released)
+
+* Make `twigg help` output more concise
+
 ### 0.0.3 (28 August 2013)
 
 * Unbreak `twigg init` command in the built gem, which was broken because a

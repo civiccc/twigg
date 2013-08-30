@@ -1,5 +1,3 @@
-require 'shellwords'
-
 module Twigg
   class Command
     class Help < Command
@@ -22,10 +20,6 @@ module Twigg
 
     private
 
-      def executable
-        Shellwords.escape($0)
-      end
-
       TOPIC_HEADERS = Hash.new { |h, k| h[k] = k.capitalize }.merge(
         # header = subcommand with first letter capitalized; exceptions:
         'app'    => 'Web application',
@@ -39,73 +33,73 @@ module Twigg
 
       def app
         <<-DOC
-          #{executable} app [-D|--daemon] [-P|--pidfile <pidfile>]
+          twigg app [-D|--daemon] [-P|--pidfile <pidfile>]
         DOC
       end
 
       def commands
         <<-DOC
-          #{executable} app    # run the Twigg web app
-          #{executable} gerrit # clone/update/report from Gerrit
-          #{executable} git    # perform operations on Git repos
-          #{executable} github # clone/update from GitHub
-          #{executable} init   # generate a .twiggrc file
-          #{executable} help   # this help information
-          #{executable} stats  # show statistics about repos
+          twigg app    # run the Twigg web app
+          twigg gerrit # clone/update/report from Gerrit
+          twigg git    # perform operations on Git repos
+          twigg github # clone/update from GitHub
+          twigg init   # generate a .twiggrc file
+          twigg help   # this help information
+          twigg stats  # show statistics about repos
         DOC
       end
 
       def gerrit
         <<-DOC
-          #{executable} gerrit clone [repos dir]  # clone repos into repos dir
-          #{executable} gerrit update [repos dir] # update repos in repos dir
-          #{executable} gerrit stats [repos dir]  # show stats for repos in dir
+          twigg gerrit clone [repos dir]  # clone repos into repos dir
+          twigg gerrit update [repos dir] # update repos in repos dir
+          twigg gerrit stats [repos dir]  # show stats for repos in dir
         DOC
       end
 
       def git
         <<-DOC
-          #{executable} git gc [repos dir] # garbage collect repos in repos dir
+          twigg git gc [repos dir] # garbage collect repos in repos dir
         DOC
       end
 
       def github
         <<-DOC
-          #{executable} github clone [repos dir]  # clone repos into repos dir
-          #{executable} github update [repos dir] # update repos in repos dir
+          twigg github clone [repos dir]  # clone repos into repos dir
+          twigg github update [repos dir] # update repos in repos dir
         DOC
       end
 
       def help
         <<-DOC
-          #{executable} help              # this help information
-          #{executable} help <subcommand> # help for a specific subcommand
-          #{executable} help commands     # list all subcommands
+          twigg help              # this help information
+          twigg help <subcommand> # help for a specific subcommand
+          twigg help commands     # list all subcommands
         DOC
       end
 
       def init
         <<-DOC
-          #{executable} init # emit a sample .twiggrc file to standard out
+          twigg init # emit a sample .twiggrc file to standard out
         DOC
       end
 
       def russian
         <<-DOC
-          #{executable} russian <repos dir> <number of days> # easter egg
+          twigg russian <repos dir> <number of days> # easter egg
         DOC
       end
 
       def stats
         <<-DOC
-          #{executable} stats [--verbose|-v] <repos dir> <number of days>
+          twigg stats [--verbose|-v] <repos dir> <number of days>
         DOC
       end
 
       def usage
         <<-DOC
-          #{executable} <subcommand> [options] <arguments...>
-          #{executable} help
+          twigg <subcommand> [options] <arguments...>
+          twigg help
         DOC
       end
     end
