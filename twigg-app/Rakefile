@@ -1,1 +1,6 @@
-require 'bundler/gem_tasks'
+require_relative 'lib/twigg-app/app/version'
+
+@gem     = 'twigg-app'
+@version = Twigg::App::VERSION
+
+import File.expand_path('../common.rake', __dir__)

@@ -55,3 +55,33 @@ task :require_gerrit_annotations do
     raise 'required Gerrit annotations missing (was commit not cherry-picked?)'
   end
 end
+
+gem = "#{@gem}-#{@version}.gem"
+file gem do
+  system "gem build #{@gem}.gemspec"
+end
+
+desc "build #{@gem} gem (#{gem})"
+task build: gem
+
+desc "push #{@gem} gem (#{gem}) to RubyGems"
+task push: [gem] + RELEASE_PREREQS do
+  prompt "Push #{@gem} to RubyGems"
+  system "gem push #{gem}"
+end
+
+tag = "#{@gem}/v#{@version}"
+desc "tag #{@gem} release (#{tag})"
+task tag: RELEASE_PREREQS do
+  system 'git log -1'
+  puts
+  message = "#{@version} release"
+  prompt "Tag current HEAD (shown above) with #{tag} (#{message})"
+  system! "git tag #{tag} -m '#{message}'"
+
+  puts
+  system 'git remote show -n origin'
+  puts
+  prompt "Push tags to origin (shown above)"
+  system! 'git push origin --tags'
+end

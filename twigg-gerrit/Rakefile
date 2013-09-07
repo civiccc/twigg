@@ -1,1 +1,6 @@
-require 'bundler/gem_tasks'
+require_relative 'lib/twigg-gerrit/gerrit/version'
+
+@gem     = 'twigg-gerrit'
+@version = Twigg::Gerrit::VERSION
+
+import File.expand_path('../common.rake', __dir__)
