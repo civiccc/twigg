@@ -1,1 +1,41 @@
-require 'bundler/gem_tasks'
+require_relative 'lib/twigg-cache/cache/version'
+require 'rspec/core/rake_task'
+import File.expand_path('../common.rake', __dir__)
+
+RSpec::Core::RakeTask.new(:spec) do |t|
+  t.rspec_opts = %w(-fs --color)
+  t.pattern = 'spec/**/*_spec.rb'
+end
+
+task default: :spec
+
+version = Twigg::Cache::VERSION
+gem = "twigg-cache-#{version}.gem"
+file gem do
+  system 'gem build twigg-cache.gemspec'
+end
+
+desc "build twigg-cache gem (#{gem})"
+task build: gem
+
+desc "push twigg-cache gem (#{gem}) to RubyGems"
+task push: [gem] + RELEASE_PREREQS do
+  prompt "Push #{gem} to RubyGems"
+  system "gem push #{gem}"
+end
+
+tag = "twigg-cache/v#{version}"
+desc "tag twigg-cache release (#{tag})"
+task tag: RELEASE_PREREQS do
+  system 'git log -1'
+  puts
+  message = "#{version} release"
+  prompt "Tag current HEAD (shown above) with #{tag} (#{message})"
+  system! "git tag #{tag} -m '#{message}'"
+
+  puts
+  system 'git remote show -n origin'
+  puts
+  prompt "Push tags to origin (shown above)"
+  system! 'git push origin --tags'
+end
