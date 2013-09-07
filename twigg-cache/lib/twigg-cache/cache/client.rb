@@ -1,12 +1,8 @@
 require 'dalli'
-require 'forwardable'
 
 module Twigg
   module Cache
     class Client
-      extend Forwardable
-      def_delegators '@client', :get, :set
-
       def initialize
         options = {
           compress:        true,
@@ -17,6 +13,18 @@ module Twigg
 
         @client = Dalli::Client.new("#{Config.cache.host}:#{Config.cache.port}",
                                     options)
+      end
+
+      def get(key)
+        @client.get(key)
+      rescue Dalli::RingError
+        # degrade gracefully
+      end
+
+      def set(key, value)
+        @client.set(key, value)
+      rescue Dalli::RingError
+        # degrade gracefully
       end
     end
   end
