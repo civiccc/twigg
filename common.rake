@@ -1,3 +1,12 @@
+require 'rspec/core/rake_task'
+
+RSpec::Core::RakeTask.new(:spec) do |t|
+  t.rspec_opts = %w(-fs --color)
+  t.pattern = 'spec/**/*_spec.rb'
+end
+
+task default: :spec
+
 def prompt(prompt_string = 'Proceed')
   loop do
     print "#{prompt_string}? (y/n) "
