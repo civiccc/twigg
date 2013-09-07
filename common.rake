@@ -17,10 +17,7 @@ def system!(*args)
 end
 
 task :require_bundle do
-  system 'bundle check'
-  unless $?.success?
-    raise 'bundle check failed'
-  end
+  system! 'bundle check'
 end
 
 task :require_clean_worktree do
