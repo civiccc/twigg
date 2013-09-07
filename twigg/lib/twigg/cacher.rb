@@ -60,7 +60,7 @@ module Twigg
       # recursion to incorporate the contents of those objects in the digest.
       #
       # Will raise an exception if `args` or any object encontered via recursion
-      # is not a "simple" object (Hash, Array, String, NilClas, Numeric, or
+      # is not a "simple" object (Hash, Array, String, NilClass, Numeric, or
       # Symbol).
       def hashed_key_and_args(key, *args)
         base = args.inject('') do |memo, arg|
@@ -69,7 +69,7 @@ module Twigg
             hashed_key_and_args(key, *arg)
           when Hash
             hashed_key_and_args(key, *arg.to_a)
-          when NilClass,Numeric, String, Symbol
+          when NilClass, Numeric, String, Symbol
             arg.to_s
           else
             raise ArgumentError, 'can only compute digest for primitive objects'
