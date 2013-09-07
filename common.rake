@@ -16,6 +16,12 @@ def system!(*args)
   end
 end
 
+RELEASE_PREREQS= %i[
+  require_bundle
+  require_clean_worktree
+  require_gerrit_annotations
+]
+
 task :require_bundle do
   system! 'bundle check'
 end
