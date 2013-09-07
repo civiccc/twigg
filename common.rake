@@ -25,7 +25,7 @@ def system!(*args)
   end
 end
 
-RELEASE_PREREQS= %i[
+RELEASE_PREREQS = %i[
   require_bundle
   require_clean_worktree
   require_gerrit_annotations
