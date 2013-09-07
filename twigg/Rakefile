@@ -9,7 +9,8 @@ end
 
 task default: :spec
 
-gem = "twigg-#{Twigg::VERSION}.gem"
+version = Twigg::VERSION
+gem = "twigg-#{version}.gem"
 file gem do
   system 'gem build twigg.gemspec'
 end
@@ -23,12 +24,12 @@ task push: [gem] + RELEASE_PREREQS do
   system "gem push #{gem}"
 end
 
-tag = "twigg/v#{Twigg::VERSION}"
+tag = "twigg/v#{version}"
 desc "tag twigg release (#{tag})"
 task tag: RELEASE_PREREQS do
   system 'git log -1'
   puts
-  message = "#{Twigg::VERSION} release"
+  message = "#{version} release"
   prompt "Tag current HEAD (shown above) with #{tag} (#{message})"
   system! "git tag #{tag} -m '#{message}'"
 
