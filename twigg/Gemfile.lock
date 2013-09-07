@@ -6,7 +6,7 @@ PATH
 PATH
   remote: ../twigg-app
   specs:
-    twigg-app (0.0.3)
+    twigg-app (0.0.5)
       compass (~> 0.12.2)
       haml (~> 4.0.3)
       nokogiri (~> 1.6.0)
