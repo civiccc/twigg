@@ -75,7 +75,7 @@ module Twigg
       IO.popen([{ 'GIT_DIR' => git_dir },
                 'git', command, *args, *STDERR_TO_STDOUT], 'r') do |io|
         io.read
-      end
+      end.force_encoding('UTF-8')
     end
 
     def log(*args)
@@ -91,7 +91,8 @@ module Twigg
         '%w(0,4,4)%b', # body, indented 4 spaces
       ].join
 
-      git 'log', "--pretty=format:#{format}", '--numstat', *args
+      git 'log',
+        '--encoding=UTF-8', "--pretty=format:#{format}", '--numstat', *args
     end
 
     def parse_log(string)

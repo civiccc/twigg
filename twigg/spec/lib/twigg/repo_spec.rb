@@ -82,5 +82,18 @@ describe Twigg::Repo do
         expect(subject.first).to be_a(Twigg::Commit)
       end
     end
+
+    context 'with a commit message containing non-ASCII characters' do
+      let(:repo) do
+        scratch_repo do
+          `git commit --allow-empty -m "Hey — em dash, anyone? — bye!"`
+        end
+      end
+
+      it 'parses the empty commit' do
+        expect(subject.first).to be_a(Twigg::Commit)
+        expect(subject.first.subject.encoding).to eq(Encoding.find('UTF-8'))
+      end
+    end
   end
 end
