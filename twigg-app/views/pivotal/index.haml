@@ -7,11 +7,14 @@
     %tr
       %th{ data: { sort: 'string-ins' } } Type
       %th{ data: { sort: 'int' } } Count
+      %th Breakdown
   %tbody
     - @stats.each do |state, stories|
       %tr
         %td&= state
         %td= number_with_delimiter(stories.size)
+        %td
+          &= stories.group_by { |story| story.owned_by && story.owned_by['initials'] }.sort_by { |owner, stories| -stories.size }.delete_if { |owner, stories| owner.nil? }.map { |owner, stories| "#{owner}: #{stories.size}" }.join(', ')
 
 - unless params[:summary_only]
   - @stats.each do |state, stories|
