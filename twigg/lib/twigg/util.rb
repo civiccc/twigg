@@ -1,5 +1,11 @@
 module Twigg
   module Util
+    class << self
+      def inflections
+        @inflections ||= {}
+      end
+    end
+
   private
 
     # Returns the age of `time` relative to now in hours (for short intervals)
@@ -37,12 +43,16 @@ module Twigg
     #   pluralize(1_200, 'commit', delimit: false) # => "1200 commits"
     #
     def pluralize(count, singular, plural = nil, delimit: true)
-      @inflections ||= Hash.new do |hash, key|
-        hash[key] = [key, plural ? plural : key + 's']
+      inflections = ::Twigg::Util.inflections
+      number      = delimit ? number_with_delimiter(count) : count.to_s
+
+      if plural
+        inflections[singular] ||= plural
+      else
+        plural = inflections[singular] || (singular + 's')
       end
 
-      (delimit ? number_with_delimiter(count) : count.to_s) + ' ' +
-        @inflections[singular][count == 1 ? 0 : 1]
+      "#{number} #{count == 1 ? singular : plural}"
     end
 
     # Returns a per-repo breakdown (repo names, commit counts) of commits in
