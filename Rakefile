@@ -3,6 +3,7 @@
   twigg-app
   twigg-cache
   twigg-gerrit
+  twigg-pivotal
 ].each do |gem|
   namespace gem do
     desc "run #{gem} specs"

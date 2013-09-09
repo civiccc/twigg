@@ -28,6 +28,10 @@ module Twigg
       namespace :gerrit do
         setting :enabled, default: false
       end
+
+      namespace :pivotal do
+        setting :enabled, default: false
+      end
     end
 
     namespace :cache do
@@ -61,6 +65,10 @@ module Twigg
 
     namespace :github do
       setting :organization, required: true
+      setting :token,        required: true
+    end
+
+    namespace :pivotal do
       setting :token,        required: true
     end
 

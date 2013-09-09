@@ -3,7 +3,7 @@ require 'forwardable'
 module Twigg
   class Command
     # Subcommands, in the order they should appear in the help output.
-    PUBLIC_SUBCOMMANDS = %w[help init app stats gerrit github git]
+    PUBLIC_SUBCOMMANDS = %w[help init app stats gerrit github pivotal git]
 
     EASTER_EGGS        = %w[russian]
     SUBCOMMANDS        = PUBLIC_SUBCOMMANDS + EASTER_EGGS
@@ -72,6 +72,10 @@ module Twigg
 
       def init(*args)
         Init.new(*args).run
+      end
+
+      def pivotal(*args)
+        with_dependency('twigg-pivotal') { Pivotal.new(*args).run }
       end
 
       def russian(*args)

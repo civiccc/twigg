@@ -13,6 +13,8 @@ app:
   bind: '0.0.0.0' # default
   gerrit:
     enabled: false # default
+  pivotal:
+    enabled: false # default
 
 cache:
   enabled:         false     # default
@@ -39,6 +41,9 @@ gerrit:
 github:
   organization: causes
   token: 0da57c4304855867e97dd4419d7d070543c5c092
+
+pivotal:
+  token: dcc9b8d1445dc21d02f1cbea1edd8aa56ffd6af2
 
 teams:
   Red Team:

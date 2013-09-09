@@ -1,0 +1,6 @@
+require_relative 'lib/twigg-pivotal/pivotal/version'
+
+@gem     = 'twigg-pivotal'
+@version = Twigg::Pivotal::VERSION
+
+import File.expand_path('../common.rake', __dir__)

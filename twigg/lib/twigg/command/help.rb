@@ -39,13 +39,14 @@ module Twigg
 
       def commands
         <<-DOC
-          twigg app    # run the Twigg web app
-          twigg gerrit # clone/update/report from Gerrit
-          twigg git    # perform operations on Git repos
-          twigg github # clone/update from GitHub
-          twigg init   # generate a .twiggrc file
-          twigg help   # this help information
-          twigg stats  # show statistics about repos
+          twigg app     # run the Twigg web app
+          twigg gerrit  # clone/update/report from Gerrit
+          twigg git     # perform operations on Git repos
+          twigg github  # clone/update from GitHub
+          twigg init    # generate a .twiggrc file
+          twigg help    # this help information
+          twigg pivotal # show open stories in Pivotal Tracker
+          twigg stats   # show statistics about repos
         DOC
       end
 
@@ -81,6 +82,12 @@ module Twigg
       def init
         <<-DOC
           twigg init # emit a sample .twiggrc file to standard out
+        DOC
+      end
+
+      def pivotal
+        <<-DOC
+          twigg pivotal stats # show overview of open stories
         DOC
       end
 

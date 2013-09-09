@@ -65,6 +65,14 @@ redirect into a file; for example, to place the sample file at `~/.twiggrc`:
 
     twigg init > ~/.twiggrc
 
+### `twigg pivotal`
+
+This subcommand, available when the twigg-pivotal gem is installed (via `gem
+install twigg-pivotal`), shows an overview of open stories in a Pivotal Tracker
+instance.
+
+    twigg pivotal stats
+
 ### Options common to all commands
 
 All Twigg commands can take a `--verbose` or `-v` flag to increase their
