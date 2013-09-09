@@ -2,11 +2,11 @@
   Open stories in Pivotal
 
 %h2= pluralize(@stats.inject(0) { |memo, (state, stories)| memo + stories.size }, 'open story', 'open stories')
-%table.table.table-striped.table-hover.table-bordered
+%table.table.table-striped.table-hover.table-bordered.sortable
   %thead
     %tr
-      %th Type
-      %th Count
+      %th{ data: { sort: 'string-ins' } } Type
+      %th{ data: { sort: 'int' } } Count
   %tbody
     - @stats.each do |state, stories|
       %tr
@@ -15,11 +15,11 @@
 
 - @stats.each do |state, stories|
   %h3= pluralize(stories.size, "#{state} story", "#{state} stories")
-  %table.table.table-striped.table-hover.table-bordered
+  %table.table.table-striped.table-hover.table-bordered.sortable
     %thead
-      %th Name
-      %th Type
-      %th Owner
+      %th{ data: { sort: 'string-ins' } } Name
+      %th{ data: { sort: 'string-ins' } } Type
+      %th{ data: { sort: 'string-ins' } } Owner
     %tbody
       - stories.each do |story|
         %tr
