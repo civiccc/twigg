@@ -15,7 +15,7 @@
 
 - if Twigg::Config.app.pivotal.enabled
   %h2 Pivotal
-  .pivotal.well{ 'data-lazy-url' => pivotal_path }
+  .pivotal.well{ 'data-lazy-url' => pivotal_path(summary_only: 1) }
 
 %h2 Authors
 .authors.well{ 'data-lazy-url' => authors_path(days: @days) }
