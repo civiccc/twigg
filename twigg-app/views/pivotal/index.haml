@@ -1,7 +1,7 @@
 - content_for :title do
   Open stories in Pivotal
 
-%h2= pluralize(@stats.inject(0) { |memo, (state, stories)| memo + stories.size }, 'open story', 'open stories')
+%h2= pluralize(@stats.sum { |state, stories| stories.size }, 'open story', 'open stories')
 %table.table.table-striped.table-hover.table-bordered.sortable
   %thead
     %tr
