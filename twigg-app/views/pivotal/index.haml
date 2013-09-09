@@ -29,7 +29,7 @@
             %td&= story.story_type
             %td
               - if story.owned_by
-                %span{ title: story.owned_by['name'] }
+                %span{ data: { toggle: 'tooltip' }, title: story.owned_by['name'] }
                   &= story.owned_by['initials']
               - else
                 &nbsp;
