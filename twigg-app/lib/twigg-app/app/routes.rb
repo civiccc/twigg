@@ -25,6 +25,10 @@ module Twigg
         '/pairs' + query_string_from_options(options)
       end
 
+      def pivotal_path
+        '/pivotal'
+      end
+
       def russian_novels_path(options = {})
         '/russian-novels' + query_string_from_options(options)
       end

@@ -13,5 +13,9 @@
   %h2 Gerrit
   .gerrit.well{ 'data-lazy-url' => gerrit_changes_path }
 
+- if Twigg::Config.app.pivotal.enabled
+  %h2 Pivotal
+  .pivotal.well{ 'data-lazy-url' => pivotal_path }
+
 %h2 Authors
 .authors.well{ 'data-lazy-url' => authors_path(days: @days) }

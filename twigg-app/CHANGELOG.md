@@ -1,3 +1,7 @@
+### master (not yet released)
+
+* Show Pivotal Tracker stats at /pivotal
+
 ### 0.0.5 (28 August 2013)
 
 * Actually include all necessary views with the gem

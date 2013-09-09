@@ -161,6 +161,15 @@ module Twigg
         haml :'pairs/index', layout: !request.xhr?
       end
 
+      if Config.app.pivotal.enabled
+        with_dependency 'twigg-pivotal' do
+          get '/pivotal' do
+            @stats = Cacher.get('pivotal') { Pivotal::Status.status }
+            haml :'pivotal/index', layout: !request.xhr?
+          end
+        end
+      end
+
       get '/russian-novels', provides: %i[html json] do
         respond_to do |f|
           f.html { haml :'russian-novels/index' }
