@@ -44,7 +44,10 @@ module Twigg
     private
 
       def ignore(args)
-        warn "unsupported extra arguments #{args.inspect} ignored" if args.any?
+        if args.any?
+          warn "unsupported extra argument#{'s' if args.size > 1} " \
+               "#{args.inspect} ignored"
+        end
       end
 
       def app(*args)
