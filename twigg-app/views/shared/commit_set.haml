@@ -10,7 +10,7 @@
       %td= number_with_delimiter(commit_set.count)
     %tr
       %th Breakdown by project
-      %td= breakdown(commit_set)
+      %td= commit_set.decorate.breakdown
 
 .bar-chart{ data: { view: 'CommitSetBarChart' } }= haml :'shared/progress'
 

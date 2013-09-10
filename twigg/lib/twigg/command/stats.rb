@@ -21,7 +21,7 @@ module Twigg
           puts '%5s %-24s %s' % [
             number_with_delimiter(commit_set.count),
             author,
-            breakdown(commit_set, html: false),
+            commit_set.decorate.breakdown(html: false),
           ]
 
           if @verbose

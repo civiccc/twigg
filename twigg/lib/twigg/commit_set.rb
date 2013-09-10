@@ -3,6 +3,7 @@ require 'set'
 
 module Twigg
   class CommitSet
+    include Decoratable
     extend Forwardable
     def_delegators :commits, :any?, :count, :each, :inject, :<<
     attr_reader :commits

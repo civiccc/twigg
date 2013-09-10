@@ -2,7 +2,7 @@
   %td= number_with_delimiter(commit_set.count)
   %td
     %a{ href: author_href, data: { toggle: 'tooltip' }, title: author_tooltip }&= author
-  %td= breakdown(commit_set)
+  %td= commit_set.decorate.breakdown
   %td
     %a{ data: { toggle: 'modal' }, href: '#' + name_to_id(author) + '-details' }
       Details
