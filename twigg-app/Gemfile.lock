@@ -1,19 +1,19 @@
 PATH
   remote: .
   specs:
-    twigg-app (0.0.5)
+    twigg-app (0.0.6)
       compass (~> 0.12.2)
       haml (~> 4.0.3)
       nokogiri (~> 1.6.0)
       sass (~> 3.2.10)
       sinatra-contrib (~> 1.4.0)
       sprockets (~> 2.10.0)
-      twigg (= 0.0.3)
+      twigg (= 0.0.4)
 
 PATH
   remote: /Users/greg/work/unversioned/twigg/twigg
   specs:
-    twigg (0.0.3)
+    twigg (0.0.4)
 
 GEM
   remote: https://rubygems.org/

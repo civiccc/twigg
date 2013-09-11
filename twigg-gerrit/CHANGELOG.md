@@ -1,3 +1,7 @@
+### 0.0.4 (11 September 2013)
+
+* Update build process for consistency with other twigg gems
+
 ### 0.0.3 (28 August 2013)
 
 * No changes

@@ -1,4 +1,4 @@
-### master (not yet released)
+### 0.0.6 (11 September 2013)
 
 * Show Pivotal Tracker stats at /pivotal
 

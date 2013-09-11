@@ -1,7 +1,8 @@
-### 0.0.4 (not yet released)
+### 0.0.4 (11 September 2013)
 
 * Improve readability of `twigg help` output by using a short executable name
   and indenting subsections
+* Add `twigg pivotal` subcommand (depends on optional twigg-pivotal gem)
 
 ### 0.0.3 (28 August 2013)
 
