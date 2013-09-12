@@ -38,6 +38,9 @@ end
 namespace :all do
   desc 'run `bundle` in each gem subdirectory'
   task :bundle => gems.map { |gem| "#{gem}:bundle" }
+
+  desc 'run specs in each gem subdirectory'
+  task :spec => gems.map { |gem| "#{gem}:spec" }
 end
 
 task default: 'twigg:spec'
