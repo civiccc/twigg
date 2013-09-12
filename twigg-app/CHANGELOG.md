@@ -1,3 +1,9 @@
+### 0.0.7 (not yet released)
+
+* Hide Pivotal link from navbar when Pivotal is not enabled
+* Fix issue with JSON content showing up in Chrome under some circumstances when
+  the back button is pressed
+
 ### 0.0.6 (11 September 2013)
 
 * Show Pivotal Tracker stats at /pivotal

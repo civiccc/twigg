@@ -100,6 +100,12 @@ module Twigg
         @days = Config.default_days if @days.zero?
       end
 
+      after do
+        if response.status == 200
+          response['Vary'] = 'X-Requested-With'
+        end
+      end
+
       get '/' do
         haml :dashboard
       end
