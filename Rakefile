@@ -1,11 +1,18 @@
-%w[
+gems = %w[
   twigg
   twigg-app
   twigg-cache
   twigg-gerrit
   twigg-pivotal
-].each do |gem|
+]
+
+gems.each do |gem|
   namespace gem do
+    desc "run `bundle` in #{gem} subdirectory"
+    task :bundle do
+      Dir.chdir(gem) { system 'bundle' }
+    end
+
     desc "run #{gem} specs"
     task :spec do
       Dir.chdir(gem) { system 'bundle exec rake' }
@@ -26,6 +33,11 @@
       Dir.chdir(gem) { system 'bundle exec rake tag' }
     end
   end
+end
+
+namespace :all do
+  desc 'run `bundle` in each gem subdirectory'
+  task :bundle => gems.map { |gem| "#{gem}:bundle" }
 end
 
 task default: 'twigg:spec'
