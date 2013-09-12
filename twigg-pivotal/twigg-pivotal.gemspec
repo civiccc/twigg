@@ -35,5 +35,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec'
 
   spec.add_dependency 'rest-client'
-  spec.add_dependency 'twigg', Twigg::VERSION
+  spec.add_dependency 'twigg', "~> #{Twigg::VERSION}"
 end

@@ -3,6 +3,7 @@
 * Hide Pivotal link from navbar when Pivotal is not enabled
 * Fix issue with JSON content showing up in Chrome under some circumstances when
   the back button is pressed
+* Relax dependency on twigg gem
 
 ### 0.0.6 (11 September 2013)
 

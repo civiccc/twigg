@@ -43,5 +43,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'sass',            '~> 3.2.10'
   spec.add_dependency 'sinatra-contrib', '~> 1.4.0'
   spec.add_dependency 'sprockets',       '~> 2.10.0'
-  spec.add_dependency 'twigg',           Twigg::VERSION
+  spec.add_dependency 'twigg',           "~> #{Twigg::VERSION}"
 end

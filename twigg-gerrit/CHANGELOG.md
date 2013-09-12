@@ -1,3 +1,7 @@
+### 0.0.5 (12 September 2013)
+
+* Relax dependency on twigg gem
+
 ### 0.0.4 (11 September 2013)
 
 * Update build process for consistency with other twigg gems
