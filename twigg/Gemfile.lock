@@ -1,40 +1,40 @@
 PATH
   remote: .
   specs:
-    twigg (0.0.4)
+    twigg (0.0.5)
 
 PATH
   remote: ../twigg-app
   specs:
-    twigg-app (0.0.6)
+    twigg-app (0.0.7)
       compass (~> 0.12.2)
       haml (~> 4.0.3)
       nokogiri (~> 1.6.0)
       sass (~> 3.2.10)
       sinatra-contrib (~> 1.4.0)
       sprockets (~> 2.10.0)
-      twigg (= 0.0.4)
+      twigg (~> 0.0.5)
 
 PATH
   remote: ../twigg-cache
   specs:
-    twigg-cache (0.0.4)
+    twigg-cache (0.0.5)
       dalli
-      twigg (= 0.0.4)
+      twigg (~> 0.0.5)
 
 PATH
   remote: ../twigg-gerrit
   specs:
-    twigg-gerrit (0.0.4)
+    twigg-gerrit (0.0.5)
       sequel
-      twigg (= 0.0.4)
+      twigg (~> 0.0.5)
 
 PATH
   remote: ../twigg-pivotal
   specs:
-    twigg-pivotal (0.0.1)
+    twigg-pivotal (0.0.2)
       rest-client
-      twigg (= 0.0.4)
+      twigg (~> 0.0.5)
 
 GEM
   remote: https://rubygems.org/

@@ -1,14 +1,14 @@
 PATH
   remote: .
   specs:
-    twigg-gerrit (0.0.4)
+    twigg-gerrit (0.0.5)
       sequel
-      twigg (= 0.0.4)
+      twigg (~> 0.0.5)
 
 PATH
   remote: /Users/greg/work/unversioned/twigg/twigg
   specs:
-    twigg (0.0.4)
+    twigg (0.0.5)
 
 GEM
   remote: https://rubygems.org/
