@@ -1,4 +1,4 @@
-### 0.0.7 (not yet released)
+### 0.0.7 (12 September 2013)
 
 * Hide Pivotal link from navbar when Pivotal is not enabled
 * Fix issue with JSON content showing up in Chrome under some circumstances when

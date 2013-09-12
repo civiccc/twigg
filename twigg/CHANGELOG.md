@@ -1,3 +1,8 @@
+### 0.0.5 (12 September 2013)
+
+* Add the ability to specify a default encoding, working around issues on some
+  environments
+
 ### 0.0.4 (11 September 2013)
 
 * Improve readability of `twigg help` output by using a short executable name
