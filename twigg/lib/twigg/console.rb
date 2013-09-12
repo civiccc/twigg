@@ -66,4 +66,5 @@ module Twigg
   end
 
   Console.public_class_method :die
+  Console.public_class_method :warn
 end

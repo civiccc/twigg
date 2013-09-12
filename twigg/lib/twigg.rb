@@ -28,3 +28,5 @@ module Twigg
     Pathname.new(__dir__) + '..'
   end
 end
+
+Twigg::Config.boot

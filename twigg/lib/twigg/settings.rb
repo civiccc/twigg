@@ -43,6 +43,7 @@ module Twigg
     end
 
     setting :default_days, default: 7
+    setting :default_encoding, default: 'UTF-8'
 
     namespace :gerrit do
       setting :host, default: 'localhost'

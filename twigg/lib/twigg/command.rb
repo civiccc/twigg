@@ -91,8 +91,9 @@ module Twigg
     def_delegators 'self.class', :ignore
 
     def initialize(*args)
-      Config.config # ensure `-c`/`--config` option is applied
-      consume_option(%w[-c --config], args) # ensure consumed
+      # the -c/--config option is applied immediately on load (see
+      # twigg/lib/twigg.rb); ensure it gets consumed
+      consume_option(%w[-c --config], args)
 
       @debug   = true if args.delete('-d') || args.delete('--debug')
       @verbose = true if args.delete('-v') || args.delete('--verbose')

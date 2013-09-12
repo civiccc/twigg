@@ -75,7 +75,7 @@ module Twigg
       IO.popen([{ 'GIT_DIR' => git_dir },
                 'git', command, *args, *STDERR_TO_STDOUT], 'r') do |io|
         io.read
-      end.force_encoding('UTF-8')
+      end
     end
 
     def log(*args)

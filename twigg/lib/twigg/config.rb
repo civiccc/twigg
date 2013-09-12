@@ -31,7 +31,23 @@ module Twigg
       extend Forwardable
       def_delegators :config, :method_missing
 
+      # Perform boot-time configuration
+      def boot
+        config # ensure `-c`/`--config` option is respected
+        set_up_encoding
+      end
+
     private
+
+      # Make sure we have a sane default encoding for reading across process
+      # boundaries (eg. consuming APIs, reading from `git` commands etc).
+      def set_up_encoding
+        encoding = Encoding.find(config.default_encoding)
+        Encoding.default_external = encoding
+        Encoding.default_internal = encoding
+      rescue ArgumentError => e
+        Console.warn "desired default encoding not available (#{e})"
+      end
 
       # Maintain a "singleton" Config instance for convenient access.
       def config

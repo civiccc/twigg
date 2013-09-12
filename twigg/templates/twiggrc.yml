@@ -24,6 +24,8 @@ cache:
   port:            11211     # default
   value_max_bytes: 4194304
 
+default_encoding: UTF-8 # default
+
 gerrit:
   user: jimmy
   port: 29418 # default
